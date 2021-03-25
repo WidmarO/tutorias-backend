@@ -101,9 +101,9 @@ class BrandList(Resource):
         return brand.json(), 201
 
     def delete(self):
-
+        '''Delete a brand from database if exist in it'''
+        print(request.json)
         _id = request.json['id']
-        '''Delete a id from database if exist in it'''
         brand = BrandModel.find_by_id(_id)
         if brand:
             brand.delete_from_db()
