@@ -1,32 +1,27 @@
 from db import db
 
+
 class CategoryModel(db.Model):
-  __tablename__ = 'categories'
-  
-  id = db.Column(db.Integer, primary_key=True)  
-  category = db.Column(db.String(90), unique=True, nullable=False)
+    __tablename__ = 'categories'
 
-  product = db.relationship('ProductModel')
-  
-  def __init__(self, category):    
-    self.category = category
-    
-  def json(self):
-    return {'category': self.category}
+    category = db.Column(db.String(100), primary_key=True)
 
-  @classmethod
-  def find_by_category(cls, category):
-    return cls.query.filter_by(category=category).first()
+    product = db.relationship('ProductModel')
 
-  @classmethod
-  def find_by_id(cls, id):
-    return cls.query.filter_by(id=_id).first()
+    def __init__(self, category):
+        self.category = category
 
-  def save_to_db(self):
-    db.session.add(self)
-    db.session.commit()
+    def json(self):
+        return {'category': self.category}
 
-  def delete_from_db(self):
-    db.session.delete(self)
-    db.session.commit()
-      
+    @classmethod
+    def find_by_category(cls, category):
+        return cls.query.filter_by(category=category).first()
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_from_db(self):
+        db.session.delete(self)
+        db.session.commit()
