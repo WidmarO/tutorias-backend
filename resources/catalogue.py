@@ -70,13 +70,13 @@ class CatalogueList(Resource):
 
     def post(self):
         _list = list(map(lambda x: x.json(), CatalogueModel.query.all()))
-        new_id = 1
+        new_id = 0        
         for i in _list:
             if i['id'] > new_id:
-                new_id = i['id'] + 1
+                new_id = i['id']
 
-        id = new_id
-        # id = 1
+        id = new_id + 1
+        
         model = request.json['model']
         brand = request.json['brand']
         part_number = request.json['part_number']
