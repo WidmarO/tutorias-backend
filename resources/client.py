@@ -70,7 +70,15 @@ class Client(Resource):
 
 
 class ClientList(Resource):
+    parser = Req_Parser()
+    parser.add_argument('dni', str, True)
+    parser.add_argument('name', str, True)
+    parser.add_argument('f_lastname')
+    parser.add_argument('m_lastname')
+    parser.add_argument('phone')
+    parser.add_argument('email')
     # @jwt_required()
+
     def get(self):
         return list(map(lambda x: x.json(), ClientModel.query.all()))
 
