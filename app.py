@@ -15,6 +15,7 @@ from resources.motors import MotorList
 from resources.part_numbers import PartNumberList
 from resources.turbo_models import ModelList
 from resources.catalogue import CatalogueList, Catalogue
+from resources.employees import Employee, EmployeeList
 
 from models.part_number import PartNumberModel
 from models.turbo_model import TurboModel_Model
@@ -30,6 +31,8 @@ from models.product import ProductModel
 from models.provider import ProviderModel
 from models.purchase import PurchaseModel
 from models.purchase_detail import PurchaseDetailModel
+from models.employee import EmployeeModel
+
 
 app = Flask(__name__)
 CORS(app)
@@ -73,6 +76,8 @@ api.add_resource(MotorList, '/motors')
 api.add_resource(AplicationList, '/aplications')
 api.add_resource(Catalogue, '/turbos/<int:id>')
 api.add_resource(CatalogueList, '/turbos')
+api.add_resource(Employee, '/employee/<string:dni>')
+api.add_resource(EmployeeList, '/employees')
 
 
 if __name__ == '__main__':
