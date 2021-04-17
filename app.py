@@ -16,6 +16,8 @@ from resources.part_numbers import PartNumberList
 from resources.turbo_models import ModelList
 from resources.catalogue import CatalogueList, Catalogue
 from resources.employees import Employee, EmployeeList
+from resources.categories import CategoryList
+from resources.products import ProductList, Product
 
 from models.part_number import PartNumberModel
 from models.turbo_model import TurboModel_Model
@@ -32,6 +34,7 @@ from models.provider import ProviderModel
 from models.purchase import PurchaseModel
 from models.purchase_detail import PurchaseDetailModel
 from models.employee import EmployeeModel
+from models.category import CategoryModel
 
 
 app = Flask(__name__)
@@ -78,6 +81,14 @@ api.add_resource(Catalogue, '/turbos/<int:id>')
 api.add_resource(CatalogueList, '/turbos')
 api.add_resource(Employee, '/employee/<string:dni>')
 api.add_resource(EmployeeList, '/employees')
+api.add_resource(CategoryList, '/categories')
+api.add_resource(ProductList, '/products')
+api.add_resource(Product, '/product/<int:id>')
+
+
+# @app.before_first_request
+# def create_tables():
+#     db.create_all()
 
 
 if __name__ == '__main__':

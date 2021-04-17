@@ -53,7 +53,7 @@ class Product(Resource):
 class ProductList(Resource):
     parser = Req_Parser()
     # parser.add_argument('id', esp_attr=True)
-    parser.add_argument('part_number', str, required=True)
+    parser.add_argument('part', str, required=True)
     parser.add_argument('category', str, required=True)
     parser.add_argument('stock', int, required=True)
     parser.add_argument('purchase_price', float)
@@ -70,7 +70,7 @@ class ProductList(Resource):
 
     def post(self):
         print(request.json)
-        part_number = request.json['part_number']
+        part = request.json['part']
         category = request.json['category']
         stock = request.json['stock']
         purchase_price = request.json['purchase_price']
@@ -84,7 +84,7 @@ class ProductList(Resource):
         if not ans:
             return data
 
-        product = ProductModel(id, **data)
+        product = ProductModel(**data)
 
         try:
             product.save_to_db()

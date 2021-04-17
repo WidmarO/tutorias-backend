@@ -5,8 +5,8 @@ class ClientModel(db.Model):
     __tablename__ = 'clients'
 
     id = db.Column(db.Integer, primary_key=True)
-    dni = db.Column(db.String(15), unique=True, required=True)
-    name = db.Column(db.String(90), required=True)
+    dni = db.Column(db.String(15), unique=True, nullable=False)
+    name = db.Column(db.String(90), nullable=False)
     f_lastname = db.Column(db.String(50))
     m_lastname = db.Column(db.String(50))
     phone = db.Column(db.String(20))

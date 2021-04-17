@@ -6,8 +6,10 @@ class ProductModel(db.Model):
     __tablename__ = 'products'
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    part = db.Column(db.String(100), db.ForeignKey('part_numbers.part_number'))
-    category = db.Column(db.String(100), db.ForeignKey('categories.category'))
+    part = db.Column(db.String(100), db.ForeignKey(
+        'part_numbers.part_number'), nullable=False)
+    category = db.Column(db.String(100), db.ForeignKey(
+        'categories.category'),  nullable=False)
     stock = db.Column(db.Integer, nullable=False)
     purchase_price = db.Column(db.Float(precision=2))
     sale_price = db.Column(db.Float(precision=2))
@@ -21,7 +23,7 @@ class ProductModel(db.Model):
         self.category = category
         self.stock = stock
         self.purchase_price = purchase_price
-        self.sale_price = sale_pric
+        self.sale_price = sale_price
 
     def json(self):
         return {'id': self.id,

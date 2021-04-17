@@ -43,14 +43,26 @@ class Employee(Resource):
         employee_list = EmployeeList()
         return employee_list.get()
 
+    def delete(self, dni):
+        '''Delete a employee from database if exist in it'''
+        print(request.json)
+        # dni = request.json['dni']
+        employee = EmployeeModel.find_by_dni(dni)
+        if employee:
+            employee.delete_from_db()
+            return employee.json(), 200
+
+        return {'message': 'employee not found.'}
+
 
 class EmployeeList(Resource):
     parser = Req_Parser()
+    parser.add_argument('id', int, esp_attr=True)
     parser.add_argument('dni', str, required=True)
     parser.add_argument('name', str,  required=True)
     parser.add_argument('f_lastname')
     parser.add_argument('m_lastname')
-    parser.add_argument('age')
+    parser.add_argument('age', str)
     parser.add_argument('gender')
     parser.add_argument('address')
     parser.add_argument('phone')
@@ -79,14 +91,3 @@ class EmployeeList(Resource):
             return {'message': "An error ocurred adding the employee"}, 500
 
         return employee.json(), 201
-
-    def delete(self):
-        '''Delete a employee from database if exist in it'''
-        print(request.json)
-        dni = request.json['dni']
-        employee = EmployeeModel.find_by_dni(dni)
-        if employee:
-            employee.delete_from_db()
-            return employee.json(), 200
-
-        return {'message': 'employee not found.'}
