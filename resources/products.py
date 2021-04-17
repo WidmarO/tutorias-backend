@@ -68,6 +68,7 @@ class ProductList(Resource):
         print(sort_products)
         return sort_products
 
+    
     def post(self):
         print(request.json)
         part_number = request.json['part_number']
