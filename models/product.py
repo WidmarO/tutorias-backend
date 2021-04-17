@@ -6,7 +6,7 @@ class ProductModel(db.Model):
     __tablename__ = 'products'
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    part = db.Column(db.String(100), db.ForeignKey(
+    part_number = db.Column(db.String(100), db.ForeignKey(
         'part_numbers.part_number'), nullable=False)
     category = db.Column(db.String(100), db.ForeignKey(
         'categories.category'),  nullable=False)
@@ -16,10 +16,10 @@ class ProductModel(db.Model):
 
     purchase_detail = db.relationship('PurchaseDetailModel')
 
-    def __init__(self, part, category, stock, purchase_price, sale_price):
+    def __init__(self, part_number, category, stock, purchase_price, sale_price):
         aux = ProductModel.query.all()
 
-        self.part = part
+        self.part_number = part_number
         self.category = category
         self.stock = stock
         self.purchase_price = purchase_price
@@ -27,7 +27,7 @@ class ProductModel(db.Model):
 
     def json(self):
         return {'id': self.id,
-                'part': self.part,
+                'part_number': self.part_number,
                 'category': self.category,
                 'stock': self.stock,
                 'purchase_price': self.purchase_price,
