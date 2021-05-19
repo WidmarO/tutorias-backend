@@ -53,7 +53,7 @@ class Product(Resource):
 class ProductList(Resource):
     parser = Req_Parser()
     # parser.add_argument('id', esp_attr=True)
-    parser.add_argument('part', str, required=True)
+    parser.add_argument('part_number', str, required=True)
     parser.add_argument('category', str, required=True)
     parser.add_argument('stock', int, required=True)
     parser.add_argument('purchase_price', float)
@@ -68,9 +68,10 @@ class ProductList(Resource):
         print(sort_products)
         return sort_products
 
+    
     def post(self):
         print(request.json)
-        part = request.json['part']
+        part_number = request.json['part_number']
         category = request.json['category']
         stock = request.json['stock']
         purchase_price = request.json['purchase_price']
