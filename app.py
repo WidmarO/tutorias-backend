@@ -41,17 +41,17 @@ from models.category import CategoryModel
 app = Flask(__name__)
 CORS(app)
 # ----------------------------- LOCAL DATABASE
-type_database = 'mysql'
-user_database = 'debian-sys-maint'
-pass_database = 'GO8LL0RrW418O2aA'
-url_database = 'localhost'
-name_database = 'turbos-flask-db'
-# ---------------------------- CLEVER CLOUD DATABASE
 # type_database = 'mysql'
-# user_database = 'ulhu5xo4wswpfeyf'
-# pass_database = '7tZdO2gAvsCnUT2x8vr9'
-# url_database = 'bxtmrf8q1ibe3wcmvyie-mysql.services.clever-cloud.com'
-# name_database = 'bxtmrf8q1ibe3wcmvyie'
+# user_database = 'debian-sys-maint'
+# pass_database = 'GO8LL0RrW418O2aA'
+# url_database = 'localhost'
+# name_database = 'turbos-flask-db'
+# ---------------------------- CLEVER CLOUD DATABASE
+type_database = 'mysql'
+user_database = 'ulhu5xo4wswpfeyf'
+pass_database = '7tZdO2gAvsCnUT2x8vr9'
+url_database = 'bxtmrf8q1ibe3wcmvyie-mysql.services.clever-cloud.com'
+name_database = 'bxtmrf8q1ibe3wcmvyie'
 
 sqlalchemy_database_uri = type_database + '://' + user_database + \
     ':' + pass_database + '@' + url_database + '/' + name_database
@@ -88,9 +88,9 @@ api.add_resource(Product, '/product/<int:id>')
 api.add_resource(DNI, '/dni')
 
 
-@app.before_first_request
-def create_tables():
-    db.create_all()
+# @app.before_first_request
+# def create_tables():
+#     db.create_all()
 
 
 if __name__ == '__main__':
