@@ -18,6 +18,7 @@ from resources.catalogue import CatalogueList, Catalogue
 from resources.employees import Employee, EmployeeList
 from resources.categories import CategoryList
 from resources.products import ProductList, Product
+from resources.dnis import DNI
 
 from models.part_number import PartNumberModel
 from models.turbo_model import TurboModel_Model
@@ -84,6 +85,7 @@ api.add_resource(EmployeeList, '/employees')
 api.add_resource(CategoryList, '/categories')
 api.add_resource(ProductList, '/products')
 api.add_resource(Product, '/product/<int:id>')
+api.add_resource(DNI, '/dni')
 
 
 # @app.before_first_request
