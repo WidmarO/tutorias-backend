@@ -15,10 +15,10 @@ class DNI(Resource):
         print(request.json)
         dni = request.json['dni']
         # data = {'document': str(dni)}
-        headers = {'Authorization': 'Bearer udyhV3w2wAqEhrrlKGxVoKwGld4ayO7v9bjOtMyXRziLvaZyJ8liONnItPLA',
+        headers = {'Authorization': 'Bearer pRqpAIW6ZhqET16qE7mgMXv4ptqGi5xvdrWIzqLDYvwJDUHeKLmNgaF8R1Rp',
                    'Accept': 'application/json'}
 
         response = requests.post(
-            url, data={'document': str(dni)}, headers=headers)
+            url, data={'document': '23996476'}, headers=headers)
         print(response.json())
         return response.json()
