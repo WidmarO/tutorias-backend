@@ -1,7 +1,7 @@
-import requests
 from flask_restful import Resource
 from flask import request
 from Req_Parser import Req_Parser
+import requests
 
 
 class DNI(Resource):
@@ -10,15 +10,15 @@ class DNI(Resource):
 
     def post(self):
 
-        url = 'http://api.peruapis.com/v1/dni'
+        url = 'https://api.peruapis.com/v1/dni'
 
         print(request.json)
         dni = request.json['dni']
-        # data = {'document': str(dni)}
+        data = {'document': str(dni)}
         headers = {'Authorization': 'Bearer pRqpAIW6ZhqET16qE7mgMXv4ptqGi5xvdrWIzqLDYvwJDUHeKLmNgaF8R1Rp',
                    'Accept': 'application/json'}
 
         response = requests.post(
-            url, data={'document': '23996476'}, headers=headers)
+            url, data=data, headers=headers)
         print(response.json())
         return response.json()
