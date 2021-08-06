@@ -21,4 +21,5 @@ class DNI(Resource):
         response = requests.post(
             url, data=data, headers=headers)
         print(response.json())
+
         return response.json()

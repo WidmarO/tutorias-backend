@@ -6,7 +6,7 @@ class BrandModel(db.Model):
 
     brand = db.Column(db.String(100), primary_key=True)
 
-    catalogue = db.relationship('CatalogueModel')
+    part_brand = db.relationship('PartBrandModel')
 
     def __init__(self, brand):
         self.brand = brand

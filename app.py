@@ -14,11 +14,12 @@ from resources.aplications import AplicationList
 from resources.motors import MotorList
 from resources.part_numbers import PartNumberList
 from resources.turbo_models import ModelList
-from resources.catalogue import CatalogueList, Catalogue
+# from resources.catalogue import CatalogueList, Catalogue
 from resources.employees import Employee, EmployeeList
 from resources.categories import CategoryList
 from resources.products import ProductList, Product
 from resources.dnis import DNI
+from resources.turbos import Turbos
 
 from models.part_number import PartNumberModel
 from models.turbo_model import TurboModel_Model
@@ -26,9 +27,12 @@ from models.brand import BrandModel
 from models.motor import MotorModel
 from models.part_number import PartNumberModel
 from models.aplication import AplicationModel
-from models.catalogue import CatalogueModel
+from models.part_model import PartModel_Model
+from models.part_brand import PartBrandModel
+from models.part_motor import PartMotorModel
+from models.part_aplication import PartAplicationModel
+# from models.catalogue import CatalogueModel
 from models.aplication import AplicationModel
-from models.catalogue import CatalogueModel
 from models.category import CategoryModel
 from models.product import ProductModel
 from models.provider import ProviderModel
@@ -78,8 +82,9 @@ api.add_resource(BrandList, '/brands')
 api.add_resource(PartNumberList, '/parts')
 api.add_resource(MotorList, '/motors')
 api.add_resource(AplicationList, '/aplications')
-api.add_resource(Catalogue, '/turbos/<int:id>')
-api.add_resource(CatalogueList, '/turbos')
+api.add_resource(Turbos, '/turbos')
+# api.add_resource(Catalogue, '/turbos/<int:id>')
+# api.add_resource(CatalogueList, '/turbos')
 api.add_resource(Employee, '/employee/<string:dni>')
 api.add_resource(EmployeeList, '/employees')
 api.add_resource(CategoryList, '/categories')

@@ -6,7 +6,7 @@ class TurboModel_Model(db.Model):
 
     model = db.Column(db.String(100), primary_key=True)
 
-    catalogue = db.relationship('CatalogueModel')
+    part_model = db.relationship('PartModel_Model')
 
     def __init__(self, model):
         self.model = model

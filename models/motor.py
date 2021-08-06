@@ -6,7 +6,7 @@ class MotorModel(db.Model):
 
     motor = db.Column(db.String(100), primary_key=True)
 
-    catalogue = db.relationship('CatalogueModel')
+    part_motor = db.relationship('PartMotorModel')
 
     def __init__(self, motor):
         self.motor = motor

@@ -6,7 +6,7 @@ class AplicationModel(db.Model):
 
     aplication = db.Column(db.String(100), primary_key=True)
 
-    catalogue = db.relationship('CatalogueModel')
+    part_aplication = db.relationship('PartAplicationModel')
 
     def __init__(self, aplication):
         self.aplication = aplication
