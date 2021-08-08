@@ -12,7 +12,7 @@ from resources.client import Client, ClientList
 from resources.brands import BrandList
 from resources.aplications import AplicationList
 from resources.motors import MotorList
-from resources.part_numbers import PartNumberList
+from resources.part_numbers import PartNumber, PartNumberList
 from resources.turbo_models import ModelList
 # from resources.catalogue import CatalogueList, Catalogue
 from resources.employees import Employee, EmployeeList
@@ -81,6 +81,7 @@ api.add_resource(UserRegister, '/register')
 api.add_resource(ModelList, '/models')
 api.add_resource(BrandList, '/brands')
 api.add_resource(PartNumberList, '/parts')
+api.add_resource(PartNumber, '/part')
 api.add_resource(MotorList, '/motors')
 api.add_resource(AplicationList, '/aplications')
 api.add_resource(Turbos, '/turbos')
