@@ -14,12 +14,8 @@ class Parts_Models(Resource):
     parser.add_argument('model', type=str, required=True)
 
     # # modules that are
-    # def add_part_number(part_number):
-    #     ans, data = PartNumberList.add_part(part_number)
-    #     if ans:
-    #         return 1, data
-    #     else:
-    #         return 2, data
+    def add_part_number(part_number):
+        ans, data = PartNumberList.add_part(part_number)
 
     # def add_model(model):
 
@@ -65,13 +61,13 @@ class Parts_Models(Resource):
         if exist_part_model:
             return {"message": "The part_number with the model already exist in DB, but is not a problem"}, 200
         # ask if exist the part_number on the DB
-            exist_part_number = Parts_Models.verify_part_number()
-        # exist_part_number = PartNumberModel.find_by_part_number(part_number)
+        # exist_part_number = Parts_Models.verify_part_number(part_number)
+        exist_part_number = PartNumberModel.find_by_part_number(part_number)
         if not exist_part_number:
             # Parts_Models.add_part_number(part_number)
-            # PartNumberList.add_part(part_number)
-            _part_number = PartNumberModel(part_number)
-            _part_number.save_to_db()
+            PartNumberList.add_part(part_number)
+            # _part_number = PartNumberModel(part_number)
+            # _part_number.save_to_db()
         # ask if exist the model on the DB
             # exist_model = Parts_Models.verify_model()
         exist_model = TurboModel_Model.find_by_model(model)
