@@ -10,6 +10,7 @@ class PartNumber(Resource):
     parser.add_argument('part_number', str, True)
 
     def get(self):
+        print(request.json)
         ans, data = self.parser.parse_args(dict(request.json))
         if not ans:
             return data
