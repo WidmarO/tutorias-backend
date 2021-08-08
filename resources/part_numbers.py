@@ -6,20 +6,13 @@ from Req_Parser import Req_Parser
 
 
 class PartNumber(Resource):
-    parser = Req_Parser()
-    parser.add_argument('part_number', str, True)
 
-    def get(self):
-        print(request.json)
-        ans, data = self.parser.parse_args(dict(request.json))
-        if not ans:
-            return data
-        part_number = request.json['part_number']
+    def get(self, part_number):
         # get the value if exist
-        part_number = PartNumberModel.find_by_part_number(part_number)
-        if part_number:
-            print("si se encontro en part_number", part_number)
-            return part_number.json()
+        part = PartNumberModel.find_by_part_number(part_number)
+        if part:
+            print("si se encontro en part_number", part)
+            return part.json()
         return {'message': 'part_number not found'}, 404
 
 
