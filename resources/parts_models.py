@@ -65,8 +65,8 @@ class Parts_Models(Resource):
         if exist_part_model:
             return {"message": "The part_number with the model already exist in DB, but is not a problem"}, 200
         # ask if exist the part_number on the DB
-            # exist_part_number = Parts_Models.verify_part_number()
-        exist_part_number = PartNumberModel.find_by_part_number(part_number)
+            exist_part_number = Parts_Models.verify_part_number()
+        # exist_part_number = PartNumberModel.find_by_part_number(part_number)
         if not exist_part_number:
             # Parts_Models.add_part_number(part_number)
             # PartNumberList.add_part(part_number)
