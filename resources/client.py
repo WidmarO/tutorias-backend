@@ -62,6 +62,7 @@ class ClientList(Resource):
             return {'message': "A client with dni: '{}' already exist".format(dni)}
 
         ans, data = Client.parser.parse_args(dict(request.json))
+
         if not ans:
             return data
 

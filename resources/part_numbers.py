@@ -7,7 +7,6 @@ from Req_Parser import Req_Parser
 
 class PartNumberList(Resource):
     parser = Req_Parser()
-    # parser.add_argument('id', esp_attr=True)
     parser.add_argument('part_number', str, True)
     # @jwt_required()
 
@@ -19,19 +18,46 @@ class PartNumberList(Resource):
         print(sort_part_numbers)
         return sort_part_numbers
 
+    def add_part(part_number):
+        part_number = request.json['part_number']
+        # get the new id value
+        _list = list(map(lambda x: x.json(), PartNumberModel.query.all()))
+        new_id = 0
+        for i in _list:
+            if i['id'] > new_id:
+                new_id = i['id']
+        id = new_id + 1
+        part_number = PartNumberModel(id, part_number)
+
+        try:
+            part_number.save_to_db()
+        except:
+            return False, {'message': "An error ocurred adding the part_number"}
+
+        return True, part_number.json(), 201
+
     def post(self):
 
         print(request.json)
         part_number = request.json['part_number']
+
         '''Add or created a new part_number in database if already them not exist'''
         if PartNumberModel.find_by_part_number(part_number):
             return {'message': "A part_number: '{}' already exist in data base".format(part_number)}
+
+            # get the new id value
+        _list = list(map(lambda x: x.json(), PartNumberModel.query.all()))
+        new_id = 0
+        for i in _list:
+            if i['id'] > new_id:
+                new_id = i['id']
+        id = new_id + 1
 
         ans, data = PartNumberList.parser.parse_args(dict(request.json))
         if not ans:
             return data
 
-        part_number = PartNumberModel(**data)
+        part_number = PartNumberModel(id, **data)
 
         try:
             part_number.save_to_db()

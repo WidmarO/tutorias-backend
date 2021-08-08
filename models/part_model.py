@@ -20,11 +20,16 @@ class PartModel_Model(db.Model):
 
     @classmethod
     def find_by_part_number(cls, part_number):
+        # print(cls.query.filter_by(part_number=part_number))
         return cls.query.filter_by(part_number=part_number).first()
 
     @classmethod
     def find_by_model(cls, model):
         return cls.query.filter_by(model=model).first()
+
+    @classmethod
+    def find_equal_value(cls, part_number, model):
+        return cls.query.filter_by(part_number=part_number).filter_by(model=model).first()
 
     def save_to_db(self):
         db.session.add(self)

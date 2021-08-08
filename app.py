@@ -20,6 +20,7 @@ from resources.categories import CategoryList
 from resources.products import ProductList, Product
 from resources.dnis import DNI
 from resources.turbos import Turbos
+from resources.parts_models import Parts_Models
 
 from models.part_number import PartNumberModel
 from models.turbo_model import TurboModel_Model
@@ -83,6 +84,7 @@ api.add_resource(PartNumberList, '/parts')
 api.add_resource(MotorList, '/motors')
 api.add_resource(AplicationList, '/aplications')
 api.add_resource(Turbos, '/turbos')
+api.add_resource(Parts_Models, '/parts_models')
 # api.add_resource(Catalogue, '/turbos/<int:id>')
 # api.add_resource(CatalogueList, '/turbos')
 api.add_resource(Employee, '/employee/<string:dni>')
