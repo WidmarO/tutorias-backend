@@ -42,7 +42,7 @@ class Parts_Models(Resource):
 
     def get(self):
         part_number = request.json['part_number']
-        parts_models = PartModel_Model.find_by_part_number(part_number)
+        parts_models = PartModel_Model.get_list_part_number(part_number)
         res = []
         for i in parts_models:
             res.append({'model': i.json()['model']})

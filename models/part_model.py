@@ -31,6 +31,10 @@ class PartModel_Model(db.Model):
     def find_equal_value(cls, part_number, model):
         return cls.query.filter_by(part_number=part_number).filter_by(model=model).first()
 
+    @classmethod
+    def get_list_part_number(cls, part_number):
+        return cls.query.filter_by(part_number=part_number)
+
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
