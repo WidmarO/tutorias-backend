@@ -7,13 +7,13 @@ from Req_Parser import Req_Parser
 
 class PartNumber(Resource):
 
-    def get(self, part_number):
+    def get(self, id):
         # get the value if exist
-        part = PartNumberModel.find_by_part_number(part_number)
+        part = PartNumberModel.find_by_id(id)
         if part:
             print("si se encontro en part_number", part)
             return part.json()
-        return {'message': 'part_number not found'}, 404
+        return {'message': "part_number with id '{}'not found".format(id)}, 404
 
 
 class PartNumberList(Resource):

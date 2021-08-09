@@ -17,29 +17,7 @@ class Parts_Models(Resource):
     def add_part_number(part_number):
         ans, data = PartNumberList.add_part(part_number)
 
-    # def add_model(model):
-
-    # def add_part_model(part_number, model):
-
-    # def add_model_in_part_number(part_number, model):
-    #     part_model = PartModel_Model.find_equal_value(part_number, model)
-    #     if part_model:
-    #         return {"message": "The part_number with the model already exist in BD, but is not a problem"}, 200
-    #     else:
-    #         model = TurboModel_Model.find_by_model(model)
-    #         if model:
-    #             ans, data = Parts_Models.parser(dict(request.json))
-    #             if not ans:
-    #                 return data
-    #             part_model = PartModel_Model(**data)
-    #             try:
-    #                 part_model.save_to_db()
-    #             except:
-    #                 return {'message': "An error has ocurred while adding the part_model at BD"}
-    #             return part_model.json(), 201
-
     # @jwt_required()
-
     def get(self, part_number):
         parts_models = PartModel_Model.get_list_part_number(part_number)
         res = []
@@ -80,3 +58,24 @@ class Parts_Models(Resource):
         except:
             return {'message': "An error has ocurred while adding the part_model at BD"}
         return part_model.json()
+
+    # def add_model(model):
+
+    # def add_part_model(part_number, model):
+
+    # def add_model_in_part_number(part_number, model):
+    #     part_model = PartModel_Model.find_equal_value(part_number, model)
+    #     if part_model:
+    #         return {"message": "The part_number with the model already exist in BD, but is not a problem"}, 200
+    #     else:
+    #         model = TurboModel_Model.find_by_model(model)
+    #         if model:
+    #             ans, data = Parts_Models.parser(dict(request.json))
+    #             if not ans:
+    #                 return data
+    #             part_model = PartModel_Model(**data)
+    #             try:
+    #                 part_model.save_to_db()
+    #             except:
+    #                 return {'message': "An error has ocurred while adding the part_model at BD"}
+    #             return part_model.json(), 201
