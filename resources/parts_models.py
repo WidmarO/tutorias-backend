@@ -59,6 +59,18 @@ class Parts_Models(Resource):
             return {'message': "An error has ocurred while adding the part_model at BD"}
         return part_model.json()
 
+    def delete(self, part_number):
+        ans, data = self.parser.parse_args(dict(request.json))
+        if not ans:
+            return data
+        # ask if exist
+        part_model = PartModel_Model.find_equal_value(part_number, **data)
+        if part_model:
+            part_model.delete_from_db()
+            return part_model.json(), 200
+
+        return {'message': 'Part_Model not found.'}
+
     # def add_model(model):
 
     # def add_part_model(part_number, model):
