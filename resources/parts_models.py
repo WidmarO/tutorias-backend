@@ -10,7 +10,7 @@ from Req_Parser import Req_Parser
 
 class Parts_Models(Resource):
     parser = Req_Parser()
-    parser.add_argument('part_number', type=str, required=True)
+    # parser.add_argument('part_number', type=str, required=True)
     parser.add_argument('model', type=str, required=True)
 
     # # modules that are
@@ -25,13 +25,13 @@ class Parts_Models(Resource):
             res.append({'model': i.json()['model']})
         return res, 200
 
-    def put(self):
+    def put(self, part_number):
         # parser the data to verify if is complete and correct
         ans, data = Parts_Models.parser.parse_args(dict(request.json))
         if not ans:
             return data
         # get the attributes
-        part_number = request.json['part_number']
+        # part_number = request.json['part_number']
         model = request.json['model']
         # ask if exist the part_model on the DB
         exist_part_model = PartModel_Model.find_equal_value(part_number, model)

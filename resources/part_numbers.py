@@ -30,7 +30,6 @@ class PartNumberList(Resource):
         return sort_part_numbers
 
     def add_part(part_number):
-        part_number = request.json['part_number']
         # get the new id value
         _list = list(map(lambda x: x.json(), PartNumberModel.query.all()))
         new_id = 0
