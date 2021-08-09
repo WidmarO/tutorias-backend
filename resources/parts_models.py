@@ -40,8 +40,7 @@ class Parts_Models(Resource):
 
     # @jwt_required()
 
-    def get(self):
-        part_number = request.json['part_number']
+    def get(self, part_number):
         parts_models = PartModel_Model.get_list_part_number(part_number)
         res = []
         for i in parts_models:
