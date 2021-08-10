@@ -26,6 +26,14 @@ class PartBrandModel(db.Model):
     def find_by_brand(cls, brand):
         return cls.query.filter_by(brand=brand).first()
 
+    @classmethod
+    def find_equal_value(cls, part_number, brand):
+        return cls.query.filter_by(part_number=part_number).filter_by(brand=brand).first()
+
+    @classmethod
+    def get_list_part_number(cls, part_number):
+        return cls.query.filter_by(part_number=part_number)
+
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()

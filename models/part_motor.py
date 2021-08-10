@@ -26,6 +26,14 @@ class PartMotorModel(db.Model):
     def find_by_motor(cls, motor):
         return cls.query.filter_by(motor=motor).first()
 
+    @classmethod
+    def find_equal_value(cls, part_number, motor):
+        return cls.query.filter_by(part_number=part_number).filter_by(motor=motor).first()
+
+    @classmethod
+    def get_list_part_number(cls, part_number):
+        return cls.query.filter_by(part_number=part_number)
+
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()

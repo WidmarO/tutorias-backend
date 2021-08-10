@@ -21,6 +21,9 @@ from resources.products import ProductList, Product
 from resources.dnis import DNI
 from resources.turbos import Turbos
 from resources.parts_models import Parts_Models
+from resources.parts_brands import Parts_Brands
+from resources.parts_motors import Parts_Motors
+from resources.parts_aplications import Parts_Aplications
 
 from models.part_number import PartNumberModel
 from models.turbo_model import TurboModel_Model
@@ -46,17 +49,17 @@ from models.category import CategoryModel
 app = Flask(__name__)
 CORS(app)
 # ----------------------------- LOCAL DATABASE
-# type_database = 'mysql'
-# user_database = 'debian-sys-maint'
-# pass_database = 'GO8LL0RrW418O2aA'
-# url_database = 'localhost'
-# name_database = 'turbos-flask-db'
-# ---------------------------- CLEVER CLOUD DATABASE
 type_database = 'mysql'
-user_database = 'ulhu5xo4wswpfeyf'
-pass_database = '7tZdO2gAvsCnUT2x8vr9'
-url_database = 'bxtmrf8q1ibe3wcmvyie-mysql.services.clever-cloud.com'
-name_database = 'bxtmrf8q1ibe3wcmvyie'
+user_database = 'debian-sys-maint'
+pass_database = 'GO8LL0RrW418O2aA'
+url_database = 'localhost'
+name_database = 'turbos-flask-db'
+# ---------------------------- CLEVER CLOUD DATABASE
+# type_database = 'mysql'
+# user_database = 'ulhu5xo4wswpfeyf'
+# pass_database = '7tZdO2gAvsCnUT2x8vr9'
+# url_database = 'bxtmrf8q1ibe3wcmvyie-mysql.services.clever-cloud.com'
+# name_database = 'bxtmrf8q1ibe3wcmvyie'
 
 sqlalchemy_database_uri = type_database + '://' + user_database + \
     ':' + pass_database + '@' + url_database + '/' + name_database
@@ -86,6 +89,9 @@ api.add_resource(MotorList, '/motors')
 api.add_resource(AplicationList, '/aplications')
 api.add_resource(Turbos, '/turbos')
 api.add_resource(Parts_Models, '/parts_models/<string:part_number>')
+api.add_resource(Parts_Brands, '/parts_brands/<string:part_number>')
+api.add_resource(Parts_Motors, '/parts_motors/<string:part_number>')
+api.add_resource(Parts_Aplications, '/parts_aplications/<string:part_number>')
 # api.add_resource(Catalogue, '/turbos/<int:id>')
 # api.add_resource(CatalogueList, '/turbos')
 api.add_resource(Employee, '/employee/<string:dni>')
