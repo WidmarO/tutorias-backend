@@ -3,6 +3,7 @@ from flask import request
 from flask_jwt import jwt_required
 from models.client import ClientModel
 from Req_Parser import Req_Parser
+import requests
 
 
 class Client(Resource):
@@ -20,7 +21,37 @@ class Client(Resource):
         client = ClientModel.find_by_dni(dni)
         if client:
             return client.json()
-        return {'message': 'client not found'}, 404
+
+        url = 'https://api.peruapis.com/v1/dni'
+        data = {'document': str(dni)}
+        headers = {'Authorization': 'Bearer pRqpAIW6ZhqET16qE7mgMXv4ptqGi5xvdrWIzqLDYvwJDUHeKLmNgaF8R1Rp',
+                   'Accept': 'application/json'}
+        response = requests.post(
+            url, data=data, headers=headers)
+        print(response.json())
+
+        if response.json()['success']:
+            data = response.json()['data']
+            data_list = data['fullname'].split()
+            name = ''
+            for i in range(len(data_list)-2):
+                name += data_list[i]
+            name = name.strip()
+            fathers_lastname = data_list[-2]
+            mothers_lastname = data_list[-1]
+
+            res = {
+                "dni": data['dni'],
+                "name": name,
+                "f_lastname": fathers_lastname,
+                "m_lastname": mothers_lastname,
+                "phone": "",
+                "email": ""
+            }
+            print(res)
+            return res
+
+        return response.json()
 
     def put(self, dni):
 
