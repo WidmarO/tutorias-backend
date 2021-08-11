@@ -35,7 +35,7 @@ class Client(Resource):
             data_list = data['fullname'].split()
             name = ''
             for i in range(len(data_list)-2):
-                name += data_list[i]
+                name += data_list[i] + " "
             name = name.strip()
             fathers_lastname = data_list[-2]
             mothers_lastname = data_list[-1]
