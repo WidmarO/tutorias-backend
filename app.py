@@ -47,6 +47,7 @@ app.config['JWT_EXPIRATION_DELTA'] = timedelta(seconds=1800)
 jwt = JWT(app, authenticate, identity)  # /auth
 
 # -- RESOURCES OF THE APPLICATION
+api.add_resource(Parts_Brands, '/>')
 api.add_resource(ClientList, '/clients')
 api.add_resource(Client, '/client/<string:dni>')
 api.add_resource(UserRegister, '/register')
@@ -54,19 +55,9 @@ api.add_resource(ModelList, '/models')
 api.add_resource(BrandList, '/brands')
 api.add_resource(PartNumberList, '/parts')
 api.add_resource(PartNumber, '/part/<int:id>')
-api.add_resource(MotorList, '/motors')
-api.add_resource(AplicationList, '/aplications')
 api.add_resource(Turbos, '/turbos')
 api.add_resource(Parts_Models, '/parts_models/<string:part_number>')
 api.add_resource(Parts_Brands, '/parts_brands/<string:part_number>')
-api.add_resource(Parts_Motors, '/parts_motors/<string:part_number>')
-api.add_resource(Parts_Aplications, '/parts_aplications/<string:part_number>')
-api.add_resource(Employee, '/employee/<string:dni>')
-api.add_resource(EmployeeList, '/employees')
-api.add_resource(CategoryList, '/categories')
-api.add_resource(ProductList, '/products')
-api.add_resource(Product, '/product/<int:id>')
-api.add_resource(DNI, '/dni')
 
 # -- Module that create the tables in the BD
 # @app.before_first_request
