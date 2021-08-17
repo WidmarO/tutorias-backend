@@ -13,9 +13,8 @@ from resources.brands import BrandList
 from resources.part_numbers import PartNumber, PartNumberList
 from resources.turbo_models import ModelList
 # from resources.catalogue import CatalogueList, Catalogue
-from resources.turbos import Turbos
-from resources.parts_models import Parts_Models
 from resources.parts_brands import Parts_Brands
+from resources.documentation import Documentation
 
 
 app = Flask(__name__)
@@ -47,7 +46,7 @@ app.config['JWT_EXPIRATION_DELTA'] = timedelta(seconds=1800)
 jwt = JWT(app, authenticate, identity)  # /auth
 
 # -- RESOURCES OF THE APPLICATION
-api.add_resource(Parts_Brands, '/>')
+api.add_resource(Documentation, '/')
 api.add_resource(ClientList, '/clients')
 api.add_resource(Client, '/client/<string:dni>')
 api.add_resource(UserRegister, '/register')
@@ -55,8 +54,6 @@ api.add_resource(ModelList, '/models')
 api.add_resource(BrandList, '/brands')
 api.add_resource(PartNumberList, '/parts')
 api.add_resource(PartNumber, '/part/<int:id>')
-api.add_resource(Turbos, '/turbos')
-api.add_resource(Parts_Models, '/parts_models/<string:part_number>')
 api.add_resource(Parts_Brands, '/parts_brands/<string:part_number>')
 
 # -- Module that create the tables in the BD
