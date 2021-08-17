@@ -12,12 +12,15 @@ class BrandList(Resource):
     # @jwt_required()
 
     def get(self):
-        sort_brands = list(
-            map(lambda x: x.json(), BrandModel.query.all()))
-        sort_brands = sorted(
-            sort_brands, key=lambda x: x[list(sort_brands[0].keys())[0]])
-        print(sort_brands)
-        return sort_brands
+        # sort_brands = list(
+        #     map(lambda x: x.json(), BrandModel.query.all()))
+        # sort_brands = sorted(
+        #     sort_brands, key=lambda x: x[list(sort_brands[0].keys())[0]])
+        # print(sort_brands)
+        # return sort_brands
+
+        return {'message': 'List of brands'}
+
 
     def post(self):
 
