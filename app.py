@@ -33,26 +33,23 @@ pass_database = '6eaqlxBNvKWNGUuRR32M'
 url_database = 'b0du4ayviyfhrlbnjckc-mysql.services.clever-cloud.com'
 name_database = 'b0du4ayviyfhrlbnjckc'
 
+# -- Set de BD configurations for conection
 sqlalchemy_database_uri = type_database + '://' + user_database + \
     ':' + pass_database + '@' + url_database + '/' + name_database
-
 app.config['SQLALCHEMY_DATABASE_URI'] = sqlalchemy_database_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+# -- Configurations for security
 app.secret_key = 'widmar'
 api = Api(app)
-
 app.config['JWT_AUTH_URL_RULE'] = '/login'
 app.config['JWT_EXPIRATION_DELTA'] = timedelta(seconds=1800)
-
 jwt = JWT(app, authenticate, identity)  # /auth
 
-
+# -- RESOURCES OF THE APPLICATION
 api.add_resource(ClientList, '/clients')
-# http://127.0.0.1:5000/user/1
 api.add_resource(Client, '/client/<string:dni>')
 api.add_resource(UserRegister, '/register')
-# turbos
 api.add_resource(ModelList, '/models')
 api.add_resource(BrandList, '/brands')
 api.add_resource(PartNumberList, '/parts')
@@ -64,8 +61,6 @@ api.add_resource(Parts_Models, '/parts_models/<string:part_number>')
 api.add_resource(Parts_Brands, '/parts_brands/<string:part_number>')
 api.add_resource(Parts_Motors, '/parts_motors/<string:part_number>')
 api.add_resource(Parts_Aplications, '/parts_aplications/<string:part_number>')
-# api.add_resource(Catalogue, '/turbos/<int:id>')
-# api.add_resource(CatalogueList, '/turbos')
 api.add_resource(Employee, '/employee/<string:dni>')
 api.add_resource(EmployeeList, '/employees')
 api.add_resource(CategoryList, '/categories')
@@ -73,7 +68,7 @@ api.add_resource(ProductList, '/products')
 api.add_resource(Product, '/product/<int:id>')
 api.add_resource(DNI, '/dni')
 
-
+# -- Module that create the tables in the BD
 # @app.before_first_request
 # def create_tables():
 #     db.create_all()
