@@ -9,22 +9,23 @@ from datetime import timedelta
 from security import authenticate, identity
 from resources.user import UserRegister
 from resources.client import Client, ClientList
-from resources.brands import BrandList
-from resources.part_numbers import PartNumber, PartNumberList
-from resources.turbo_models import ModelList
+# from resources.brands import BrandList
+# from resources.part_numbers import PartNumber, PartNumberList
+# from resources.turbo_models import ModelList
 # from resources.catalogue import CatalogueList, Catalogue
-from resources.parts_brands import Parts_Brands
+# from resources.parts_brands import Parts_Brands
 from resources.documentation import Documentation
-
+from resources.student import StudentList, Student
+#from models.student import StudentModel
 
 app = Flask(__name__)
 CORS(app)
 # ----------------------------- LOCAL DATABASE
 # type_database = 'mysql'
-# user_database = 'debian-sys-maint'
-# pass_database = 'GO8LL0RrW418O2aA'
-# url_database = 'localhost'
-# name_database = 'turbos-flask-db'
+# user_database = 'root'
+# pass_database = 'root'
+# url_database = 'localhost:3307'
+# name_database = 'tutoring-system-bd'
 # ---------------------------- CLEVER CLOUD DATABASE
 type_database = 'mysql'
 user_database = 'udwsw0hbqah0nikx'
@@ -50,11 +51,13 @@ api.add_resource(Documentation, '/')
 api.add_resource(ClientList, '/clients')
 api.add_resource(Client, '/client/<string:dni>')
 api.add_resource(UserRegister, '/register')
-api.add_resource(ModelList, '/models')
-api.add_resource(BrandList, '/brands')
-api.add_resource(PartNumberList, '/parts')
-api.add_resource(PartNumber, '/part/<int:id>')
-api.add_resource(Parts_Brands, '/parts_brands/<string:part_number>')
+# api.add_resource(ModelList, '/models')
+# api.add_resource(BrandList, '/brands')
+# api.add_resource(PartNumberList, '/parts')
+api.add_resource(StudentList, '/students')
+api.add_resource(Student, '/student/<string:cod_student>')
+# api.add_resource(PartNumber, '/part/<int:id>')
+# api.add_resource(Parts_Brands, '/parts_brands/<string:part_number>')
 
 # -- Module that create the tables in the BD
 # @app.before_first_request
