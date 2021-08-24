@@ -26,17 +26,17 @@ from resources.teacher import TeacherList,Teacher
 app = Flask(__name__)
 CORS(app)
 # ----------------------------- LOCAL DATABASE
-# type_database = 'mysql'
-# user_database = 'root'
-# pass_database = 'root'
-# url_database = 'localhost:3307'
-# name_database = 'tutoring-system-bd'
-# ---------------------------- CLEVER CLOUD DATABASE
 type_database = 'mysql'
-user_database = 'udwsw0hbqah0nikx'
-pass_database = '6eaqlxBNvKWNGUuRR32M'
-url_database = 'b0du4ayviyfhrlbnjckc-mysql.services.clever-cloud.com'
-name_database = 'b0du4ayviyfhrlbnjckc'
+user_database = 'root'
+pass_database = 'root'
+url_database = 'localhost:3307'
+name_database = 'tutoring-system-bd'
+# ---------------------------- CLEVER CLOUD DATABASE
+# type_database = 'mysql'
+# user_database = 'udwsw0hbqah0nikx'
+# pass_database = '6eaqlxBNvKWNGUuRR32M'
+# url_database = 'b0du4ayviyfhrlbnjckc-mysql.services.clever-cloud.com'
+# name_database = 'b0du4ayviyfhrlbnjckc'
 
 # -- Set de BD configurations for conection
 sqlalchemy_database_uri = type_database + '://' + user_database + \
