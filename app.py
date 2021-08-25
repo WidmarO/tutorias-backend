@@ -65,16 +65,16 @@ api.add_resource(Student, '/student/<string:cod_student>')
 # api.add_resource(Parts_Brands, '/parts_brands/<string:part_number>')
 #api.add_resource(ModelList, '/models')
 #api.add_resource(BrandList, '/brands')
-api.add_resource(TeacherList,'/teachers')
+api.add_resource(TeacherList,'/teachers') #endpoint
 api.add_resource(Teacher,'/teacher/<string:cod_teach>')
 #api.add_resource(PartNumberList, '/parts')
 #api.add_resource(PartNumber, '/part/<int:id>')
 #api.add_resource(Parts_Brands, '/parts_brands/<string:part_number>')
 
-# -- Module that create the tables in the BD
-#@app.before_first_request
-# def create_tables():
-#     db.create_all()
+#-- Module that create the tables in the BD
+@app.before_first_request
+def create_tables():
+    db.create_all()
 
 if __name__ == '__main__':
     from db import db

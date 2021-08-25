@@ -1,29 +1,29 @@
 from db import db
 
-class StudentModel(db.Model):
-    __tablename__ = 'students'
+class CoordinatorModel(db.Model):
+    __tablename__ = 'coordinators'
     
-    cod_student = db.Column(db.String(6), primary_key=True, unique = True)
+    cod_coordinator = db.Column(db.String(6), primary_key=True)
     name = db.Column(db.String(60), nullable=False)
     f_lastname = db.Column(db.String(40))
     m_lastname = db.Column(db.String(40))
     phone = db.Column(db.String(20))
     email = db.Column(db.String(100))
-    reference_person = db.Column(db.String(200))
-    phone_reference_person = db.Column(db.String(20))
-    cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'))
 
-    def __init__(self, cod_student, name, f_lastname, m_lastname, phone, email, cod_tutoring_program):
-        self.cod_student = cod_student
+    #relation
+    tutoring_program = db.relationship('Tutoring_ProgramModel')
+
+    def __init__(self, cod_coordinator, name, f_lastname, m_lastname, phone, email):
+        self.cod_coordinator = cod_coordinator
         self.name = name
         self.f_lastname = f_lastname
         self.m_lastname = m_lastname
         self.phone = phone
         self.email = email
-        self.cod_tutoring_program = cod_tutoring_program
+
 
     def json(self):
-        return {'cod_student': self.cod_student,
+        return {'cod_coordinator': self.cod_coordinator,
                 'name': self.name,
                 'f_lastname': self.f_lastname,
                 'm_lastname': self.m_lastname,
@@ -31,8 +31,8 @@ class StudentModel(db.Model):
                 'email': self.email
                 }
 
-    def update_data(self, cod_student, name, f_lastname, m_lastname, phone, email):
-        self.cod_student = cod_student
+    def update_data(self, cod_coordinator, name, f_lastname, m_lastname, phone, email):
+        self.cod_coordinator = cod_coordinator
         self.name = name
         self.f_lastname = f_lastname
         self.m_lastname = m_lastname
@@ -40,10 +40,9 @@ class StudentModel(db.Model):
         self.email = email
 
     @classmethod
-    def find_by_cod_student(cls, _cod_student):
-        # -> SELECT * FROM items where cod_student=cod_student LIMIT 1
-        return cls.query.filter_by(cod_student=_cod_student).first()
-
+    def find_by_cod_coordinator(cls, _cod_coordinator):
+        # -> SELECT * FROM items where cod_coordinator=cod_coordinator LIMIT 1
+        return cls.query.filter_by(cod_coordinator=_cod_coordinator).first()
 
     @classmethod
     def find_all(cls):
