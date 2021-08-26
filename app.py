@@ -82,7 +82,7 @@ api.add_resource(Teacher,'/teacher/<string:cod_teach>')
 #api.add_resource(Parts_Brands, '/parts_brands/<string:part_number>')
 
 # -- Module that create the tables in the BD
-#-- Module that create the tables in the BD
+#-- Module that create the tables in the BD.
 @app.before_first_request
 def create_tables():
     db.create_all()
