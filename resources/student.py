@@ -13,9 +13,9 @@ class Student(Resource):
     parser.add_argument('m_lastname')
     parser.add_argument('phone')
     parser.add_argument('email')
-    parser.add_argument('cod_faculty')
-    parser.add_argument('cod_career')
-    parser.add_argument('adress')
+    parser.add_argument('reference_person')
+    parser.add_argument('phone_reference_person')
+    parser.add_argument('cod_tutoring_program')
     # @jwt_required()
 
     def delete(self, cod_student):
@@ -40,13 +40,14 @@ class StudentList(Resource):
     parser.add_argument('m_lastname')
     parser.add_argument('phone')
     parser.add_argument('email')
-    parser.add_argument('cod_faculty')
-    parser.add_argument('cod_career')
-    parser.add_argument('adress')
+    parser.add_argument('reference_person')
+    parser.add_argument('phone_reference_person')
+    parser.add_argument('cod_tutoring_program')
     # @jwt_required()
 
     def get(self):
-        sort_students = list(map(lambda x: x.json(), StudentModel.query.all()))
+        #sort_students = list(map(lambda x: x.json(), StudentModel.query.all()))
+        sort_students = [ student.json() for student in StudentModel.find_all()]
         sort_students = sorted(sort_students, key=lambda x: x[list(sort_students[0].keys())[0]])
         print(sort_students)
         return sort_students
