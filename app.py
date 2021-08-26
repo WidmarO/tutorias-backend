@@ -6,6 +6,11 @@ from flask_restful import Api
 from flask_jwt import JWT
 from datetime import timedelta
 
+from models.coordinator import CoordinatorModel
+from models.student import StudentModel
+from models.student_helper import Student_HelperModel
+from models.curricular_advancement import Curricular_AdvancementModel
+from models.tutoring_program import Tutoring_ProgramModel
 from security import authenticate, identity
 from resources.user import UserRegister
 from resources.client import Client, ClientList
@@ -16,10 +21,9 @@ from resources.client import Client, ClientList
 # from resources.parts_brands import Parts_Brands
 from resources.documentation import Documentation
 from resources.student import StudentList, Student
-#from models.student import StudentModel
-# # from resources.catalogue import CatalogueList, Catalogue
+# from resources.catalogue import CatalogueList, Catalogue
 # from resources.parts_brands import Parts_Brands
-#from models.teacher import TeacherModel
+from models.teacher import TeacherModel
 from resources.teacher import TeacherList,Teacher
 
 

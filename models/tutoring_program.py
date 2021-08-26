@@ -13,10 +13,10 @@ class Tutoring_ProgramModel(db.Model):
     cod_coordinator = db.Column(db.String(6), db.ForeignKey('coordinators.cod_coordinator'))
 
     #relation
-    student = db.relatioship('StudentModel')
-    student_helper = db.relatioship('Student_HelperModel')
-    curricular_advancement = db.relatioship('Curricular_AdvancementModel')
-    workshop_student = db.relatioship('Workshop_StudentModel')
+    student = db.relationship('StudentModel')
+    student_helper = db.relationship('Student_HelperModel')
+    curricular_advancement = db.relationship('Curricular_AdvancementModel')
+    workshop_student = db.relationship('Workshop_StudentModel')
 
     def __init__(self, cod_tutoring_program, title, inicial_date, final_date, semester, condition, cod_coordinator):
         self.cod_tutoring_program = cod_tutoring_program

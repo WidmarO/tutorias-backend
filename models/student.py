@@ -13,13 +13,15 @@ class StudentModel(db.Model):
     phone_reference_person = db.Column(db.String(20))
     cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'))
 
-    def __init__(self, cod_student, name, f_lastname, m_lastname, phone, email, cod_tutoring_program):
+    def __init__(self, cod_student, name, f_lastname, m_lastname, phone, email, reference_person, phone_reference_person, cod_tutoring_program):
         self.cod_student = cod_student
         self.name = name
         self.f_lastname = f_lastname
         self.m_lastname = m_lastname
         self.phone = phone
         self.email = email
+        self.reference_person = reference_person
+        self.phone_reference_person = phone_reference_person
         self.cod_tutoring_program = cod_tutoring_program
 
     def json(self):
@@ -28,16 +30,22 @@ class StudentModel(db.Model):
                 'f_lastname': self.f_lastname,
                 'm_lastname': self.m_lastname,
                 'phone': self.phone,
-                'email': self.email
+                'email': self.email,
+                'reference_person' : self.reference_person,
+                'phone_reference_person' : self.phone_reference_person,
+                'cod_tutoring_program' : self.cod_tutoring_program
                 }
 
-    def update_data(self, cod_student, name, f_lastname, m_lastname, phone, email):
+    def update_data(self, cod_student, name, f_lastname, m_lastname, phone, email, reference_person, phone_reference_person, cod_tutoring_program):
         self.cod_student = cod_student
         self.name = name
         self.f_lastname = f_lastname
         self.m_lastname = m_lastname
         self.phone = phone
         self.email = email
+        self.reference_person = reference_person
+        self.phone_reference_person = phone_reference_person
+        self.cod_tutoring_program = cod_tutoring_program
 
     @classmethod
     def find_by_cod_student(cls, _cod_student):
