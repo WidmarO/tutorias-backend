@@ -8,17 +8,22 @@ class TeacherModel(db.Model):
     m_lastname = db.Column(db.String(50), nullable=False)
     phone = db.Column(db.String(20))
     email = db.Column(db.String(80), nullable=False)
+    cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'))
 
+    #Relations
+    tutors = db.relationship('TutorsModel')
+    principals = db.relationship('PrincipalsModel')
 
     #part_Teacher = db.relationship('PartBrandModel')
 
-    def __init__(self, cod_teacher, name, f_lastname, m_lastname, phone, email):
+    def __init__(self, cod_teacher, name, f_lastname, m_lastname, phone, email, cod_tutoring_program):
         self.cod_teacher = cod_teacher
         self.name = name 
         self.f_lastname = f_lastname
         self.m_lastname = m_lastname
         self.phone = phone
         self.email = email
+        self.cod_tutoring_program = cod_tutoring_program
 
     def json(self):
         return { 
@@ -28,15 +33,17 @@ class TeacherModel(db.Model):
                 'm_lastname': self.m_lastname,
                 'phone': self.phone,
                 'email': self.email,
+                'cod_tutoring_program': self.cod_tutoring_program
                 }
 
-    def update_data(self, cod_teacher, name, f_lastname, m_lastname, phone, email):
+    def update_data(self, cod_teacher, name, f_lastname, m_lastname, phone, email, cod_tutoring_program):
         self.cod_teacher = cod_teacher
         self.name = name 
         self.f_lastname = f_lastname
         self.m_lastname = m_lastname
         self.phone = phone
         self.email = email
+        self.cod_tutoring_program = cod_tutoring_program
 
     @classmethod
     def find_by_cod_teacher(cls, _cod_Teacher):
