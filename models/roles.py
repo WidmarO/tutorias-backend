@@ -6,7 +6,7 @@ class RolesModel(db.Model):
     cod_role = db.Column(db.String(6), primary_key=True)
     role = db.Column(db.String(20), nullable=False)
 
-    #relation
+    #Relation
     user_roles = db.relationship('User_RolesModel')
 
     def __init__(self, cod_role, role):

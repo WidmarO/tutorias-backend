@@ -27,7 +27,6 @@ class User_RolesModel(db.Model):
         #self.id = id
         self.cod_role = cod_role
 
-
     @classmethod
     def find_by_cod_user_role(cls, _cod_user_role):
         # -> SELECT * FROM items where cod_student=cod_student LIMIT 1

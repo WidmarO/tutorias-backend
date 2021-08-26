@@ -14,7 +14,6 @@ class NewsModel(db.Model):
     # #Relation
     # tutoring_program = db.relationship('Tutoring_ProgramModel')
 
-
     #part_Teacher = db.relationship('PartBrandModel')
 
     def __init__(self, cod_new, title, g_description, whom, date_time):

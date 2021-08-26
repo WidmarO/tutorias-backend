@@ -6,11 +6,9 @@ from flask_restful import Api
 from flask_jwt import JWT
 from datetime import timedelta
 
-
 from models.roles import RolesModel
 from models.user import UserModel
 from models.user_roles import User_RolesModel
-
 
 from models.coordinator import CoordinatorModel
 from models.tutoring_programs import Tutoring_ProgramModel
@@ -83,11 +81,8 @@ api.add_resource(Teacher,'/teacher/<string:cod_teach>')
 #api.add_resource(PartNumber, '/part/<int:id>')
 #api.add_resource(Parts_Brands, '/parts_brands/<string:part_number>')
 
-<<<<<<< HEAD
 # -- Module that create the tables in the BD
-=======
 #-- Module that create the tables in the BD
->>>>>>> 5d0d244e43c72d47c183d6605248581311be7c41
 @app.before_first_request
 def create_tables():
     db.create_all()

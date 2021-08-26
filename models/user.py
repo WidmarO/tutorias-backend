@@ -31,9 +31,9 @@ class UserModel(db.Model):
     return cls.query.filter_by(id=_id).first()
 
   @classmethod
-  def find_by_username(cls, username):
+  def find_by_username(cls, _username):
     '''Devuelve desde la bd el usuario con el username recibido como parametro'''
-    return cls.query.filter_by(username=username).first()
+    return cls.query.filter_by(username=_username).first()
 
   @classmethod
   def find_all(cls):
