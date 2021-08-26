@@ -20,18 +20,21 @@ from models.tutor_students import Tutor_StudentsModel
 from models.student_helper_tutors import Student_Helper_TutorsModel
 from models.quotes import QuotesModel
 
+from models.curricular_advancement import Curricular_AdvancementModel
 from security import authenticate, identity
 from resources.user import UserRegister
 from resources.client import Client, ClientList
 # from resources.brands import BrandList
 # from resources.part_numbers import PartNumber, PartNumberList
 # from resources.turbo_models import ModelList
-# # from resources.catalogue import CatalogueList, Catalogue
+# from resources.catalogue import CatalogueList, Catalogue
 # from resources.parts_brands import Parts_Brands
 from resources.documentation import Documentation
-#from models.teacher import TeacherModel
-#from resources.teacher import TeacherList,Teacher
-
+from resources.student import StudentList, Student
+# from resources.catalogue import CatalogueList, Catalogue
+# from resources.parts_brands import Parts_Brands
+from models.teacher import TeacherModel
+from resources.teacher import TeacherList,Teacher
 
 
 app = Flask(__name__)
@@ -69,13 +72,13 @@ api.add_resource(Client, '/client/<string:dni>')
 api.add_resource(UserRegister, '/register')
 #api.add_resource(ModelList, '/models')
 #api.add_resource(BrandList, '/brands')
-#api.add_resource(TeacherList,'/teachers')
-#api.add_resource(Teacher,'/teacher/<string:cod_teach>')
+api.add_resource(TeacherList,'/teachers') #endpoint
+api.add_resource(Teacher,'/teacher/<string:cod_teach>')
 #api.add_resource(PartNumberList, '/parts')
 #api.add_resource(PartNumber, '/part/<int:id>')
 #api.add_resource(Parts_Brands, '/parts_brands/<string:part_number>')
 
-# -- Module that create the tables in the BD
+#-- Module that create the tables in the BD
 @app.before_first_request
 def create_tables():
     db.create_all()
