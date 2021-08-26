@@ -1,11 +1,13 @@
 from db import db
+from datetime import datetime
 
-class Workshop_StudentModel(db.Model):
+
+class Workshop_AttendanceModel(db.Model):
     __tablename__ = 'workshop_students'
     
-    cod_workshop = db.Column(db.String(6), db.ForeignKey('workshops.cod_workshop'), primary_key=True)
     cod_student = db.Column(db.String(6), db.ForeignKey('students.cod_student'), primary_key=True)
-    cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'), primary_key=True)
+    attendance = db.Column(db.Boolean, default=False, nullable=False)
+    cod_attendance = db.Column(db.String(6), db.ForeignKey('workshop_students.cod_attendance', primary_key=True))    
 
     def __init__(self, cod_workshop, cod_student, cod_tutoring_program):
         self.cod_workshop = cod_workshop
