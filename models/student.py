@@ -14,6 +14,8 @@ class StudentModel(db.Model):
     cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'))
 
     #Relations
+    student_helper = db.relationship('Student_HelperModel')
+    curricular_advancement = db.relatioship('Curricular_AdvancementModel')
     tutor_students = db.relationship('Tutor_StudentsModel')
 
     def __init__(self, cod_student, name, f_lastname, m_lastname, phone, email, reference_person, phone_reference_person, cod_tutoring_program):
