@@ -6,11 +6,21 @@ from flask_restful import Api
 from flask_jwt import JWT
 from datetime import timedelta
 
+
 from models.coordinator import CoordinatorModel
+from models.tutoring_programs import Tutoring_ProgramModel
+from models.teacher import TeacherModel
+from models.tutors import TutorsModel
+from models.principals import PrincipalsModel
 from models.student import StudentModel
-from models.student_helper import Student_HelperModel
+#from models.teacher import TeacherModel
+from models.student_helpers import Student_HelperModel
+
+from models.tutor_students import Tutor_StudentsModel
+from models.student_helper_tutors import Student_Helper_TutorsModel
+from models.quotes import QuotesModel
+
 from models.curricular_advancement import Curricular_AdvancementModel
-from models.tutoring_program import Tutoring_ProgramModel
 from security import authenticate, identity
 from resources.user import UserRegister
 from resources.client import Client, ClientList
@@ -60,13 +70,6 @@ api.add_resource(Documentation, '/')
 api.add_resource(ClientList, '/clients')
 api.add_resource(Client, '/client/<string:dni>')
 api.add_resource(UserRegister, '/register')
-# api.add_resource(ModelList, '/models')
-# api.add_resource(BrandList, '/brands')
-# api.add_resource(PartNumberList, '/parts')
-api.add_resource(StudentList, '/students')
-api.add_resource(Student, '/student/<string:cod_student>')
-# api.add_resource(PartNumber, '/part/<int:id>')
-# api.add_resource(Parts_Brands, '/parts_brands/<string:part_number>')
 #api.add_resource(ModelList, '/models')
 #api.add_resource(BrandList, '/brands')
 api.add_resource(TeacherList,'/teachers') #endpoint

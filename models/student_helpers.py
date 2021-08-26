@@ -7,6 +7,10 @@ class Student_HelperModel(db.Model):
     cod_student = db.Column(db.String(6), db.ForeignKey('students.cod_student'))
     cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'))
 
+    #Relation 
+    student_helpers_tutors = db.relationship('Student_Helper_TutorsModel')
+    
+
     def __init__(self, cod_student_helper, cod_student, cod_tutoring_program):
         self.cod_student_helper = cod_student_helper
         self.cod_student = cod_student
