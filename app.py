@@ -6,6 +6,11 @@ from flask_restful import Api
 from flask_jwt import JWT
 from datetime import timedelta
 
+from models.news import NewsModel
+from models.roles import RolesModel
+from models.user import UserModel
+from models.user_roles import User_RolesModel
+
 from security import authenticate, identity
 from resources.user import UserRegister
 from resources.client import Client, ClientList
@@ -72,9 +77,9 @@ api.add_resource(Teacher,'/teacher/<string:cod_teach>')
 #api.add_resource(Parts_Brands, '/parts_brands/<string:part_number>')
 
 # -- Module that create the tables in the BD
-#@app.before_first_request
-# def create_tables():
-#     db.create_all()
+@app.before_first_request
+def create_tables():
+    db.create_all()
 
 if __name__ == '__main__':
     from db import db
