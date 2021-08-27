@@ -27,6 +27,7 @@ from models.student_helper_tutor import StudentHelperTutorModel
 from models.workshop_attendance import WorkshopAttendanceModel
 from models.curricular_advancement import CurricularAdvancementModel
 
+
 from security import authenticate, identity
 # from resources.user import UserRegister
 # from resources.client import Client, ClientList
@@ -47,8 +48,8 @@ CORS(app)
 # ----------------------------- LOCAL DATABASE
 type_database = 'mysql'
 user_database = 'root'
-pass_database = 'toor' # for wid is toor
-url_database = '127.0.0.1' # for wid is 127.0.0.1
+pass_database = 'root' # for wid is toor
+url_database = 'localhost:3307' # for wid is 127.0.0.1
 name_database = 'tutoring-system-bd'
 # ---------------------------- CLEVER CLOUD DATABASE
 # type_database = 'mysql'

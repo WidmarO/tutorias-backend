@@ -3,6 +3,7 @@ from db import db
 class StudentHelperModel(db.Model):
     __tablename__ = 'student_helpers'
     
+    # -- Attributes --
     cod_student_helper = db.Column(db.String(6), primary_key=True)
     cod_student = db.Column(db.String(6), db.ForeignKey('students.cod_student'), primary_key=True)
     cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'), primary_key=True)

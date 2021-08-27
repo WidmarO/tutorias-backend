@@ -2,6 +2,7 @@ from db import db
 
 class CoordinatorModel(db.Model):
     __tablename__ = 'coordinators'
+    
     # COO-001
     cod_coordinator = db.Column(db.String(6), primary_key=True)
     name = db.Column(db.String(60), nullable=False)

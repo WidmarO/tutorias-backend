@@ -2,7 +2,7 @@ from db import db
 from datetime import datetime
 
 class AppointmentModel(db.Model):
-    _tablename_ = 'appointments'
+    __tablename__ = 'appointments'
 
     cod_appointment = db.Column(db.String(6), primary_key=True)
     cod_tutor = db.Column(db.String(6), db.ForeignKey('tutors.cod_tutor'), primary_key=True)

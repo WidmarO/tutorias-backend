@@ -3,6 +3,7 @@ from db import db
 class StudentModel(db.Model):
     __tablename__ = 'students'
     
+    # -- Attributes --
     cod_student = db.Column(db.String(6), primary_key=True)
     name = db.Column(db.String(60), nullable=False)
     f_lastname = db.Column(db.String(40))
@@ -13,8 +14,7 @@ class StudentModel(db.Model):
     phone_reference_person = db.Column(db.String(20))
     cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'), primary_key=True)
 
-    #Relations
-
+    # -- Relations --
     curricular_advancement = db.relationship('CurricularAdvancementModel')
     description_workshop_attendance = db.relationship('DescriptionWorkshopAttendanceModel')
     appointment = db.relationship('AppointmentModel')
