@@ -1,18 +1,20 @@
 from db import db
 
 class TeacherModel(db.Model):
-    __tablename__ = 'teacher'
-    cod_teacher = db.Column(db.String(10), primary_key=True)
+    __tablename__ = 'teachers'
+
+    cod_teacher = db.Column(db.String(6), primary_key=True)
     name = db.Column(db.String(90), nullable=False)
     f_lastname = db.Column(db.String(50), nullable=False)
     m_lastname = db.Column(db.String(50), nullable=False)
     phone = db.Column(db.String(20))
     email = db.Column(db.String(80), nullable=False)
-    cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'))
+    cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'), primary_key=True)
 
-    #Relations
-    tutors = db.relationship('TutorsModel')
-    principals = db.relationship('PrincipalsModel')
+    # -- Relations --
+    principal = db.relationship('PrincipalModel')
+    tutor = db.relationship('TutorModel')
+
 
     #part_Teacher = db.relationship('PartBrandModel')
 

@@ -1,19 +1,12 @@
 from db import db
 
 
-class Student_Helper_TutorsModel(db.Model):
+class StudentHelperTutorModel(db.Model):
     _tablename_ = 'student_helpers_tutors'
     
-	# cod_tutor varchar(6),
-	# cod_student_helper varchar(6),
-	# cod_tutoring_program varchar(6),
-	# foreign key(cod_student_helper) references student_helpers(cod_student_helper),
-	# foreign key(cod_tutor) references tutors(cod_tutor),
-	# foreign key(cod_tutoring_program) references tutoring_programs(cod_tutoring_program)
-
-    cod_tutor = db.Column(db.String(6), db.ForeignKey('tutors.cod_tutor'),primary_key=True)
-    cod_student_helper = db.Column(db.String(6), db.ForeignKey('student_helpers.cod_student_helper'),primary_key=True)
-    cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'))
+    cod_tutor = db.Column(db.String(6), db.ForeignKey('tutors.cod_tutor'), primary_key=True)
+    cod_student_helper = db.Column(db.String(6), db.ForeignKey('student_helpers.cod_student_helper'), primary_key=True)
+    cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'), primary_key=True)
 
     #relation
     

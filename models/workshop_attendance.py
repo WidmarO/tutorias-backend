@@ -2,13 +2,16 @@ from db import db
 from datetime import datetime
 
 
-class Workshop_AttendanceModel(db.Model):
-    __tablename__ = 'workshop_students'
+class WorkshopAttendanceModel(db.Model):
+    __tablename__ = 'workshop_attendances'
     
     cod_attendance = db.Column(db.String(6), primary_key=True)
     cod_workshop = db.Column(db.String(6), db.ForeignKey('workshops.cod_workshop'), primary_key=True)
     date_time = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'), primary_key=True)    
+
+    # -- Relations --
+    description_workshop_attendance = db.relationship('DescriptionWorkshopAttendanceModel')
 
     def __init__(self, cod_workshop, cod_student, cod_tutoring_program):
         self.cod_workshop = cod_workshop

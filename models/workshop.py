@@ -5,14 +5,15 @@ class WorkshopModel(db.Model):
     __tablename__ = 'workshops'
 
     cod_workshop = db.Column(db.String(6), primary_key=True)
+    name = db.Column(db.String(120), nullable=False) 
     cod_student_helper = db.Column(db.String(6), db.ForeignKey('student_helpers.cod_student_helper'), primary_key=True)     
     classroom = db.Column(db.String(50))
     shedule = db.Column(db.String(20))
     cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'), primary_key=True)
 
-    # relationship with workshop_students
-    workshop_student = db.relationship('Workshop_StudentModel', lazy=True)
-    workshop_attendance = db.relationship('Workshop_AttendanceModel', lazy=True)
+    # -- Relations --
+    workshop_student = db.relationship('WorkshopStudentModel')
+    workshop_attendance = db.relationship('WorkshopAttendanceModel')
 
 
     def __init__(self, cod_workshop, cod_student_helper, classroom, shedule, cod_tutoring_program):

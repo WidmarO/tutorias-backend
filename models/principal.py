@@ -1,18 +1,11 @@
 from db import db
 
-class PrincipalsModel(db.Model):
+class PrincipalModel(db.Model):
     _tablename_ = 'principals'
     
-    # cod_principal varchar(6),
-	# cod_teacher varchar(6),
-	# cod_tutoring_program varchar(6),
-	# primary Key(cod_principal),
-	# foreign key(cod_teacher) references teachers(cod_teacher),
-	# foreign key(cod_tutoring_program) references tutoring_programs(cod_tutoring_program)
-
     cod_principal = db.Column(db.String(6), primary_key=True)
-    cod_teacher = db.Column(db.String(6), db.ForeignKey('teacher.cod_teacher'))
-    cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'))
+    cod_teacher = db.Column(db.String(6), db.ForeignKey('teachers.cod_teacher'), primary_key=True)
+    cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'), primary_key=True)
 
     #relation
     

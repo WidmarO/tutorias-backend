@@ -9,7 +9,7 @@ class UserModel(db.Model):
   password = db.Column(db.String(20), nullable=False) #255
 
   #relation
-  user_roles = db.relationship('User_RolesModel')
+  user_role = db.relationship('UserRoleModel')
 
   def __init__(self, username, password):
     self.username = username

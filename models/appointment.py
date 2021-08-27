@@ -1,42 +1,29 @@
 from db import db
 from datetime import datetime
 
-class QuotesModel(db.Model):
-    _tablename_ = 'quotes'
-    
-	# cod_quote varchar(6),
-	# cod_tutor varchar(6),
-	# cod_student varchar(6),
-	# date_time datetime,
-	# g_description varchar(300),
-	# p_description varchar(300),
-	# diagnosis varchar(300),
-	# cod_tutoring_program varchar(6),
-	# primary key(cod_quote),
-	# foreign key(cod_student) references students(cod_student),
-	# foreign key(cod_tutor) references tutors(cod_tutor),
-	# foreign key(cod_tutoring_program) references tutoring_programs(cod_tutoring_program)
+class AppointmentModel(db.Model):
+    _tablename_ = 'appointments'
 
-    cod_quote = db.Column(db.String(6), primary_key=True)
-    cod_tutor = db.Column(db.String(6), db.ForeignKey('tutors.cod_tutor'))
-    cod_student = db.Column(db.String(6), db.ForeignKey('students.cod_student'))
+    cod_appointment = db.Column(db.String(6), primary_key=True)
+    cod_tutor = db.Column(db.String(6), db.ForeignKey('tutors.cod_tutor'), primary_key=True)
+    cod_student = db.Column(db.String(6), db.ForeignKey('students.cod_student'), primary_key=True)
     date_time = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    g_description = db.Column(db.String(300))
-    p_description = db.Column(db.String(300))
+    general_description = db.Column(db.String(300))
+    private_description = db.Column(db.String(300))
     diagnosis = db.Column(db.String(300))
-    cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'))
+    cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'), primary_key=True)
 
     #relation
     
     #cod_coordinator = db.relationship('Tutoring_ProgramModel')
 
-    def _init_(self, cod_quote, cod_tutor, cod_student,date_time,g_description,p_description,diagnosis,cod_tutoring_program):
-        self.cod_quote = cod_quote
+    def _init_(self, cod_appointment, cod_tutor, cod_student,date_time,general_description,private_description,diagnosis,cod_tutoring_program):
+        self.cod_appointment = cod_appointment
         self.cod_tutor = cod_tutor
         self.cod_student= cod_student
         self.date_time = date_time
-        self.g_description= g_description
-        self.p_description = p_description
+        self.general_description= general_description
+        self.private_description = private_description
         self.diagnosis= diagnosis
         self.cod_tutoring_program= cod_tutoring_program
 
@@ -47,19 +34,19 @@ class QuotesModel(db.Model):
                 'cod_tutor': self.cod_tutor,
                 'cod_student': self.cod_student,
                 'date_time': self.date_time,
-                'g_description': self.g_description,
-                'p_description': self.p_description,
+                'general_description': self.general_description,
+                'private_description': self.private_description,
                 'diagnosis': self.diagnosis,
                 'cod_tutoring_program': self.cod_tutoring_program,
                 }
 
-    def update_data(self,cod_quote, cod_tutor, cod_student,date_time,g_description,p_description,diagnosis,cod_tutoring_program):
+    def update_data(self,cod_quote, cod_tutor, cod_student,date_time,general_description,private_description,diagnosis,cod_tutoring_program):
         self.cod_quote = cod_quote
         self.cod_tutor = cod_tutor
         self.cod_student= cod_student
         self.date_time = date_time
-        self.g_description= g_description
-        self.p_description = p_description
+        self.general_description= general_description
+        self.private_description = private_description
         self.diagnosis= diagnosis
         self.cod_tutoring_program= cod_tutoring_program
 

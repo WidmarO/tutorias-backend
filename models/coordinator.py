@@ -2,7 +2,7 @@ from db import db
 
 class CoordinatorModel(db.Model):
     __tablename__ = 'coordinators'
-    
+    # COO-001
     cod_coordinator = db.Column(db.String(6), primary_key=True)
     name = db.Column(db.String(60), nullable=False)
     f_lastname = db.Column(db.String(40))
@@ -10,8 +10,8 @@ class CoordinatorModel(db.Model):
     phone = db.Column(db.String(20))
     email = db.Column(db.String(100))
 
-    #relation
-    tutoring_program = db.relationship('Tutoring_ProgramModel')
+    # -- Relations --
+    tutoring_program = db.relationship('TutoringProgramModel')    
 
     def __init__(self, cod_coordinator, name, f_lastname, m_lastname, phone, email):
         self.cod_coordinator = cod_coordinator

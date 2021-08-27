@@ -1,10 +1,10 @@
 from db import db
 from datetime import datetime
 
-class Tutoring_ProgramModel(db.Model):
+class TutoringProgramModel(db.Model):
     __tablename__ = 'tutoring_programs'
     
-    cod_tutoring_program = db.Column(db.String(6), primary_key=True, unique = True)
+    cod_tutoring_program = db.Column(db.String(6), primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     inicial_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     final_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
@@ -13,10 +13,19 @@ class Tutoring_ProgramModel(db.Model):
     cod_coordinator = db.Column(db.String(6), db.ForeignKey('coordinators.cod_coordinator'))
 
     #relation
+    curricular_advancement = db.relationship('CurricularAdvancementModel')
+    new = db.relationship('NewModel')
+    principal = db.relationship('PrincipalModel')
+    appointment = db.relationship('AppointmentModel')
+    student_helper_tutor = db.relationship('StudentHelperTutorModel')
+    student_helper = db.relationship('StudentHelperModel')
     student = db.relationship('StudentModel')
-    student_helper = db.relationship('Student_HelperModel')
-    curricular_advancement = db.relationship('Curricular_AdvancementModel')
-    workshop_student = db.relationship('Workshop_StudentModel')
+    teacher = db.relationship('TeacherModel')
+    tutor_student = db.relationship('TutorStudentModel')
+    tutor = db.relationship('TutorModel')
+    workshop_attendance = db.relationship('WorkshopAttendanceModel')
+    workshop_student = db.relationship('WorkshopStudentModel')
+    workshop = db.relationship('WorkshopModel')
 
     def __init__(self, cod_tutoring_program, title, inicial_date, final_date, semester, condition, cod_coordinator):
         self.cod_tutoring_program = cod_tutoring_program

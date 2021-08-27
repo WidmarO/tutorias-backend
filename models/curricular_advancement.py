@@ -1,12 +1,13 @@
 from db import db
 
-class Curricular_AdvancementModel(db.Model):
+class CurricularAdvancementModel(db.Model):
     __tablename__ = 'curricular_advancements'
     
-    cod_advancement = db.Column(db.String(6), primary_key = True , unique = True)
+    cod_advancement = db.Column(db.String(6), primary_key=True)
     cod_student = db.Column(db.String(6), db.ForeignKey('students.cod_student'))
-    advancement = db.Column(db.String(1000))
-    cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'))
+    advancement = db.Column(db.String(500))
+    cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'), primary_key=True)
+    
 
     def __init__(self, cod_advancement, cod_student, advancement, cod_tutoring_program):
         self.cod_advancement = cod_advancement

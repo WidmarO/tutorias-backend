@@ -1,15 +1,14 @@
 from db import db
 
-class User_RolesModel(db.Model):
+class UserRoleModel(db.Model):
     __tablename__ = 'user_roles'
     
     cod_user_role = db.Column(db.String(6), primary_key=True)
-    id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    cod_role = db.Column(db.String(6), db.ForeignKey('roles.cod_role'))
+    id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    cod_role = db.Column(db.String(6), db.ForeignKey('roles.cod_role'), primary_key=True)
 
-    # #Relation
-    # id = db.relationship('UsersModel')
-    # roles=db.relationship('RolesModel')
+    # -- Relations --
+
 
     def __init__(self, cod_user_role, cod_role):
         self.cod_user_role = cod_user_role

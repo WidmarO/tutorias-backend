@@ -1,15 +1,15 @@
 from db import db
 
-class Student_HelperModel(db.Model):
+class StudentHelperModel(db.Model):
     __tablename__ = 'student_helpers'
     
-    cod_student_helper = db.Column(db.String(6), primary_key = True , unique = True)
-    cod_student = db.Column(db.String(6), db.ForeignKey('students.cod_student'))
-    cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'))
+    cod_student_helper = db.Column(db.String(6), primary_key=True)
+    cod_student = db.Column(db.String(6), db.ForeignKey('students.cod_student'), primary_key=True)
+    cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'), primary_key=True)
 
-    #Relation 
-    student_helpers_tutors = db.relationship('Student_Helper_TutorsModel')
-    
+    # -- Relations --
+    student_helpers_tutor = db.relationship('StudentHelperTutorModel')
+    workshop = db.relationship('WorkshopModel')
 
     def __init__(self, cod_student_helper, cod_student, cod_tutoring_program):
         self.cod_student_helper = cod_student_helper

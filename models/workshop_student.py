@@ -1,6 +1,6 @@
 from db import db
 
-class Workshop_StudentModel(db.Model):
+class WorkshopStudentModel(db.Model):
     __tablename__ = 'workshop_students'
     
     cod_workshop = db.Column(db.String(6), db.ForeignKey('workshops.cod_workshop'), primary_key=True)

@@ -1,13 +1,13 @@
 from db import db
 
-class RolesModel(db.Model):
+class RoleModel(db.Model):
     __tablename__ = 'roles'
     
     cod_role = db.Column(db.String(6), primary_key=True)
     role = db.Column(db.String(20), nullable=False)
 
     #Relation
-    user_roles = db.relationship('User_RolesModel')
+    user_role = db.relationship('UserRoleModel')
 
     def __init__(self, cod_role, role):
         self.cod_role = cod_role

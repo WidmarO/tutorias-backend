@@ -3,7 +3,7 @@ from db import db
 class StudentModel(db.Model):
     __tablename__ = 'students'
     
-    cod_student = db.Column(db.String(6), primary_key=True, unique = True)
+    cod_student = db.Column(db.String(6), primary_key=True)
     name = db.Column(db.String(60), nullable=False)
     f_lastname = db.Column(db.String(40))
     m_lastname = db.Column(db.String(40))
@@ -11,12 +11,17 @@ class StudentModel(db.Model):
     email = db.Column(db.String(100))
     reference_person = db.Column(db.String(200))
     phone_reference_person = db.Column(db.String(20))
-    cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'))
+    cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'), primary_key=True)
 
     #Relations
-    student_helper = db.relationship('Student_HelperModel')
-    curricular_advancement = db.relationship('Curricular_AdvancementModel')
-    tutor_students = db.relationship('Tutor_StudentsModel')
+
+    curricular_advancement = db.relationship('CurricularAdvancementModel')
+    description_workshop_attendance = db.relationship('DescriptionWorkshopAttendanceModel')
+    appointment = db.relationship('AppointmentModel')
+    student_helper = db.relationship('StudentHelperModel')
+    tutor_student = db.relationship('TutorStudentModel')
+    workshop_student = db.relationship('WorkshopStudentModel')
+
 
     def __init__(self, cod_student, name, f_lastname, m_lastname, phone, email, reference_person, phone_reference_person, cod_tutoring_program):
         self.cod_student = cod_student
