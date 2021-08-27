@@ -4,6 +4,7 @@ class CoordinatorModel(db.Model):
     __tablename__ = 'coordinators'
     
     # COO-001
+    # -- Atributes --
     cod_coordinator = db.Column(db.String(6), primary_key=True)
     name = db.Column(db.String(60), nullable=False)
     f_lastname = db.Column(db.String(40))
@@ -21,7 +22,6 @@ class CoordinatorModel(db.Model):
         self.m_lastname = m_lastname
         self.phone = phone
         self.email = email
-
 
     def json(self):
         return {'cod_coordinator': self.cod_coordinator,
