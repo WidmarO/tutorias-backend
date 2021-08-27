@@ -36,11 +36,10 @@ class AppointmentModel(db.Model):
                 'cod_tutoring_program': self.cod_tutoring_program,
                 }
 
-    def update_data(self,cod_appointment, cod_tutor, cod_student,date_time,general_description,private_description,diagnosis,cod_tutoring_program):
+    def update_data(self,cod_appointment, cod_tutor, cod_student,general_description,private_description,diagnosis,cod_tutoring_program):
         self.cod_appointment = cod_appointment
         self.cod_tutor = cod_tutor
         self.cod_student= cod_student
-        self.date_time = date_time
         self.general_description= general_description
         self.private_description = private_description
         self.diagnosis= diagnosis

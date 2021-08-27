@@ -4,23 +4,26 @@ from db import db
 class UserModel(db.Model):
   __tablename__ = 'users'
 
+  # -- Atributes --
   id = db.Column(db.Integer, primary_key=True)
-  username = db.Column(db.String(20), nullable=False) #80
-  password = db.Column(db.String(20), nullable=False) #255
+  username = db.Column(db.String(20), nullable=False)
+  password = db.Column(db.String(20), nullable=False)
 
-  #relation
+  # -- Relations --   
   user_role = db.relationship('UserRoleModel')
 
-  def __init__(self, username, password):
+  def __init__(self, id, username, password):
+    self.id = id
     self.username = username
     self.password = password
 
   def json(self):
-    return {'username': self.username,   
+    return {'id': self.id,
+            'username': self.username,   
             'password': self.password
             }
 
-  def update_data(self, id, username, password):
+  def update_data(self, username, password):
     self.username = username
     self.password = password
 

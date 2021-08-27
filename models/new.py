@@ -11,9 +11,7 @@ class NewModel(db.Model):
     date_time = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'), primary_key=True)
 
-    # #Relation
-    # tutoring_program = db.relationship('Tutoring_ProgramModel')
-    #part_Teacher = db.relationship('PartBrandModel')
+    # -- Relations --
 
     def __init__(self, cod_new, title, description, whom, date_time,cod_tutoring_program):
         self.cod_new = cod_new
@@ -32,12 +30,11 @@ class NewModel(db.Model):
                 'cod_tutoring_program': self.cod_tutoring_program
                 }
 
-    def update_data(self, cod_new, title, description, whom, date_time,cod_tutoring_program):
+    def update_data(self, cod_new, title, description, whom,cod_tutoring_program):
         self.cod_new = cod_new
         self.title = title 
         self.description = description
         self.whom = whom
-        self.date_time = date_time
         self.cod_tutoring_program = cod_tutoring_program
 
     @classmethod

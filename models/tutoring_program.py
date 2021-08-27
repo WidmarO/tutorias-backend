@@ -4,6 +4,7 @@ from datetime import datetime
 class TutoringProgramModel(db.Model):
     __tablename__ = 'tutoring_programs'
     
+    # -- Atributes --
     cod_tutoring_program = db.Column(db.String(6), primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     inicial_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
@@ -12,7 +13,7 @@ class TutoringProgramModel(db.Model):
     condition = db.Column(db.Boolean, default=False, nullable=False)
     cod_coordinator = db.Column(db.String(6), db.ForeignKey('coordinators.cod_coordinator'))
 
-    #relation
+    # -- Relations --   
     curricular_advancement = db.relationship('CurricularAdvancementModel')
     new = db.relationship('NewModel')
     principal = db.relationship('PrincipalModel')
