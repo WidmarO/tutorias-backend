@@ -3,7 +3,8 @@ from datetime import datetime
 
 class AppointmentModel(db.Model):
     __tablename__ = 'appointments'
-    # -- Atributes --
+
+    # -- Attributes --
     cod_appointment = db.Column(db.String(6), primary_key=True)
     cod_tutor = db.Column(db.String(6), db.ForeignKey('tutors.cod_tutor'), primary_key=True)
     cod_student = db.Column(db.String(6), db.ForeignKey('students.cod_student'), primary_key=True)

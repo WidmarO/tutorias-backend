@@ -3,10 +3,11 @@ from db import db
 class RoleModel(db.Model):
     __tablename__ = 'roles'
     
+    # -- Attributes --
     cod_role = db.Column(db.String(6), primary_key=True)
     role = db.Column(db.String(20), nullable=False)
 
-    #Relation
+    # -- Relations --
     user_role = db.relationship('UserRoleModel')
 
     def __init__(self, cod_role, role):

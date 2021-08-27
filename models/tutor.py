@@ -3,22 +3,19 @@ from db import db
 class TutorModel(db.Model):
     __tablename__ = 'tutors'
     
+    # -- Attributes --
     cod_tutor = db.Column(db.String(6), primary_key=True)
     cod_teacher = db.Column(db.String(6), db.ForeignKey('teachers.cod_teacher'), primary_key=True)
     cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'), primary_key=True)
     schedule = db.Column(db.String(250))
     place = db.Column(db.String(100))
 
-    #relation
+    # -- Relations --
     appointment = db.relationship('AppointmentModel')
     student_helper_tutor = db.relationship('StudentHelperTutorModel') 
     tutor_student = db.relationship('TutorStudentModel')
 
-
-    student_helpers = db.relationship('Student_HelperModel')
-
-
-    def _init_(self, cod_tutor, cod_teacher, cod_tutoring_program, schedule, place):
+    def __init__(self, cod_tutor, cod_teacher, cod_tutoring_program, schedule, place):
         self.cod_tutor = cod_tutor
         self.cod_teacher = cod_teacher
         self.cod_tutoring_program = cod_tutoring_program
@@ -31,7 +28,7 @@ class TutorModel(db.Model):
                 'cod_teacher': self.cod_teacher,
                 'cod_tutoring_program': self.cod_tutoring_program,
                 'schedule': self.schedule,
-                'place': self.place,
+                'place': self.place
                 }
 
     def update_data(self, cod_tutor, cod_teacher, cod_tutoring_program, schedule, place):

@@ -2,14 +2,14 @@ from db import db
 
 class PrincipalModel(db.Model):
     __tablename__ = 'principals'
-    # -- Atributes --
+    
+    # -- Attributes --
     cod_principal = db.Column(db.String(6), primary_key=True)
     cod_teacher = db.Column(db.String(6), db.ForeignKey('teachers.cod_teacher'), primary_key=True)
     cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'), primary_key=True)
 
-    #relation
-    #cod_coordinator = db.relationship('Tutoring_ProgramModel')
-
+    # -- Relations --
+    
     def __init__(self, cod_principal, cod_teacher, cod_tutoring_program):
         self.cod_principal = cod_principal
         self.cod_teacher = cod_teacher
@@ -18,7 +18,7 @@ class PrincipalModel(db.Model):
     def json(self):
         return {'cod_principal': self.cod_principal,
                 'cod_teacher': self.cod_teacher,
-                'cod_tutoring_program': self.cod_tutoring_program,
+                'cod_tutoring_program': self.cod_tutoring_program
                 }
 
     def update_data(self, cod_principal, cod_teacher, cod_tutoring_program):

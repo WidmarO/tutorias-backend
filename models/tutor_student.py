@@ -4,16 +4,14 @@ from db import db
 class TutorStudentModel(db.Model):
     __tablename__ = 'tutor_students'
     
-    cod_tutor = db.Column(db.String(6), db.ForeignKey('tutors.cod_tutor'), primary_key=True)
-    cod_student = db.Column(db.String(6), db.ForeignKey('students.cod_student'), primary_key=True)
-    cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'), primary_key=True)
+    # -- Attributes --
+    cod_tutor = db.Column(db.String(6), db.ForeignKey('tutors.cod_tutor'), primary_key = True)
+    cod_student = db.Column(db.String(6), db.ForeignKey('students.cod_student'), primary_key = True)
+    cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'), primary_key = True)
 
+    # -- Relations --
 
-    #relation
-    
-    #cod_coordinator = db.relationship('Tutoring_ProgramModel')
-
-    def _init_(self, cod_tutor, cod_tutoring_program,cod_student):
+    def __init__(self, cod_tutor, cod_tutoring_program, cod_student):
         self.cod_tutor = cod_tutor
         self.cod_tutoring_program= cod_tutoring_program
         self.cod_student= cod_student
@@ -23,7 +21,7 @@ class TutorStudentModel(db.Model):
     def json(self):
         return {'cod_tutor': self.cod_tutor,
                 'cod_tutoring_program': self.cod_tutoring_program,
-                'cod_student': self.cod_student,
+                'cod_student': self.cod_student
                 }
 
     def update_data(self,cod_tutor, cod_tutoring_program,cod_student):

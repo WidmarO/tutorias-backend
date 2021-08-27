@@ -4,13 +4,12 @@ from db import db
 class StudentHelperTutorModel(db.Model):
     __tablename__ = 'student_helpers_tutors'
     
+    # -- Attributes --
     cod_tutor = db.Column(db.String(6), db.ForeignKey('tutors.cod_tutor'), primary_key=True)
     cod_student_helper = db.Column(db.String(6), db.ForeignKey('student_helpers.cod_student_helper'), primary_key=True)
     cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'), primary_key=True)
 
-    #relation
-    
-    #cod_coordinator = db.relationship('Tutoring_ProgramModel')
+    # -- Relations --
 
     def __init__(self, cod_tutor, cod_student_helper,cod_tutoring_program):
         self.cod_tutor = cod_tutor
@@ -22,7 +21,7 @@ class StudentHelperTutorModel(db.Model):
     def json(self):
         return {'cod_tutor': self.cod_tutor,
                 'cod_student_helper': self.cod_student_helper,
-                'cod_tutoring_program': self.cod_tutoring_program,
+                'cod_tutoring_program': self.cod_tutoring_program
                 }
 
     def update_data(self,cod_tutor, cod_student_helper,cod_tutoring_program):
