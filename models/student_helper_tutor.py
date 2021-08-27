@@ -2,7 +2,7 @@ from db import db
 
 
 class StudentHelperTutorModel(db.Model):
-    _tablename_ = 'student_helpers_tutors'
+    __tablename__ = 'student_helpers_tutors'
     
     cod_tutor = db.Column(db.String(6), db.ForeignKey('tutors.cod_tutor'), primary_key=True)
     cod_student_helper = db.Column(db.String(6), db.ForeignKey('student_helpers.cod_student_helper'), primary_key=True)
@@ -12,7 +12,7 @@ class StudentHelperTutorModel(db.Model):
     
     #cod_coordinator = db.relationship('Tutoring_ProgramModel')
 
-    def _init_(self, cod_tutor, cod_student_helper,cod_tutoring_program):
+    def __init__(self, cod_tutor, cod_student_helper,cod_tutoring_program):
         self.cod_tutor = cod_tutor
         self.cod_student_helper= cod_student_helper
         self.cod_tutoring_program= cod_tutoring_program

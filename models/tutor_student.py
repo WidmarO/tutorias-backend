@@ -2,7 +2,7 @@ from db import db
 
 
 class TutorStudentModel(db.Model):
-    _tablename_ = 'tutor_students'
+    __tablename__ = 'tutor_students'
     
     cod_tutor = db.Column(db.String(6), db.ForeignKey('tutors.cod_tutor'), primary_key=True)
     cod_student = db.Column(db.String(6), db.ForeignKey('students.cod_student'), primary_key=True)

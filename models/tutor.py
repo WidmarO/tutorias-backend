@@ -1,7 +1,7 @@
 from db import db
 
 class TutorModel(db.Model):
-    _tablename_ = 'tutors'
+    __tablename__ = 'tutors'
     
     cod_tutor = db.Column(db.String(6), primary_key=True)
     cod_teacher = db.Column(db.String(6), db.ForeignKey('teachers.cod_teacher'), primary_key=True)

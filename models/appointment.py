@@ -2,8 +2,8 @@ from db import db
 from datetime import datetime
 
 class AppointmentModel(db.Model):
-    _tablename_ = 'appointments'
-
+    __tablename__ = 'appointments'
+    # -- Atributtes --
     cod_appointment = db.Column(db.String(6), primary_key=True)
     cod_tutor = db.Column(db.String(6), db.ForeignKey('tutors.cod_tutor'), primary_key=True)
     cod_student = db.Column(db.String(6), db.ForeignKey('students.cod_student'), primary_key=True)
@@ -13,11 +13,9 @@ class AppointmentModel(db.Model):
     diagnosis = db.Column(db.String(300))
     cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'), primary_key=True)
 
-    #relation
-    
-    #cod_coordinator = db.relationship('Tutoring_ProgramModel')
+    # -- Relations --    
 
-    def _init_(self, cod_appointment, cod_tutor, cod_student,date_time,general_description,private_description,diagnosis,cod_tutoring_program):
+    def __init__(self, cod_appointment, cod_tutor, cod_student,date_time,general_description,private_description,diagnosis,cod_tutoring_program):
         self.cod_appointment = cod_appointment
         self.cod_tutor = cod_tutor
         self.cod_student= cod_student

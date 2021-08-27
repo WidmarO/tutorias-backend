@@ -1,7 +1,7 @@
 from db import db
 
 class PrincipalModel(db.Model):
-    _tablename_ = 'principals'
+    __tablename__ = 'principals'
     
     cod_principal = db.Column(db.String(6), primary_key=True)
     cod_teacher = db.Column(db.String(6), db.ForeignKey('teachers.cod_teacher'), primary_key=True)
@@ -11,7 +11,7 @@ class PrincipalModel(db.Model):
     
     #cod_coordinator = db.relationship('Tutoring_ProgramModel')
 
-    def _init_(self, cod_principal, cod_teacher, cod_tutoring_program):
+    def __init__(self, cod_principal, cod_teacher, cod_tutoring_program):
         self.cod_principal = cod_principal
         self.cod_teacher = cod_teacher
         self.cod_tutoring_program = cod_tutoring_program
