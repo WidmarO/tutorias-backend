@@ -3,7 +3,7 @@ from datetime import datetime
 
 class AppointmentModel(db.Model):
     __tablename__ = 'appointments'
-    # -- Atributtes --
+    # -- Atributes --
     cod_appointment = db.Column(db.String(6), primary_key=True)
     cod_tutor = db.Column(db.String(6), db.ForeignKey('tutors.cod_tutor'), primary_key=True)
     cod_student = db.Column(db.String(6), db.ForeignKey('students.cod_student'), primary_key=True)
@@ -25,10 +25,8 @@ class AppointmentModel(db.Model):
         self.diagnosis= diagnosis
         self.cod_tutoring_program= cod_tutoring_program
 
-
-
     def json(self):
-        return {'cod_quote': self.cod_quote,
+        return {'cod_appointment': self.cod_appointment,
                 'cod_tutor': self.cod_tutor,
                 'cod_student': self.cod_student,
                 'date_time': self.date_time,
@@ -38,8 +36,8 @@ class AppointmentModel(db.Model):
                 'cod_tutoring_program': self.cod_tutoring_program,
                 }
 
-    def update_data(self,cod_quote, cod_tutor, cod_student,date_time,general_description,private_description,diagnosis,cod_tutoring_program):
-        self.cod_quote = cod_quote
+    def update_data(self,cod_appointment, cod_tutor, cod_student,date_time,general_description,private_description,diagnosis,cod_tutoring_program):
+        self.cod_appointment = cod_appointment
         self.cod_tutor = cod_tutor
         self.cod_student= cod_student
         self.date_time = date_time
@@ -50,9 +48,9 @@ class AppointmentModel(db.Model):
 
 
     @classmethod
-    def find_by_cod_quote(cls, _cod_quote):
+    def find_by_cod_appointment(cls, _cod_appointment):
         # -> SELECT * FROM items where cod_coordinator=cod_coordinator LIMIT 1
-        return cls.query.filter_by(cod_quote=_cod_quote).first()
+        return cls.query.filter_by(cod_appointment=_cod_appointment).first()
     
     @classmethod
     def find_all(cls):
