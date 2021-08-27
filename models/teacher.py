@@ -50,6 +50,11 @@ class TeacherModel(db.Model):
         # -> SELECT * FROM items where dni=dni LIMIT 1
         return cls.query.filter_by(cod_teacher=_cod_teacher).first()
 
+    @classmethod
+    def find_all(cls):
+        # -> SELECT * FROM items
+        return cls.query.all()
+    
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
