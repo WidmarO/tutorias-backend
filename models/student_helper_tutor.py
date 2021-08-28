@@ -24,7 +24,7 @@ class StudentHelperTutorModel(db.Model):
                 'cod_tutoring_program': self.cod_tutoring_program
                 }
 
-    def update_data(self,cod_tutor, cod_student_helper,cod_tutoring_program):
+    def update_data(self, cod_tutor, cod_student_helper,cod_tutoring_program):
         self.cod_tutor = cod_tutor
         self.cod_student_helper= cod_student_helper
         self.cod_tutoring_program= cod_tutoring_program
