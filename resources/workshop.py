@@ -6,7 +6,7 @@ from Req_Parser import Req_Parser
 
 class Workshop(Resource):
     parser = Req_Parser()
-    parser.add_argument('cod_workshop', str, esp_attr=True)
+    parser.add_argument('cod_workshop', str, True)
     parser.add_argument('name', str, True)
     parser.add_argument('cod_student_helper', str, True)
     parser.add_argument('classroom')
@@ -48,7 +48,7 @@ class Workshop(Resource):
 
 class WorkshopList(Resource):
     parser = Req_Parser()
-    parser.add_argument('cod_workshop', str, esp_attr=True)
+    parser.add_argument('cod_workshop', str, True)
     parser.add_argument('name', str, True)
     parser.add_argument('cod_student_helper', str, True)
     parser.add_argument('classroom', str)

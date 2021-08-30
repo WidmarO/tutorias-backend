@@ -33,7 +33,11 @@ from security import authenticate, identity
 from resources.user import UserRegister
 
 from resources.student import StudentList, Student
+from resources.coordinator import CoordinatorList, Coordinator
+from resources.tutoring_program import TutoringProgramList, TutoringProgram
+from resources.workshop import Workshop, WorkshopList
 from resources.documentation import Documentation
+
 
 
 
@@ -69,6 +73,10 @@ jwt = JWT(app, authenticate, identity)  # /auth
 api.add_resource(Documentation, '/')
 api.add_resource(Student, '/student/<string:cod_student>')
 api.add_resource(StudentList, '/students')
+api.add_resource(Coordinator, '/coordinator/<string:cod_coordinator>')
+api.add_resource(CoordinatorList, '/coordinators')
+api.add_resource(TutoringProgram, '/tutoring_program/<string:cod_tutoring_program>')
+api.add_resource(TutoringProgramList, '/tutoring_programs')
 
 # -- Module that create the tables in the BD
 # @app.before_first_request
