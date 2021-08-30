@@ -13,11 +13,12 @@ from models.user_role import UserRoleModel
 
 from models.coordinator import CoordinatorModel
 from models.tutoring_program import TutoringProgramModel
-from models.new import NewModel
-from models.teacher import TeacherModel
-from models.principal import PrincipalModel
-from models.tutor import TutorModel
+# from models.new import NewModel
+# from models.teacher import TeacherModel
+# from models.principal import PrincipalModel
+# from models.tutor import TutorModel
 from models.student import StudentModel
+
 from models.tutor_student import TutorStudentModel
 from models.appointment import AppointmentModel
 from models.student_helper import StudentHelperModel
@@ -26,8 +27,10 @@ from models.workshop_student import WorkshopStudentModel
 from models.student_helper_tutor import StudentHelperTutorModel
 from models.workshop_attendance import WorkshopAttendanceModel
 from models.curricular_advancement import CurricularAdvancementModel
+from models.description_workshop_attendance import DescriptionWorkshopAttendanceModel
 
 from security import authenticate, identity
+from resources.student import StudentList, Student
 # from resources.user import UserRegister
 # from resources.client import Client, ClientList
 # from resources.brands import BrandList
@@ -36,7 +39,6 @@ from security import authenticate, identity
 # from resources.catalogue import CatalogueList, Catalogue
 # from resources.parts_brands import Parts_Brands
 from resources.documentation import Documentation
-# from resources.student import StudentList, Student
 # from resources.catalogue import CatalogueList, Catalogue
 # from resources.parts_brands import Parts_Brands
 # from resources.teacher import TeacherList,Teacher
@@ -82,6 +84,9 @@ api.add_resource(Documentation, '/')
 #api.add_resource(PartNumberList, '/parts')
 #api.add_resource(PartNumber, '/part/<int:id>')
 #api.add_resource(Parts_Brands, '/parts_brands/<string:part_number>')
+api.add_resource(Student, '/student/<string:cod_student>')
+api.add_resource(StudentList, '/students')
+
 
 # -- Module that create the tables in the BD
 #-- Module that create the tables in the BD.

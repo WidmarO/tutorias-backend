@@ -15,7 +15,7 @@ class TutorModel(db.Model):
     tutor_student = db.relationship('TutorStudentModel')
 
 
-    student_helpers = db.relationship('Student_HelperModel')
+    # student_helpers = db.relationship('Student_HelperModel')
 
 
     def _init_(self, cod_tutor, cod_teacher, cod_tutoring_program, schedule, place):

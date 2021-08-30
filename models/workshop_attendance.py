@@ -4,7 +4,7 @@ from datetime import datetime
 
 class WorkshopAttendanceModel(db.Model):
     __tablename__ = 'workshop_attendances'
-    
+
     cod_attendance = db.Column(db.String(6), primary_key=True)
     cod_workshop = db.Column(db.String(6), db.ForeignKey('workshops.cod_workshop'), primary_key=True)
     date_time = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)

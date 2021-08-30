@@ -13,12 +13,11 @@ class StudentModel(db.Model):
     phone_reference_person = db.Column(db.String(20))
     cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'), primary_key=True)
 
-    #Relations
-
+    # -- Relations --
     curricular_advancement = db.relationship('CurricularAdvancementModel')
-    description_workshop_attendance = db.relationship('DescriptionWorkshopAttendanceModel')
     appointment = db.relationship('AppointmentModel')
     student_helper = db.relationship('StudentHelperModel')
+    description_workshop_attendance = db.relationship('DescriptionWorkshopAttendanceModel')
     tutor_student = db.relationship('TutorStudentModel')
     workshop_student = db.relationship('WorkshopStudentModel')
 
@@ -61,7 +60,6 @@ class StudentModel(db.Model):
     def find_by_cod_student(cls, _cod_student):
         # -> SELECT * FROM items where cod_student=cod_student LIMIT 1
         return cls.query.filter_by(cod_student=_cod_student).first()
-
 
     @classmethod
     def find_all(cls):

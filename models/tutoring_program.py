@@ -13,19 +13,19 @@ class TutoringProgramModel(db.Model):
     cod_coordinator = db.Column(db.String(6), db.ForeignKey('coordinators.cod_coordinator'))
 
     #relation
-    curricular_advancement = db.relationship('CurricularAdvancementModel')
-    new = db.relationship('NewModel')
-    principal = db.relationship('PrincipalModel')
-    appointment = db.relationship('AppointmentModel')
-    student_helper_tutor = db.relationship('StudentHelperTutorModel')
-    student_helper = db.relationship('StudentHelperModel')
+    # curricular_advancement = db.relationship('CurricularAdvancementModel')
+    # new = db.relationship('NewModel')
+    # principal = db.relationship('PrincipalModel')
+    # appointment = db.relationship('AppointmentModel')
+    # student_helper_tutor = db.relationship('StudentHelperTutorModel')
+    # student_helper = db.relationship('StudentHelperModel')
     student = db.relationship('StudentModel')
-    teacher = db.relationship('TeacherModel')
-    tutor_student = db.relationship('TutorStudentModel')
-    tutor = db.relationship('TutorModel')
-    workshop_attendance = db.relationship('WorkshopAttendanceModel')
-    workshop_student = db.relationship('WorkshopStudentModel')
-    workshop = db.relationship('WorkshopModel')
+    # teacher = db.relationship('TeacherModel')
+    # tutor_student = db.relationship('TutorStudentModel')
+    # tutor = db.relationship('TutorModel')
+    # workshop_attendance = db.relationship('WorkshopAttendanceModel')
+    # workshop_student = db.relationship('WorkshopStudentModel')
+    # workshop = db.relationship('WorkshopModel')
 
     def __init__(self, cod_tutoring_program, title, inicial_date, final_date, semester, condition, cod_coordinator):
         self.cod_tutoring_program = cod_tutoring_program
