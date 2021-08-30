@@ -3,6 +3,7 @@ from db import db
 class StudentModel(db.Model):
     __tablename__ = 'students'
     
+    # -- Attributes --
     cod_student = db.Column(db.String(6), primary_key=True)
     name = db.Column(db.String(60), nullable=False)
     f_lastname = db.Column(db.String(40))
