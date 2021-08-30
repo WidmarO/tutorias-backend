@@ -70,7 +70,6 @@ api.add_resource(Documentation, '/')
 api.add_resource(Student, '/student/<string:cod_student>')
 api.add_resource(StudentList, '/students')
 
-
 # -- Module that create the tables in the BD
 # @app.before_first_request
 # def create_tables():
