@@ -37,6 +37,8 @@ from resources.coordinator import CoordinatorList, Coordinator
 from resources.tutoring_program import TutoringProgramList, TutoringProgram
 from resources.workshop import Workshop, WorkshopList
 from resources.documentation import Documentation
+from resources.teacher import TeacherList, Teacher
+from resources.tutor import TutorList, Tutor
 
 
 
@@ -73,6 +75,10 @@ jwt = JWT(app, authenticate, identity)  # /auth
 api.add_resource(Documentation, '/')
 api.add_resource(Student, '/student/<string:cod_student>')
 api.add_resource(StudentList, '/students')
+api.add_resource(Teacher, '/teacher/<string:cod_teacher>')
+api.add_resource(TeacherList, '/teachers')
+api.add_resource(Tutor, '/tutor/<string:cod_tutor>')
+api.add_resource(TutorList, '/tutors')
 api.add_resource(Coordinator, '/coordinator/<string:cod_coordinator>')
 api.add_resource(CoordinatorList, '/coordinators')
 api.add_resource(TutoringProgram, '/tutoring_program/<string:cod_tutoring_program>')
