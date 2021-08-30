@@ -18,7 +18,6 @@ from models.teacher import TeacherModel
 from models.principal import PrincipalModel
 from models.tutor import TutorModel
 from models.student import StudentModel
-
 from models.tutor_student import TutorStudentModel
 from models.appointment import AppointmentModel
 from models.student_helper import StudentHelperModel
@@ -73,9 +72,9 @@ api.add_resource(StudentList, '/students')
 
 
 # -- Module that create the tables in the BD
-@app.before_first_request
-def create_tables():
-    db.create_all()
+# @app.before_first_request
+# def create_tables():
+#     db.create_all()
 
 if __name__ == '__main__':
     from db import db
