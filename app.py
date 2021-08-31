@@ -39,6 +39,8 @@ from resources.workshop import Workshop, WorkshopList
 from resources.documentation import Documentation
 from resources.teacher import TeacherList, Teacher
 from resources.tutor import TutorList, Tutor
+from resources.distribute_student import DistributeStudent
+from resources.tutor_student import TutorStudentList, TutorStudent
 
 
 
@@ -46,17 +48,17 @@ from resources.tutor import TutorList, Tutor
 app = Flask(__name__)
 CORS(app)
 # ----------------------------- LOCAL DATABASE
-# type_database = 'mysql'
-# user_database = 'root'
-# pass_database = 'toor' # for wid is toor
-# url_database = 'localhost:3307' # for wid is 127.0.0.1
-# name_database = 'tutoring-system-bd'
-# ---------------------------- CLEVER CLOUD DATABASE
 type_database = 'mysql'
-user_database = 'udwsw0hbqah0nikx'
-pass_database = '6eaqlxBNvKWNGUuRR32M'
-url_database = 'b0du4ayviyfhrlbnjckc-mysql.services.clever-cloud.com'
-name_database = 'b0du4ayviyfhrlbnjckc'
+user_database = 'root'
+pass_database = 'toor' # for wid is toor
+url_database = 'localhost:3307' # for wid is 127.0.0.1
+name_database = 'tutoring-system-bd'
+# ---------------------------- CLEVER CLOUD DATABASE
+# type_database = 'mysql'
+# user_database = 'udwsw0hbqah0nikx'
+# pass_database = '6eaqlxBNvKWNGUuRR32M'
+# url_database = 'b0du4ayviyfhrlbnjckc-mysql.services.clever-cloud.com'
+# name_database = 'b0du4ayviyfhrlbnjckc'
 
 # -- Set de BD configurations for conection
 sqlalchemy_database_uri = type_database + '://' + user_database + \
@@ -83,7 +85,11 @@ api.add_resource(Coordinator, '/coordinator/<string:cod_coordinator>')
 api.add_resource(CoordinatorList, '/coordinators')
 api.add_resource(TutoringProgram, '/tutoring_program/<string:cod_tutoring_program>')
 api.add_resource(TutoringProgramList, '/tutoring_programs')
+api.add_resource(TutorStudent, '/tutor_student/<string:cod_tutor>')
+api.add_resource(TutorStudentList, '/tutor_students')
 
+# distribution = DistributeStudent()
+# distribution.DistributeStudents
 # -- Module that create the tables in the BD
 # @app.before_first_request
 # def create_tables():
