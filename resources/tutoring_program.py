@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask_restful import Resource
 from flask import request
-from flask_jwt import jwt_required
+# from flask_jwt import jwt_required
 from models.tutoring_program import TutoringProgramModel
 from Req_Parser import Req_Parser
 from datetime import date, datetime

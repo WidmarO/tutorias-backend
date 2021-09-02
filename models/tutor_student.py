@@ -5,9 +5,9 @@ class TutorStudentModel(db.Model):
     __tablename__ = 'tutor_students'
     
     # -- Attributes --
-    cod_tutor = db.Column(db.String(6), db.ForeignKey('tutors.cod_tutor'), primary_key = True)
-    cod_student = db.Column(db.String(6), db.ForeignKey('students.cod_student'), primary_key = True)
-    cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'), primary_key = True)
+    cod_tutor = db.Column(db.String(6), db.ForeignKey('tutors.cod_tutor'), primary_key=True)
+    cod_student = db.Column(db.String(6), db.ForeignKey('students.cod_student'), primary_key=True)
+    cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'), primary_key=True)
 
     # -- Relations --
 
@@ -53,7 +53,6 @@ class TutorStudentModel(db.Model):
     def find_if_relation_exists_in_tutoring_program(cls, _cod_tutor, _cod_student,_cod_tutoring_program):
         return cls.query.filter_by(cod_tutor=_cod_tutor).filter_by(cod_student=_cod_student).filter_by(cod_tutoring_program=_cod_tutoring_program).first()
 
-    
     @classmethod
     def find_all(cls):
         # -> SELECT * FROM items

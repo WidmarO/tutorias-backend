@@ -41,7 +41,7 @@ class TutoringProgramModel(db.Model):
     def json(self):
         return {'cod_tutoring_program' : self.cod_tutoring_program,
                 'title' : self.title,
-                'initial_date' : str( self.initial_date),
+                'initial_date' : str(self.initial_date),
                 'final_date' : str(self.final_date),
                 'semester' : self.semester,
                 'condition' : self.condition,

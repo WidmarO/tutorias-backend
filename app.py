@@ -3,12 +3,16 @@ import os
 from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api
-from flask_jwt import JWT
+
+from flask_jwt_extended import create_access_token
+# from flask_jwt_extended import get_jwt_identity
+# from flask_jwt_extended import jwt_required
+from flask_jwt_extended import JWTManager
 from datetime import timedelta
 
 from models.role import RoleModel
 from models.user import UserModel
-from models.user_role import UserRoleModel
+# from models.user_role import UserRoleModel
 
 from models.coordinator import CoordinatorModel
 from models.tutoring_program import TutoringProgramModel
@@ -36,6 +40,7 @@ from resources.coordinator import CoordinatorList, Coordinator
 from resources.tutoring_program import TutoringProgramList, TutoringProgram
 from resources.workshop import Workshop, WorkshopList
 from resources.documentation import Documentation
+from resources.user import UserRegister, Login
 from resources.teacher import TeacherList, Teacher
 from resources.tutor import TutorList, Tutor
 from resources.distribute_student import DistributeStudent
@@ -43,11 +48,21 @@ from resources.tutor_student import TutorStudentList, TutorStudent
 
 app = Flask(__name__)
 CORS(app)
+
+# -- Configurations for security
+# app.secret_key = 'widmar' # test line
+app.config["JWT_SECRET_KEY"] = "widmaro"
+jwt = JWTManager(app)
+
+# app.config['JWT_AUTH_URL_RULE'] = '/login'
+# app.config['JWT_EXPIRATION_DELTA'] = timedelta(seconds=1800)
+# jwt = JWT(app, authenticate, identity)  # /auth
+
 # ----------------------------- LOCAL DATABASE
 type_database = 'mysql'
 user_database = 'root'
 pass_database = 'toor' # for wid is toor
-url_database = 'localhost:3307' # for wid is 127.0.0.1
+url_database = '127.0.0.1' # for wid is 127.0.0.1
 name_database = 'tutoring-system-bd'
 # ---------------------------- CLEVER CLOUD DATABASE
 # type_database = 'mysql'
@@ -62,12 +77,7 @@ sqlalchemy_database_uri = type_database + '://' + user_database + \
 app.config['SQLALCHEMY_DATABASE_URI'] = sqlalchemy_database_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# -- Configurations for security
-app.secret_key = 'widmar'
 api = Api(app)
-app.config['JWT_AUTH_URL_RULE'] = '/login'
-app.config['JWT_EXPIRATION_DELTA'] = timedelta(seconds=1800)
-jwt = JWT(app, authenticate, identity)  # /auth
 
 # -- RESOURCES OF THE APPLICATION
 api.add_resource(Documentation, '/')
@@ -81,16 +91,17 @@ api.add_resource(Coordinator, '/coordinator/<string:cod_coordinator>')
 api.add_resource(CoordinatorList, '/coordinators')
 api.add_resource(TutoringProgram, '/tutoring_program/<string:cod_tutoring_program>')
 api.add_resource(TutoringProgramList, '/tutoring_programs')
+api.add_resource(UserRegister, '/register')
+api.add_resource(Login, '/login')
 api.add_resource(TutorStudent, '/tutor_student/<string:cod_tutor>')
 api.add_resource(TutorStudentList, '/tutor_students')
 api.add_resource(DistributeStudent, '/distribute_students')
 
-# distribution = DistributeStudent()
-# distribution.DistributeStudents
+
 # -- Module that create the tables in the BD
-# @app.before_first_request
-# def create_tables():
-#     db.create_all()
+@app.before_first_request
+def create_tables():
+    db.create_all()
 
 if __name__ == '__main__':
     from db import db
