@@ -81,8 +81,8 @@ class TutoringProgramList(Resource):
         ans, data = TutoringProgramList.parser.parse_args(dict(request.json))
         if not ans:
             return data
-        # data['initial_date'] = datetime.strptime(data['initial_date'], '%y-%m-%d')
-        # data['final_date'] = datetime.strptime(data['final_date'], '%y-%m-%d')
+        # data['initial_date'] = datetime.strptime(data['initial_date'], '%d/%m/%Y').date()
+        # data['final_date'] = datetime.strptime(data['final_date'], '%d/%m/%Y').date()
         # Create a instance of TutoringProgramModel with the data provided
         tutoring_program = TutoringProgramModel(**data)
 

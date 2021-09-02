@@ -100,8 +100,7 @@ api.add_resource(Login, '/login')
 api.add_resource(TutorStudent, '/tutor_student/<string:cod_tutor>')
 api.add_resource(TutorStudentList, '/tutor_students')
 
-# distribution = DistributeStudent()
-# distribution.DistributeStudents
+
 # -- Module that create the tables in the BD
 @app.before_first_request
 def create_tables():
