@@ -1,6 +1,6 @@
 from flask_restful import Resource
 from flask import request
-from flask_jwt import jwt_required
+# from flask_jwt import jwt_required
 from models.workshop import WorkshopModel
 from Req_Parser import Req_Parser
 
