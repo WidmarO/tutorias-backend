@@ -48,6 +48,10 @@ class TutorStudentModel(db.Model):
     @classmethod
     def find_equal_value(cls, _cod_tutor, _cod_student):
         return cls.query.filter_by(cod_tutor=_cod_tutor).filter_by(cod_student=_cod_student).first()
+            
+    @classmethod
+    def find_if_relation_exists_in_tutoring_program(cls, _cod_tutor, _cod_student,_cod_tutoring_program):
+        return cls.query.filter_by(cod_tutor=_cod_tutor).filter_by(cod_student=_cod_student).filter_by(cod_tutoring_program=_cod_tutoring_program).first()
 
     @classmethod
     def find_all(cls):

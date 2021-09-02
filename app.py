@@ -42,6 +42,12 @@ from resources.tutoring_program import TutoringProgramList, TutoringProgram
 from resources.workshop import Workshop, WorkshopList
 from resources.documentation import Documentation
 from resources.user import UserRegister, Login
+from resources.teacher import TeacherList, Teacher
+from resources.tutor import TutorList, Tutor
+from resources.distribute_student import DistributeStudent
+from resources.tutor_student import TutorStudentList, TutorStudent
+
+
 
 
 app = Flask(__name__)
@@ -81,13 +87,21 @@ api = Api(app)
 api.add_resource(Documentation, '/')
 api.add_resource(Student, '/student/<string:cod_student>')
 api.add_resource(StudentList, '/students')
+api.add_resource(Teacher, '/teacher/<string:cod_teacher>')
+api.add_resource(TeacherList, '/teachers')
+api.add_resource(Tutor, '/tutor/<string:cod_tutor>')
+api.add_resource(TutorList, '/tutors')
 api.add_resource(Coordinator, '/coordinator/<string:cod_coordinator>')
 api.add_resource(CoordinatorList, '/coordinators')
 api.add_resource(TutoringProgram, '/tutoring_program/<string:cod_tutoring_program>')
 api.add_resource(TutoringProgramList, '/tutoring_programs')
 api.add_resource(UserRegister, '/register')
 api.add_resource(Login, '/login')
+api.add_resource(TutorStudent, '/tutor_student/<string:cod_tutor>')
+api.add_resource(TutorStudentList, '/tutor_students')
 
+# distribution = DistributeStudent()
+# distribution.DistributeStudents
 # -- Module that create the tables in the BD
 @app.before_first_request
 def create_tables():
