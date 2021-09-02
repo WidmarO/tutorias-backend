@@ -8,7 +8,7 @@ from Req_Parser import Req_Parser
 
 class DistributeStudent(Resource):
 
-    def DistributeStudents():
+    def get(self):
         sort_students = [ student.json() for student in StudentModel.find_all() ]
         sort_students = sorted(sort_students, key=lambda x: x[list(sort_students[0].keys())[0]])
         liststudents = sort_students[::-1]
@@ -20,7 +20,7 @@ class DistributeStudent(Resource):
         for i in range(len(liststudents)):
             sort_students2.append(liststudents[i]['cod_student'])
         for j in range(len(sort_tutors)):
-            sort_tutors2.append(sort_tutors[i]['cod_tutor'])
+            sort_tutors2.append(sort_tutors[j]['cod_tutor'])
         dic = {}
         for t in sort_tutors2:
             dic[t] = []
@@ -34,3 +34,4 @@ class DistributeStudent(Resource):
             for s in dic[t]:
                 tutor_student = TutorStudentModel(t,tp,s)
                 tutor_student.save_to_db()
+        return {"message":"Distribute successful"}, 200

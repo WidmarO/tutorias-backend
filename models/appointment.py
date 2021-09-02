@@ -1,5 +1,5 @@
 from db import db
-from datetime import datetime
+from datetime import date
 
 class AppointmentModel(db.Model):
     __tablename__ = 'appointments'
@@ -8,7 +8,7 @@ class AppointmentModel(db.Model):
     cod_appointment = db.Column(db.String(6), primary_key=True)
     cod_tutor = db.Column(db.String(6), db.ForeignKey('tutors.cod_tutor'), primary_key=True)
     cod_student = db.Column(db.String(6), db.ForeignKey('students.cod_student'), primary_key=True)
-    date_time = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    date_time = db.Column(db.Date, nullable=False, default=date.ctime)
     general_description = db.Column(db.String(300))
     private_description = db.Column(db.String(300))
     diagnosis = db.Column(db.String(300))

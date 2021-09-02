@@ -15,6 +15,7 @@ class Coordinator(Resource):
     # @jwt_required()
 
     def put(self, cod_coordinator):
+        
         # Verify if all attributes are in request and are of correct type
         ans, data = CoordinatorList.parser.parse_args(dict(request.json))
         if not ans:

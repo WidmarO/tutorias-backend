@@ -8,10 +8,8 @@ from Req_Parser import Req_Parser
 class TutorStudent(Resource):
     def get(self, cod_tutor):
         # Return a teacher if found in database
-        tutor_student = TutorStudentModel.find_by_cod_tutor(cod_tutor)
-        if tutor_student:
-            return tutor_student.json(), 200
-        return {'message': 'Tutor_Student not found'}, 404
+        sort_tutor_student = [ tutor_student.json() for tutor_student in TutorStudentModel.find_by_cod_tutor(cod_tutor) ]
+        return sort_tutor_student, 200
 
 
 class TutorStudentList(Resource):

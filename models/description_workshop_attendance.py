@@ -6,7 +6,7 @@ class DescriptionWorkshopAttendanceModel(db.Model):
     # -- Atributes --
     cod_student = db.Column(db.String(6), db.ForeignKey('students.cod_student'), primary_key=True)
     attendance = db.Column(db.Boolean, default=False, nullable=False)
-    cod_attendance = db.Column(db.String(6), db.ForeignKey('workshop_attendances.cod_attendance', primary_key=True))    
+    cod_attendance = db.Column(db.String(6), db.ForeignKey('workshop_attendances.cod_attendance'), primary_key=True)    
     
     # -- Relations --  
 

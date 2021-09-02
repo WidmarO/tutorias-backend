@@ -4,7 +4,8 @@ from flask import request
 from flask_jwt import jwt_required
 from models.tutoring_program import TutoringProgramModel
 from Req_Parser import Req_Parser
-from datetime import datetime
+from datetime import date, datetime
+
 
 class TutoringProgram(Resource):
     parser = Req_Parser()
@@ -80,9 +81,7 @@ class TutoringProgramList(Resource):
         # Verify if all attributes are in request and are of correct type
         ans, data = TutoringProgramList.parser.parse_args(dict(request.json))
         if not ans:
-            return data
-        # data['initial_date'] = datetime.strptime(data['initial_date'], '%y-%m-%d')
-        # data['final_date'] = datetime.strptime(data['final_date'], '%y-%m-%d')
+            return data 
         # Create a instance of TutoringProgramModel with the data provided
         tutoring_program = TutoringProgramModel(**data)
 

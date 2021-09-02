@@ -33,17 +33,17 @@ class TutorStudentModel(db.Model):
     @classmethod
     def find_by_cod_tutor(cls, _cod_tutor):
         # -> SELECT * FROM items where cod_coordinator=cod_coordinator LIMIT 1
-        return cls.query.filter_by(cod_tutor=_cod_tutor).first()
+        return cls.query.filter_by(cod_tutor=_cod_tutor)
     
     @classmethod
     def find_by_cod_tutoring_program(cls, _cod_tutoring_program):
         # -> SELECT * FROM items where cod_coordinator=cod_coordinator LIMIT 1
-        return cls.query.filter_by(cod_tutoring_program=_cod_tutoring_program).first()
+        return cls.query.filter_by(cod_tutoring_program=_cod_tutoring_program)
             
     @classmethod
     def find_by_cod_student(cls, _cod_student):
         # -> SELECT * FROM items where cod_coordinator=cod_coordinator LIMIT 1
-        return cls.query.filter_by(cod_student=_cod_student).first()
+        return cls.query.filter_by(cod_student=_cod_student)
 
     @classmethod
     def find_equal_value(cls, _cod_tutor, _cod_student):

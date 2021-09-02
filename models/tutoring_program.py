@@ -1,4 +1,5 @@
 from db import db
+from datetime import date
 from datetime import datetime
 
 class TutoringProgramModel(db.Model):
@@ -7,10 +8,8 @@ class TutoringProgramModel(db.Model):
     # -- Atributes --
     cod_tutoring_program = db.Column(db.String(6), primary_key=True)
     title = db.Column(db.String(100), nullable=False)
-    initial_date = db.Column(db.String(10))
-    final_date = db.Column(db.String(10))
-    # initial_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    # final_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    initial_date = db.Column(db.Date, nullable= False, default =date.ctime)
+    final_date = db.Column(db.Date, nullable= False, default =date.ctime)
     semester = db.Column(db.String(10), nullable=False)
     condition = db.Column(db.String(10), default=False, nullable=False)
     cod_coordinator = db.Column(db.String(6), db.ForeignKey('coordinators.cod_coordinator'))
@@ -42,8 +41,8 @@ class TutoringProgramModel(db.Model):
     def json(self):
         return {'cod_tutoring_program' : self.cod_tutoring_program,
                 'title' : self.title,
-                'initial_date' : self.initial_date,
-                'final_date' : self.final_date,
+                'initial_date' : str( self.initial_date),
+                'final_date' : str(self.final_date),
                 'semester' : self.semester,
                 'condition' : self.condition,
                 'cod_coordinator': self.cod_coordinator
