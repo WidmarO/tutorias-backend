@@ -122,9 +122,9 @@ api.add_resource(DistributeStudent, '/distribute_students')
 
 
 # -- Module that create the tables in the BD
-@app.before_first_request
-def create_tables():
-    db.create_all()
+# @app.before_first_request
+# def create_tables():
+#     db.create_all()
 
 if __name__ == '__main__':
     from db import db
