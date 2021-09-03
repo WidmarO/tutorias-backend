@@ -1,6 +1,5 @@
 from flask_restful import Resource
 from flask import request
-# from flask_jwt import jwt_required
 from models.student import StudentModel
 from Req_Parser import Req_Parser
 
@@ -18,8 +17,8 @@ class Student(Resource):
     parser.add_argument('cod_tutoring_program', str, True)
 
     def put(self, cod_student):
-        if request['rol'] != 'admin':
-            return {'message': 'Admin privilege required.'}, 401
+        # if request['rol'] != 'admin':
+        #     return {'message': 'Admin privilege required.'}, 401
         # Verify if all arguments are correct
         ans, data = StudentList.parser.parse_args(dict(request.json))
         if not ans:
