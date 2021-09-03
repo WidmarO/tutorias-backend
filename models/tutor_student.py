@@ -46,6 +46,10 @@ class TutorStudentModel(db.Model):
         return cls.query.filter_by(cod_student=_cod_student)
 
     @classmethod
+    def find_students_by_tutor_in_tutoring_program(cls, _cod_tutoring_program, _cod_tutor):
+        return cls.query.filter_by(cod_tutoring_program=_cod_tutoring_program).filter_by(cod_tutor=_cod_tutor)
+
+    @classmethod
     def find_equal_value(cls, _cod_tutor, _cod_student):
         return cls.query.filter_by(cod_tutor=_cod_tutor).filter_by(cod_student=_cod_student).first()
             

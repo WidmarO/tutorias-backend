@@ -6,13 +6,13 @@ from flask_restful import Api
 
 from datetime import datetime, timedelta, timezone
 
-from flask_jwt_extended import create_access_token
+# from flask_jwt_extended import create_access_token
 from flask_jwt_extended import JWTManager
-from flask_jwt_extended import get_jwt
-from flask_jwt_extended import get_jwt_identity
-from flask_jwt_extended import set_access_cookies
-from flask_jwt_extended import unset_jwt_cookies
-from flask_jwt_extended import jwt_required
+# from flask_jwt_extended import get_jwt
+# from flask_jwt_extended import get_jwt_identity
+# from flask_jwt_extended import set_access_cookies
+# from flask_jwt_extended import unset_jwt_cookies
+# from flask_jwt_extended import jwt_required
 
 
 from models.role import RoleModel
@@ -49,7 +49,8 @@ from resources.user import UserRegister, Login
 from resources.teacher import TeacherList, Teacher
 from resources.tutor import TutorList, Tutor
 from resources.distribute_student import DistributeStudent
-from resources.tutor_student import TutorStudentList, TutorStudent
+from resources.tutor_student import TutorStudentList, TutorStudentT, TutorStudentC
+from resources.appointment import AppointmentList, Appointment
 
 app = Flask(__name__)
 CORS(app)
@@ -116,15 +117,17 @@ api.add_resource(TutoringProgram, '/tutoring_program/<string:cod_tutoring_progra
 api.add_resource(TutoringProgramList, '/tutoring_programs')
 api.add_resource(UserRegister, '/register')
 api.add_resource(Login, '/login')
-api.add_resource(TutorStudent, '/tutor_student/<string:cod_tutor>')
+api.add_resource(TutorStudentT, '/tutor_student/<string:cod_tutor>/<string:cod_tutoring_program>')
+api.add_resource(TutorStudentC, '/tutor_student/<string:cod_tutor>/<string:cod_tutoring_program>/<string:cod_student>')
 api.add_resource(TutorStudentList, '/tutor_students')
 api.add_resource(DistributeStudent, '/distribute_students')
-
+api.add_resource(Appointment, '/appointment/<string:cod_appointment>')
+api.add_resource(AppointmentList, '/appointments')
 
 # -- Module that create the tables in the BD
-@app.before_first_request
-def create_tables():
-    db.create_all()
+# @app.before_first_request
+# def create_tables():
+#     db.create_all()
 
 if __name__ == '__main__':
     from db import db

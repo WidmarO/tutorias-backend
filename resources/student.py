@@ -1,9 +1,8 @@
 from flask_restful import Resource
 from flask import request
-# from flask_jwt import jwt_required
 from models.student import StudentModel
 from Req_Parser import Req_Parser
-
+from flask_jwt_extended import jwt_required, get_jwt
 
 class Student(Resource):
     parser = Req_Parser()    
@@ -17,9 +16,12 @@ class Student(Resource):
     parser.add_argument('phone_reference_person')
     parser.add_argument('cod_tutoring_program', str, True)
 
+    @jwt_required()
     def put(self, cod_student):
-        if request['rol'] != 'admin':
-            return {'message': 'Admin privilege required.'}, 401
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
+            
         # Verify if all arguments are correct
         ans, data = StudentList.parser.parse_args(dict(request.json))
         if not ans:
@@ -41,7 +43,7 @@ class Student(Resource):
             return student.json(), 200
         return {'message': 'Student not found'}, 404
 
-    # @jwt_required()
+    @jwt_required()
     def delete(self, cod_student):
 
         # Delete a student from database if exist in it
@@ -66,7 +68,7 @@ class StudentList(Resource):
     parser.add_argument('phone_reference_person')
     parser.add_argument('cod_tutoring_program', str, True)
     
-    # @jwt_required()
+    
     def get(self):
         # Return all students in database        
         sort_students = [ student.json() for student in StudentModel.find_all() ]
@@ -74,7 +76,7 @@ class StudentList(Resource):
         
         return sort_students, 200
 
-
+    @jwt_required()
     def post(self):
 
         # Verify if all attributes are in request and are of corrects type
