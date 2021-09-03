@@ -1,6 +1,5 @@
 from flask_restful import Resource
 from flask import request
-# from flask_jwt import jwt_required
 from models.student import StudentModel
 from models.tutor import TutorModel
 from models.tutor_student import TutorStudentModel

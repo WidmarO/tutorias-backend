@@ -30,7 +30,7 @@ class AppointmentModel(db.Model):
         return {'cod_appointment': self.cod_appointment,
                 'cod_tutor': self.cod_tutor,
                 'cod_student': self.cod_student,
-                'date_time': self.date_time,
+                'date_time': str(self.date_time),
                 'general_description': self.general_description,
                 'private_description': self.private_description,
                 'diagnosis': self.diagnosis,
