@@ -85,7 +85,7 @@ jwt = JWTManager(app)
 type_database = 'mysql'
 user_database = 'root'
 pass_database = 'toor' # for wid is toor
-url_database = '127.0.0.1' # for wid is 127.0.0.1
+url_database = '127.0.0.1' # for wid is 127.0.0.1  #localhost:3307
 name_database = 'tutoring-system-bd'
 # ---------------------------- CLEVER CLOUD DATABASE
 # type_database = 'mysql'

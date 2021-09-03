@@ -43,7 +43,7 @@ class Login(Resource):
   parser = Req_Parser()
   parser.add_argument('username', str, True)
   parser.add_argument('password', str, True)
-  
+
   def post(self):
     '''Log a user in'''
     ans, data = Login.parser.parse_args(dict(request.json))
