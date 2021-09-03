@@ -1,5 +1,6 @@
 pip install Flask-RESTful
 pip install -U Flask-SQLAlchemy
 pip install -U flask-cors
-pip install Flask-JWT
 pip install requests
+pip uninstall Flask-JWT
+pip install flask-jwt-extended
