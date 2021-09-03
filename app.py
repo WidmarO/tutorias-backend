@@ -82,17 +82,17 @@ jwt = JWTManager(app)
 
 
 # ----------------------------- LOCAL DATABASE
-type_database = 'mysql'
-user_database = 'root'
-pass_database = 'toor' # for wid is toor
-url_database = '127.0.0.1' # for wid is 127.0.0.1  #localhost:3307
-name_database = 'tutoring-system-bd'
-# ---------------------------- CLEVER CLOUD DATABASE
 # type_database = 'mysql'
-# user_database = 'udwsw0hbqah0nikx'
-# pass_database = '6eaqlxBNvKWNGUuRR32M'
-# url_database = 'b0du4ayviyfhrlbnjckc-mysql.services.clever-cloud.com'
-# name_database = 'b0du4ayviyfhrlbnjckc'
+# user_database = 'root'
+# pass_database = 'toor' # for wid is toor
+# url_database = '127.0.0.1' # for wid is 127.0.0.1  #localhost:3307
+# name_database = 'tutoring-system-bd'
+# ---------------------------- CLEVER CLOUD DATABASE
+type_database = 'mysql'
+user_database = 'udwsw0hbqah0nikx'
+pass_database = '6eaqlxBNvKWNGUuRR32M'
+url_database = 'b0du4ayviyfhrlbnjckc-mysql.services.clever-cloud.com'
+name_database = 'b0du4ayviyfhrlbnjckc'
 
 # -- Set de BD configurations for conection
 sqlalchemy_database_uri = type_database + '://' + user_database + \
@@ -122,9 +122,9 @@ api.add_resource(DistributeStudent, '/distribute_students')
 
 
 # -- Module that create the tables in the BD
-@app.before_first_request
-def create_tables():
-    db.create_all()
+# @app.before_first_request
+# def create_tables():
+#     db.create_all()
 
 if __name__ == '__main__':
     from db import db
