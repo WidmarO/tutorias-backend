@@ -9,83 +9,780 @@
 </head>
 <body>    
     <h2>Welcome to Documentation</h2>
+    <!----------------------------------------------COORDINATOR/S---------------------------------->
     <div class="card">
         <div class="card-header">
-            End point: <pre class="float float-rigth"> /student </pre>
+           <h2> End point: <pre class="float float-rigth"> /coordinators </pre> </h2>
         </div>
-        <div class="card-body">
+        <div class="card-body">            
             <div class="card mt-4">
                 <div class="card-header">
                     Method : GET
                 </div>
                 <div class="card card-body">
-                    Example:
+                    <p>This endpoint get the list of coordinators</p>
+                    Example (request):
                     <pre>
                         <code class="code">
-                            {
-                                "name": "Widmar",
-                                "age" :  21
-                            }                            
+                            NO BODY
                         </code>
                     </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                            [
+                                {
+                                    "cod_coordinator": "COO-01",
+                                    "name": "Lauro",
+                                    "f_lastname": "Enciso",
+                                    "m_lastname": "Rodas",
+                                    "phone": "981717171",
+                                    "email": "lauro@unsaac.edu.pe"
+                                },
+                                {
+                                    "cod_coordinator": "COO-02",
+                                    "name": "Waldo",
+                                    "f_lastname": "Ibarra",
+                                    "m_lastname": "Zambrano",
+                                    "phone": "981717154",
+                                    "email": "Waldo@unsaac.edu.pe"
+                                }
+                            ]
+                        </code>
+                    </pre>
+                    
                 </div>
             </div>
             <div class="card mt-4">
                 <div class="card-header">
-                    Method : GET
+                    Method : POST
                 </div>
                 <div class="card card-body">
-                    Example:
+                    <p>This endpoint add a new coordinator in the DB</p>
+                    Example (request) :
                     <pre>
                         <code class="code">
                             {
-                                "name": "Widmar",
-                                "age" :  21
-                            }                            
+                                "cod_coordinator": "COO-01",
+                                "name": "Lauro",
+                                "f_lastname": "Enciso",
+                                "m_lastname": "Rodas",
+                                "phone": "981717171",
+                                "email": "lauro@unsaac.edu.pe"
+                            }
+                        </code>
+                    </pre>
+                    Example (response) :
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_coordinator": "COO-01",
+                                "name": "Lauro",
+                                "f_lastname": "Enciso",
+                                "m_lastname": "Rodas",
+                                "phone": "981717171",
+                                "email": "lauro@unsaac.edu.pe"
+                            }
                         </code>
                     </pre>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="card">
         <div class="card-header">
-            End point: <pre class="float float-rigth"> /student </pre>
+           <h2> End point: <pre class="float float-rigth"> /coordinator </pre> </h2>
         </div>
-        <div class="card-body">
+        <div class="card-body">            
             <div class="card mt-4">
                 <div class="card-header">
                     Method : GET
                 </div>
                 <div class="card card-body">
-                    Example:
+                    <p>This endpoint get a coordinator with the cod_coordinator</p>
+                    Example (request):
                     <pre>
                         <code class="code">
-                            {
-                                "name": "Widmar",
-                                "age" :  21
-                            }                            
+                            COO-01
                         </code>
                     </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                                {
+                                    "cod_coordinator": "COO-01",
+                                    "name": "Lauro",
+                                    "f_lastname": "Enciso",
+                                    "m_lastname": "Rodas",
+                                    "phone": "981717171",
+                                    "email": "lauro@unsaac.edu.pe"
+                                }
+                        </code>
+                    </pre>
+                    
                 </div>
             </div>
             <div class="card mt-4">
                 <div class="card-header">
-                    Method : GET
+                    Method : DELETE
                 </div>
                 <div class="card card-body">
-                    Example:
+                    <p>This endpoint delete a coordinator in the DB with the cod_coordinator</p>
+                    Example (request) :
+                    <pre>
+                        <code class="code">
+                            COO-01
+                        </code>
+                    </pre>
+                    Example (response) :
                     <pre>
                         <code class="code">
                             {
-                                "name": "Widmar",
-                                "age" :  21
-                            }                            
+                                "cod_coordinator": "COO-01",
+                                "name": "Lauro",
+                                "f_lastname": "Enciso",
+                                "m_lastname": "Rodas",
+                                "phone": "981717171",
+                                "email": "lauro@unsaac.edu.pe"
+                            }
+                        </code>
+                    </pre>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : PUT
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint update information of a coordinator in the DB with the cod_coordinator and the new information</p>
+                    Example (request) :
+                    <pre>
+                        <code class="code">
+                            cod_coordinator: COO-01
+                            
+                            The new information:
+                            {
+                                "cod_coordinator": "COO-02",
+                                "name": "Lauro",
+                                "f_lastname": "Enciso",
+                                "m_lastname": "Rodas",
+                                "phone": "981717190",
+                                "email": "lauro@unsaac.edu.pe"
+                            }
+                        </code>
+                    </pre>
+                    Example (response) :
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_coordinator": "COO-02",
+                                "name": "Lauro",
+                                "f_lastname": "Enciso",
+                                "m_lastname": "Rodas",
+                                "phone": "981717190",
+                                "email": "lauro@unsaac.edu.pe"
+                            }
+                        </code>
+                    </pre>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!----------------------------------------------STUDENT/S---------------------------------->
+
+    <div class="card">
+        <div class="card-header">
+           <h2> End point: <pre class="float float-rigth"> /students </pre> </h2>
+        </div>
+        <div class="card-body">            
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : GET
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint get the list of students</p>
+                    Example (request):
+                    <pre>
+                        <code class="code">
+                            NO BODY
+                        </code>
+                    </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                            [
+                                {
+                                    "cod_student":"160892",
+                                    "name": "Marko",
+                                    "f_lastname": "Cordova",
+                                    "m_lastname": "Castro",
+                                    "phone": "983048685",
+                                    "email": "160890@unsaac.edu.pe",
+                                    "reference_person": "Widmar",
+                                    "phone_reference_person": "982312433",
+                                    "cod_tutoring_program": "PT-01" 
+                                },
+                                {
+                                    "cod_student":"160202",
+                                    "name": "Widmaro",
+                                    "f_lastname": "Quispe",
+                                    "m_lastname": "Leon",
+                                    "phone": "983041010",
+                                    "email": "160202@unsaac.edu.pe",
+                                    "reference_person": "Marko",
+                                    "phone_reference_person": "982312433",
+                                    "cod_tutoring_program": "PT-01"
+                                }
+                            ]
+                        </code>
+                    </pre>
+                    
+                </div>
+            </div>
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : POST
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint add a new student in the DB</p>
+                    Example (request) :
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_student":"160892",
+                                "name": "Jorge",
+                                "f_lastname": "Polo",
+                                "m_lastname": "Dolmos",
+                                "phone": "983048685",
+                                "email": "180890@unsaac.edu.pe",
+                                "reference_person": "Marko",
+                                "phone_reference_person": "982312433",
+                                "cod_tutoring_program": "PT-01"
+                            }
+                        </code>
+                    </pre>
+                    Example (response) :
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_student":"160892",
+                                "name": "Jorge",
+                                "f_lastname": "Polo",
+                                "m_lastname": "Dolmos",
+                                "phone": "983048685",
+                                "email": "180890@unsaac.edu.pe",
+                                "reference_person": "Marko",
+                                "phone_reference_person": "982312433",
+                                "cod_tutoring_program": "PT-01"
+                            }
                         </code>
                     </pre>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="card">
+        <div class="card-header">
+           <h2> End point: <pre class="float float-rigth"> /student </pre> </h2>
+        </div>
+        <div class="card-body">            
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : GET
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint get a student with the cod_student</p>
+                    Example (request):
+                    <pre>
+                        <code class="code">
+                            160892
+                        </code>
+                    </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_student":"160892",
+                                "name": "Jorge",
+                                "f_lastname": "Polo",
+                                "m_lastname": "Dolmos",
+                                "phone": "983048685",
+                                "email": "180890@unsaac.edu.pe",
+                                "reference_person": "Marko",
+                                "phone_reference_person": "982312433",
+                                "cod_tutoring_program": "PT-01"
+                            }
+                        </code>
+                    </pre>
+                    
+                </div>
+            </div>
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : DELETE
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint delete a student in the DB with the cod_student</p>
+                    Example (request) :
+                    <pre>
+                        <code class="code">
+                            160892
+                        </code>
+                    </pre>
+                    Example (response) :
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_student":"160892",
+                                "name": "Jorge",
+                                "f_lastname": "Polo",
+                                "m_lastname": "Dolmos",
+                                "phone": "983048685",
+                                "email": "180890@unsaac.edu.pe",
+                                "reference_person": "Marko",
+                                "phone_reference_person": "982312433",
+                                "cod_tutoring_program": "PT-01"
+                            }
+                        </code>
+                    </pre>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : PUT
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint update information of a student in the DB with the cod_student and the new information</p>
+                    Example (request) :
+                    <pre>
+                        <code class="code">
+                            cod_student: 160892
+                           
+                            The new information:
+                            {
+                                "cod_student":"160892",
+                                "name": "Jorge",
+                                "f_lastname": "Polo",
+                                "m_lastname": "Dolmos",
+                                "phone": "983048685",
+                                "email": "180890@unsaac.edu.pe",
+                                "reference_person": "Etson",
+                                "phone_reference_person": "982312433",
+                                "cod_tutoring_program": "PT-01"
+                            }
+                        </code>
+                    </pre>
+                    Example (response) :
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_student":"160892",
+                                "name": "Jorge",
+                                "f_lastname": "Polo",
+                                "m_lastname": "Dolmos",
+                                "phone": "983048685",
+                                "email": "180890@unsaac.edu.pe",
+                                "reference_person": "Etson",
+                                "phone_reference_person": "982312433",
+                                "cod_tutoring_program": "PT-01"
+                            }
+                        </code>
+                    </pre>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!----------------------------------------------TEACHER/S---------------------------------->
+
+    <div class="card">
+        <div class="card-header">
+           <h2> End point: <pre class="float float-rigth"> /teachers </pre> </h2>
+        </div>
+        <div class="card-body">            
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : GET
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint get the list of teachers</p>
+                    Example (request):
+                    <pre>
+                        <code class="code">
+                            NO BODY
+                        </code>
+                    </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                            [
+                                {
+                                    "cod_teacher":"TEA-01",
+                                    "name": "Willian",
+                                    "f_lastname": "Zamalloa",
+                                    "m_lastname": "Paro",
+                                    "phone": "957856345",
+                                    "email": "willian.zamalloa@unsaac.edu.pe",
+                                    "cod_tutoring_program": "PT-01" 
+                                },
+                                {
+                                    "cod_teacher":"TEA-02",
+                                    "name": "Robert Wilbert",
+                                    "f_lastname": "Alzamora",
+                                    "m_lastname": "Paredes",
+                                    "phone": "984560245",
+                                    "email": "robert.alzamora@unsaac.edu.pe",
+                                    "cod_tutoring_program": "PT-01"
+                                }
+                            ]
+                        </code>
+                    </pre>
+                    
+                </div>
+            </div>
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : POST
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint add a new teacher in the DB</p>
+                    Example (request) :
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_teacher":"TEA-01",
+                                "name": "Willian",
+                                "f_lastname": "Zamalloa",
+                                "m_lastname": "Paro",
+                                "phone": "957856345",
+                                "email": "willian.zamalloa@unsaac.edu.pe",
+                                "cod_tutoring_program": "PT-01"
+                            }
+                        </code>
+                    </pre>
+                    Example (response) :
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_teacher":"TEA-01",
+                                "name": "Willian",
+                                "f_lastname": "Zamalloa",
+                                "m_lastname": "Paro",
+                                "phone": "957856345",
+                                "email": "willian.zamalloa@unsaac.edu.pe",
+                                "cod_tutoring_program": "PT-01"
+                            }
+                        </code>
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+           <h2> End point: <pre class="float float-rigth"> /teacher </pre> </h2>
+        </div>
+        <div class="card-body">            
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : GET
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint get a teacher with the cod_teacher</p>
+                    Example (request):
+                    <pre>
+                        <code class="code">
+                            TEA-01
+                        </code>
+                    </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_teacher":"TEA-01",
+                                "name": "Willian",
+                                "f_lastname": "Zamalloa",
+                                "m_lastname": "Paro",
+                                "phone": "957856345",
+                                "email": "willian.zamalloa@unsaac.edu.pe",
+                                "cod_tutoring_program": "PT-01"
+                            }
+                        </code>
+                    </pre>
+                    
+                </div>
+            </div>
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : DELETE
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint delete a teacher in the DB with the cod_teacher</p>
+                    Example (request) :
+                    <pre>
+                        <code class="code">
+                            TEA-01
+                        </code>
+                    </pre>
+                    Example (response) :
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_teacher":"TEA-01",
+                                "name": "Willian",
+                                "f_lastname": "Zamalloa",
+                                "m_lastname": "Paro",
+                                "phone": "957856345",
+                                "email": "willian.zamalloa@unsaac.edu.pe",
+                                "cod_tutoring_program": "PT-01"
+                            }
+                        </code>
+                    </pre>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : PUT
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint update information of a teacher in the DB with the cod_teacher and the new information</p>
+                    Example (request) :
+                    <pre>
+                        <code class="code">
+                            cod_teacher: TEA-01
+                           
+                            The new information:
+                            {
+                                "cod_teacher":"TEA-03",
+                                "name": "Willian",
+                                "f_lastname": "Zamalloa",
+                                "m_lastname": "Paro",
+                                "phone": "957856345",
+                                "email": "willian.zamalloa@unsaac.edu.pe",
+                                "cod_tutoring_program": "PT-01"
+                            }
+                        </code>
+                    </pre>
+                    Example (response) :
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_teacher":"TEA-03",
+                                "name": "Willian",
+                                "f_lastname": "Zamalloa",
+                                "m_lastname": "Paro",
+                                "phone": "957856345",
+                                "email": "willian.zamalloa@unsaac.edu.pe",
+                                "cod_tutoring_program": "PT-01"
+                            }
+                        </code>
+                    </pre>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!----------------------------------------------TUTORING_PROGRAM/S---------------------------------->
+
+    <div class="card">
+        <div class="card-header">
+           <h2> End point: <pre class="float float-rigth"> /tutoring_program </pre> </h2>
+        </div>
+        <div class="card-body">            
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : GET
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint get the list of tutoring_programs</p>
+                    Example (request):
+                    <pre>
+                        <code class="code">
+                            NO BODY
+                        </code>
+                    </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                            [
+                                {
+                                    "cod_tutoring_program":"TUT-01",
+                                    "title": "Tutoring Program Semester 2021-I",
+                                    "initial_date": "25-05-2021",
+                                    "final_date": "25-06-2021",
+                                    "semester": "2021-I",
+                                    "condition": "1",
+                                    "cod_coordinator": "COO-01" 
+                                },
+                                {
+                                    "cod_tutoring_program":"TUT-02",
+                                    "title": "Tutoring Program Semester 2021-II",
+                                    "initial_date": "30-10-2021",
+                                    "final_date": "30-11-2021",
+                                    "semester": "2021-II",
+                                    "condition": "0",
+                                    "cod_coordinator": "COO-02" 
+                                }
+                            ]
+                        </code>
+                    </pre>
+                    
+                </div>
+            </div>
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : POST
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint add a new tutoring_program in the DB</p>
+                    Example (request) :
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_tutoring_program":"TUT-01",
+                                "title": "Tutoring Program Semester 2021-I",
+                                "initial_date": "25-05-2021",
+                                "final_date": "25-06-2021",
+                                "semester": "2021-I",
+                                "condition": "1",
+                                "cod_coordinator": "COO-01" 
+                            }
+                        </code>
+                    </pre>
+                    Example (response) :
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_tutoring_program":"TUT-01",
+                                "title": "Tutoring Program Semester 2021-I",
+                                "initial_date": "25-05-2021",
+                                "final_date": "25-06-2021",
+                                "semester": "2021-I",
+                                "condition": "1",
+                                "cod_coordinator": "COO-01" 
+                            }
+                        </code>
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+           <h2> End point: <pre class="float float-rigth"> /tutoring_program </pre> </h2>
+        </div>
+        <div class="card-body">            
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : GET
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint get a tutoring_program with the cod_tutoring_program</p>
+                    Example (request):
+                    <pre>
+                        <code class="code">
+                            TUT-01
+                        </code>
+                    </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_tutoring_program":"TUT-01",
+                                "title": "Tutoring Program Semester 2021-I",
+                                "initial_date": "25-05-2021",
+                                "final_date": "25-06-2021",
+                                "semester": "2021-I",
+                                "condition": "1",
+                                "cod_coordinator": "COO-01" 
+                            }
+                        </code>
+                    </pre>
+                    
+                </div>
+            </div>
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : DELETE
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint delete a tutoring_program in the DB with the cod_tutoring_program</p>
+                    Example (request) :
+                    <pre>
+                        <code class="code">
+                            TUT-01
+                        </code>
+                    </pre>
+                    Example (response) :
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_tutoring_program":"TUT-01",
+                                "title": "Tutoring Program Semester 2021-I",
+                                "initial_date": "25-05-2021",
+                                "final_date": "25-06-2021",
+                                "semester": "2021-I",
+                                "condition": "1",
+                                "cod_coordinator": "COO-01" 
+                            }
+                        </code>
+                    </pre>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : PUT
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint update information of a tutoring_program in the DB with the cod_tutoring_program and the new information</p>
+                    Example (request) :
+                    <pre>
+                        <code class="code">
+                            cod_tutoring_program: TUT-02
+                           
+                            The new information:
+                            {
+                                "cod_tutoring_program":"TUT-02",
+                                "title": "Tutoring Program Semester 2021-II",
+                                "initial_date": "30-10-2021",
+                                "final_date": "30-11-2021",
+                                "semester": "2021-II",
+                                "condition": "1",
+                                "cod_coordinator": "COO-02" 
+                            }
+                        </code>
+                    </pre>
+                    Example (response) :
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_tutoring_program":"TUT-02",
+                                "title": "Tutoring Program Semester 2021-II",
+                                "initial_date": "30-10-2021",
+                                "final_date": "30-11-2021",
+                                "semester": "2021-II",
+                                "condition": "1",
+                                "cod_coordinator": "COO-02" 
+                            }
+                        </code>
+                    </pre>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 </body>
 </html>

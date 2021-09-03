@@ -4,11 +4,13 @@ class RoleModel(db.Model):
     __tablename__ = 'roles'
     
     # -- Attributes --
-    cod_role = db.Column(db.String(6), primary_key=True)
-    role = db.Column(db.String(20), nullable=False)
+    # cod_role = db.Column(db.String(6), primary_key=True)
+    role = db.Column(db.String(20), primary_key=True)
 
     # -- Relations --
-    user_role = db.relationship('UserRoleModel')
+    # user_role = db.relationship('UserRoleModel')
+    
+    user = db.relationship('UserModel') # test line
 
     def __init__(self, cod_role, role):
         self.cod_role = cod_role

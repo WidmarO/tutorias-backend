@@ -1,45 +1,46 @@
-from db import db
+# from db import db
 
-class UserRoleModel(db.Model):
-    __tablename__ = 'user_roles'
+# class UserRoleModel(db.Model):
+#     __tablename__ = 'user_roles'
     
-    # -- Atributes --
-    cod_user_role = db.Column(db.String(6), primary_key=True)
-    id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
-    cod_role = db.Column(db.String(6), db.ForeignKey('roles.cod_role'), primary_key=True)
+#     # -- Atributes --
+#     cod_user_role = db.Column(db.String(6), primary_key=True)
+#     id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+#     cod_role = db.Column(db.String(6), db.ForeignKey('roles.cod_role'), primary_key=True)
 
-    # -- Relations --
+#     # -- Relations --
 
-    def __init__(self, cod_user_role, id, cod_role):
-        self.cod_user_role = cod_user_role
-        self.id = id
-        self.cod_role = cod_role
 
-    def json(self):
-        return {'cod_user_role': self.cod_user_role,
-                'id': self.id,
-                'cod_role': self.cod_role
-                }
+#     def __init__(self, cod_user_role, id, cod_role):
+#         self.cod_user_role = cod_user_role
+#         self.id = id
+#         self.cod_role = cod_role
 
-    def update_data(self, cod_user_role, cod_role):
-        self.cod_user_role = cod_user_role
-        #self.id = id
-        self.cod_role = cod_role
+#     def json(self):
+#         return {'cod_user_role': self.cod_user_role,
+#                 'id': self.id,
+#                 'cod_role': self.cod_role
+#                 }
 
-    @classmethod
-    def find_by_cod_user_role(cls, _cod_user_role):
-        # -> SELECT * FROM items where cod_student=cod_student LIMIT 1
-        return cls.query.filter_by(cod_user_role=_cod_user_role).first()
+#     def update_data(self, cod_user_role, cod_role):
+#         self.cod_user_role = cod_user_role
+#         #self.id = id
+#         self.cod_role = cod_role
 
-    @classmethod
-    def find_all(cls):
-        # -> SELECT * FROM items
-        return cls.query.all()
+#     @classmethod
+#     def find_by_cod_user_role(cls, _cod_user_role):
+#         # -> SELECT * FROM items where cod_student=cod_student LIMIT 1
+#         return cls.query.filter_by(cod_user_role=_cod_user_role).first()
 
-    def save_to_db(self):
-        db.session.add(self)
-        db.session.commit()
+#     @classmethod
+#     def find_all(cls):
+#         # -> SELECT * FROM items
+#         return cls.query.all()
 
-    def delete_from_db(self):
-        db.session.delete(self)
-        db.session.commit()
+#     def save_to_db(self):
+#         db.session.add(self)
+#         db.session.commit()
+
+#     def delete_from_db(self):
+#         db.session.delete(self)
+#         db.session.commit()

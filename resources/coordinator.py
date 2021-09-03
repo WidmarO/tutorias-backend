@@ -1,6 +1,6 @@
 from flask_restful import Resource
 from flask import request
-from flask_jwt import jwt_required
+# from flask_jwt import jwt_required
 from models.coordinator import CoordinatorModel
 from Req_Parser import Req_Parser
 
@@ -15,6 +15,7 @@ class Coordinator(Resource):
     # @jwt_required()
 
     def put(self, cod_coordinator):
+        
         # Verify if all attributes are in request and are of correct type
         ans, data = CoordinatorList.parser.parse_args(dict(request.json))
         if not ans:

@@ -5,29 +5,32 @@ class UserModel(db.Model):
   __tablename__ = 'users'
 
   # -- Atributes --
-  id = db.Column(db.Integer, primary_key=True)
+  id = db.Column(db.Integer, primary_key=True, autoincrement=True)
   username = db.Column(db.String(20), nullable=False)
-  password = db.Column(db.String(20), nullable=False)
+  password = db.Column(db.String(256), nullable=False)
+  role = db.Column(db.String(20), db.ForeignKey('roles.role'))
+
 
   # -- Relations --   
-  user_role = db.relationship('UserRoleModel')
+  # user_role = db.relationship('UserRoleModel') # test line
 
-  def __init__(self, id, username, password):
-    self.id = id
+  def __init__(self, username, password, role):    
     self.username = username
     self.password = password
+    self.role = role
 
   def json(self):
     return {'id': self.id,
             'username': self.username,   
-            'password': self.password
+            # 'password': self.password
+            'role': self.role
             }
 
-  def update_data(self, username, password):
+  def update_data(self, username, password, role):
     self.username = username
     self.password = password
+    self.role = role
 
-  
   @classmethod
   def find_by_id(cls, _id):
     '''Devuelve desde la bd el usuario con el id recibido como parametro'''

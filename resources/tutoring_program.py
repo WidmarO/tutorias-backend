@@ -1,18 +1,20 @@
 from datetime import datetime
 from flask_restful import Resource
 from flask import request
-from flask_jwt import jwt_required
+# from flask_jwt import jwt_required
 from models.tutoring_program import TutoringProgramModel
 from Req_Parser import Req_Parser
+from datetime import date, datetime
+
 
 class TutoringProgram(Resource):
     parser = Req_Parser()
     parser.add_argument('cod_tutoring_program', str, True)
     parser.add_argument('title', str, True)
-    parser.add_argument('inicial_date', datetime, True)
-    parser.add_argument('final_date', datetime, True)
+    parser.add_argument('initial_date', str, True)
+    parser.add_argument('final_date', str, True)
     parser.add_argument('semester', str, True)
-    parser.add_argument('condition', bool, True)
+    parser.add_argument('condition', str, True)
     parser.add_argument('cod_coordinator', str, True)
     # @jwt_required()
 
@@ -52,10 +54,10 @@ class TutoringProgramList(Resource):
     parser = Req_Parser()
     parser.add_argument('cod_tutoring_program', str, True)
     parser.add_argument('title', str, True)
-    parser.add_argument('inicial_date', datetime, True)
-    parser.add_argument('final_date', datetime, True)
+    parser.add_argument('initial_date', str, True)
+    parser.add_argument('final_date', str, True)
     parser.add_argument('semester', str, True)
-    parser.add_argument('condition', bool, True)
+    parser.add_argument('condition', str, True)
     parser.add_argument('cod_coordinator', str, True)
     # @jwt_required()
 
@@ -79,8 +81,7 @@ class TutoringProgramList(Resource):
         # Verify if all attributes are in request and are of correct type
         ans, data = TutoringProgramList.parser.parse_args(dict(request.json))
         if not ans:
-            return data
-
+            return data 
         # Create a instance of TutoringProgramModel with the data provided
         tutoring_program = TutoringProgramModel(**data)
 

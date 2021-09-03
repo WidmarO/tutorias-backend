@@ -1,6 +1,6 @@
 from flask_restful import Resource
 from flask import request, render_template, make_response
-from flask_jwt import jwt_required
+# from flask_jwt import jwt_required
 # from models.brand import BrandModel
 from Req_Parser import Req_Parser
 
