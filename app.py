@@ -4,15 +4,20 @@ from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api
 
+from datetime import datetime, timedelta, timezone
+
 from flask_jwt_extended import create_access_token
-# from flask_jwt_extended import get_jwt_identity
-# from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
-from datetime import timedelta
+from flask_jwt_extended import get_jwt
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import set_access_cookies
+from flask_jwt_extended import unset_jwt_cookies
+from flask_jwt_extended import jwt_required
+
 
 from models.role import RoleModel
 from models.user import UserModel
-# from models.user_role import UserRoleModel
+
 
 from models.coordinator import CoordinatorModel
 from models.tutoring_program import TutoringProgramModel
@@ -50,13 +55,31 @@ app = Flask(__name__)
 CORS(app)
 
 # -- Configurations for security
-# app.secret_key = 'widmar' # test line
+
+# app.config["JWT_COOKIE_SECURE"] = False
+# app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
 app.config["JWT_SECRET_KEY"] = "widmaro"
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=30)
+
 jwt = JWTManager(app)
 
-# app.config['JWT_AUTH_URL_RULE'] = '/login'
-# app.config['JWT_EXPIRATION_DELTA'] = timedelta(seconds=1800)
-# jwt = JWT(app, authenticate, identity)  # /auth
+# @app.after_request
+# def refresh_expiring_jwts(response):
+#     try:
+#         claims = get_jwt()
+#         exp_timestamp = claims["exp"]
+#         now = datetime.now(timezone.utc)
+#         target_timestamp = datetime.timestamp(now + timedelta(minutes=4))
+#         if target_timestamp > exp_timestamp:
+#             access_token = create_access_token(claims['sub'], 
+#                                             additional_claims={'role': claims['role'],
+#                                                                  'id': claims['id']})
+#             set_access_cookies(response, access_token)
+#         return response
+#     except (RuntimeError, KeyError):
+#         # Case where there is not a valid JWT. Just return the original respone
+#         return response
+
 
 # ----------------------------- LOCAL DATABASE
 type_database = 'mysql'

@@ -9,7 +9,7 @@ class TeacherModel(db.Model):
     f_lastname = db.Column(db.String(50), nullable=False)
     m_lastname = db.Column(db.String(50), nullable=False)
     phone = db.Column(db.String(20))
-    email = db.Column(db.String(80), nullable=False)
+    email = db.Column(db.String(80), primary_key=True)
     cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'), primary_key=True)
 
     # -- Relations --

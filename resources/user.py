@@ -1,6 +1,5 @@
 from flask_restful import Resource
 from flask import request
-import jwt
 
 from models.user import UserModel
 from Req_Parser import Req_Parser
@@ -31,7 +30,7 @@ class UserRegister(Resource):
     user = UserModel(data['username'], data['password'], data['role'])
     user.save_to_db()
     # create a token for the user
-    access_token = create_access_token(identity=user.username)
+    access_token = create_access_token(user.username, additional_claims={'role': user.role, 'id': user.id})
     # return token
     return {'token': access_token}
 
@@ -44,7 +43,7 @@ class Login(Resource):
   parser = Req_Parser()
   parser.add_argument('username', str, True)
   parser.add_argument('password', str, True)
-
+  
   def post(self):
     '''Log a user in'''
     ans, data = Login.parser.parse_args(dict(request.json))
@@ -56,13 +55,15 @@ class Login(Resource):
       return {'message': 'User does not exist'}, 404
 
     if user.password == data['password']:
-      access_token = create_access_token({'user':user.username, 'role':user.role, 'id':user.id})
-      return {'token': access_token, 'data': user.json()}
+      access_token = create_access_token(user.username, additional_claims={'role': user.role, 'id': user.id})
+      return {'token': access_token}
     else:
       return {'message': 'Wrong credentials'}, 401
 
   @jwt_required()
   def get(self):
     claims = get_jwt()
-    return {'message': 'You are logged in', 'role':claims['role'], 'username':claims['username']}, 200
+    print("===============================================================")
+    print(claims)
+    return {'message': 'You are logged in', 'role':claims['role'], 'username':claims['sub']}, 200
 

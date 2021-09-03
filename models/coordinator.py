@@ -10,7 +10,7 @@ class CoordinatorModel(db.Model):
     f_lastname = db.Column(db.String(40))
     m_lastname = db.Column(db.String(40))
     phone = db.Column(db.String(20))
-    email = db.Column(db.String(100))
+    email = db.Column(db.String(100), nullable=False, unique=True)
 
     # -- Relations --
     tutoring_program = db.relationship('TutoringProgramModel')    

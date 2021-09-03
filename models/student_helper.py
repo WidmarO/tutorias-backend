@@ -7,6 +7,7 @@ class StudentHelperModel(db.Model):
     cod_student_helper = db.Column(db.String(6), primary_key=True)
     cod_student = db.Column(db.String(6), db.ForeignKey('students.cod_student'), primary_key=True)
     cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'), primary_key=True)
+    email = db.Column(db.String(120), primary_key=True)
 
     # -- Relations --
     student_helpers_tutor = db.relationship('StudentHelperTutorModel')
