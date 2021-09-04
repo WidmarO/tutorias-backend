@@ -51,7 +51,11 @@ from resources.tutor import TutorList, Tutor
 from resources.distribute_student import DistributeStudent
 from resources.tutor_student import TutorStudentList, TutorStudentT, TutorStudentC
 from resources.appointment import AppointmentList, Appointment
+<<<<<<< HEAD
 from resources.filter_teachers_for_tutors import Filter_Tutors_from_Teachers
+=======
+from resources.principal import Principal, PrincipalList
+>>>>>>> 1c96a380091b46d84c37c055a104d0041871d568
 
 app = Flask(__name__)
 CORS(app)
@@ -84,6 +88,15 @@ jwt = JWTManager(app)
 
 
 # ----------------------------- LOCAL DATABASE
+<<<<<<< HEAD
+=======
+# type_database = 'mysql'
+# user_database = 'root'
+# pass_database = 'root' # for wid is toor
+# url_database = 'localhost:3307' # for wid is 127.0.0.1  #localhost:3307
+# name_database = 'tutoring-system-bd'
+# ---------------------------- CLEVER CLOUD DATABASE
+>>>>>>> 1c96a380091b46d84c37c055a104d0041871d568
 type_database = 'mysql'
 user_database = 'root'
 pass_database = 'toor' # for wid is toor
@@ -125,11 +138,14 @@ api.add_resource(DistributeStudent, '/distribute_students')
 api.add_resource(Appointment, '/appointment/<string:cod_appointment>')
 api.add_resource(AppointmentList, '/appointments')
 api.add_resource(Filter_Tutors_from_Teachers, '/filter_teacher_for_tutors')
+api.add_resource(Principal, '/principal')
+api.add_resource(PrincipalList, '/principals')
+
 
 # -- Module that create the tables in the BD
-@app.before_first_request
-def create_tables():
-    db.create_all()
+# @app.before_first_request
+# def create_tables():
+#     db.create_all()
 
 if __name__ == '__main__':
     from db import db
