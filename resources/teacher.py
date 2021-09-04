@@ -21,7 +21,7 @@ class Teacher(Resource):
             return data
 
         # Verify if teacher exists in database
-        student = TeacherModel.find_by_cod_teacher(cod_teacher)
+        teacher = TeacherModel.find_by_cod_teacher(cod_teacher)
         if teacher:
             teacher.update_data(**data)
             teacher.save_to_db()
@@ -63,7 +63,7 @@ class TeacherList(Resource):
     def get(self):
         # Return all teachers in database        
         sort_teachers = [ teacher.json() for teacher in TeacherModel.find_all() ]
-        sort_techers = sorted(sort_teachers, key=lambda x: x[list(sort_teachers[0].keys())[0]])
+        sort_teachers = sorted(sort_teachers, key=lambda x: x[list(sort_teachers[0].keys())[0]])
         
         return sort_teachers, 200
 

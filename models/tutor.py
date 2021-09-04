@@ -8,7 +8,7 @@ class TutorModel(db.Model):
     cod_teacher = db.Column(db.String(6), db.ForeignKey('teachers.cod_teacher'), primary_key=True)
     cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'), primary_key=True)
     schedule = db.Column(db.String(250))
-    place = db.Column(db.String(100))
+    place = db.Column(db.String(100)) 
 
     # -- Relations --
     appointment = db.relationship('AppointmentModel')
@@ -42,7 +42,12 @@ class TutorModel(db.Model):
     def find_by_cod_tutor(cls, _cod_tutor):
         # -> SELECT * FROM items where cod_coordinator=cod_coordinator LIMIT 1
         return cls.query.filter_by(cod_tutor=_cod_tutor).first()
-    
+
+    @classmethod
+    def find_teacher_in_tutoring_program(cls, _cod_tutoring_program, _cod_teacher):
+        # -> SELECT * FROM items where cod_tutoring_program=cod_tutoring_program LIMIT 1
+        return cls.query.filter_by(cod_tutoring_program=_cod_tutoring_program).filter_by(cod_teacher=_cod_teacher).first()
+
     @classmethod
     def find_all(cls):
         # -> SELECT * FROM items
