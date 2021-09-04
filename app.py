@@ -51,6 +51,7 @@ from resources.tutor import TutorList, Tutor
 from resources.distribute_student import DistributeStudent
 from resources.tutor_student import TutorStudentList, TutorStudentT, TutorStudentC
 from resources.appointment import AppointmentList, Appointment
+from resources.principal import Principal, PrincipalList
 
 app = Flask(__name__)
 CORS(app)
@@ -85,8 +86,8 @@ jwt = JWTManager(app)
 # ----------------------------- LOCAL DATABASE
 # type_database = 'mysql'
 # user_database = 'root'
-# pass_database = 'toor' # for wid is toor
-# url_database = '127.0.0.1' # for wid is 127.0.0.1  #localhost:3307
+# pass_database = 'root' # for wid is toor
+# url_database = 'localhost:3307' # for wid is 127.0.0.1  #localhost:3307
 # name_database = 'tutoring-system-bd'
 # ---------------------------- CLEVER CLOUD DATABASE
 type_database = 'mysql'
@@ -123,6 +124,9 @@ api.add_resource(TutorStudentList, '/tutor_students')
 api.add_resource(DistributeStudent, '/distribute_students')
 api.add_resource(Appointment, '/appointment/<string:cod_appointment>')
 api.add_resource(AppointmentList, '/appointments')
+api.add_resource(Principal, '/principal')
+api.add_resource(PrincipalList, '/principals')
+
 
 # -- Module that create the tables in the BD
 # @app.before_first_request
