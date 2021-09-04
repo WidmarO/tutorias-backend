@@ -23,6 +23,7 @@ class Filter_Tutors_from_Teachers(Resource):
         # ans, data = Filter_Tutors_from_Teachers.parser.parse_args(dict(request.json))
         # if not ans:
         #     return data
+
         data = dict(request.json)
         print("=======================================================================")
         print(data)
