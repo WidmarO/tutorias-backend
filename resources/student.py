@@ -19,7 +19,7 @@ class Student(Resource):
     @jwt_required()
     def put(self, cod_student):
         claims = get_jwt()
-        if claims['role'] != 'coordinator':
+        if not (claims['role'] == 'coordinator' or claims['role'] == 'principal'):
             return {'message': 'You are not allowed to do this'}, 401
             
         # Verify if all arguments are correct
