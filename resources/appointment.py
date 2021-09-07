@@ -70,21 +70,25 @@ class AppointmentList(Resource):
 
     def post(self):
 
-        print(request.json)
-        cod_appointment = request.json['cod_appointment']
-        '''Add or created a new appointment in database if already them not exist'''
-        if AppointmentModel.find_by_cod_appointment(cod_appointment):
-            return {'message': "A tutoring program with cod_appointment: '{}' already exist".format(cod_appointment)}
         # Verify if all attributes are in request and are of correct type
         ans, data = AppointmentList.parser.parse_args(dict(request.json))
         if not ans:
             return data 
+
+        # Verify if student already exists in database
+        cod_appointment = data['cod_appointment']
+        '''Add or created a new appointment in database if already them not exist'''
+        if AppointmentModel.find_by_cod_appointment(cod_appointment):
+            return {'message': "A tutoring program with cod_appointment: '{}' already exist".format(cod_appointment)}
+        
         # Create a instance of AppointmentModel with the data provided
         appointment = AppointmentModel(**data)
-
+        
+        # Try to insert the student in database
         try:
             appointment.save_to_db()
         except:
             return {'message': "An error ocurred adding the appointment"}, 500
-
+        
+        # Return the student data with a status code 201
         return appointment.json(), 201

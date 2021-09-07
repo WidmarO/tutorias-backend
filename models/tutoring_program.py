@@ -63,6 +63,11 @@ class TutoringProgramModel(db.Model):
         return cls.query.filter_by(cod_tutoring_program=_cod_tutoring_program).first()
 
     @classmethod
+    def find_tutoring_program_active(cls):
+        return cls.query.filter_by(condition='active').first()
+
+
+    @classmethod
     def find_all(cls):
         # -> SELECT * FROM items
         return cls.query.all()
