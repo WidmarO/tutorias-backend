@@ -25,7 +25,7 @@ class UserRegister(Resource):
       return data
     # verify if the username already exists
     if UserModel.find_by_username(data['username']):
-      return {'message': "A user with that username already exist"}
+      return {'message': "A user with that username already exist"}, 400
     # save the user in the db
     user = UserModel(data['username'], data['password'], data['role'])
     user.save_to_db()
@@ -65,5 +65,5 @@ class Login(Resource):
     claims = get_jwt()
     print("===============================================================")
     print(claims)
-    return {'message': 'You are logged in', 'role':claims['role'], 'username':claims['sub']}, 200
+    return {'message': 'You are logged in', 'role':claims['role'], 'username':claims['sub'], 'id':claims['id']}, 200
 
