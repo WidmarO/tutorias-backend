@@ -14,6 +14,7 @@ class New(Resource):
     parser.add_argument('date_time', str, True)
     parser.add_argument('cod_tutoring_program', str, True)
 
+
     def put(self, cod_new):
         # Verify if all arguments are correct
         ans, data = NewList.parser.parse_args(dict(request.json))

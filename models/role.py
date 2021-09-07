@@ -26,9 +26,9 @@ class RoleModel(db.Model):
         self.role = role
 
     @classmethod
-    def find_by_cod_role(cls, _cod_role):
+    def find_by_role(cls, _role):
         # -> SELECT * FROM items where cod_student=cod_student LIMIT 1
-        return cls.query.filter_by(cod_role=_cod_role).first()
+        return cls.query.filter_by(role=_role).first()
 
     @classmethod
     def find_all(cls):

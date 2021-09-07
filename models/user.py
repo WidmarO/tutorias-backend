@@ -6,7 +6,7 @@ class UserModel(db.Model):
 
   # -- Atributes --
   id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-  username = db.Column(db.String(20), nullable=False)
+  username = db.Column(db.String(200), nullable=False)
   password = db.Column(db.String(256), nullable=False)
   role = db.Column(db.String(20), db.ForeignKey('roles.role'))
 
@@ -14,7 +14,7 @@ class UserModel(db.Model):
   # -- Relations --   
   # user_role = db.relationship('UserRoleModel') # test line
 
-  def __init__(self, username, password, role):    
+  def __init__(self, username, password, role):   
     self.username = username
     self.password = password
     self.role = role
@@ -40,6 +40,11 @@ class UserModel(db.Model):
   def find_by_username(cls, _username):
     '''Devuelve desde la bd el usuario con el username recibido como parametro'''
     return cls.query.filter_by(username=_username).first()
+
+  @classmethod
+  def find_by_role(cls, _role):
+    '''Devuelve desde la bd el usuario con el rol recibido como parametro'''
+    return cls.query.filter_by(role=_role)
 
   @classmethod
   def find_all(cls):

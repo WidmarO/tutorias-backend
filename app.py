@@ -53,6 +53,8 @@ from resources.tutor_student import TutorStudentList, TutorStudentT, TutorStuden
 from resources.appointment import AppointmentList, Appointment
 from resources.filter_teachers_for_tutors import Filter_Tutors_from_Teachers
 from resources.principal import Principal, PrincipalList
+from resources.create_student_accounts import Create_Student_Accounts
+from resources.create_tutor_accounts import Create_Tutor_Accounts
 
 app = Flask(__name__)
 CORS(app)
@@ -128,7 +130,8 @@ api.add_resource(AppointmentList, '/appointments')
 api.add_resource(Filter_Tutors_from_Teachers, '/filter_teacher_for_tutors')
 api.add_resource(Principal, '/principal')
 api.add_resource(PrincipalList, '/principals')
-
+api.add_resource(Create_Student_Accounts, '/create_student_accounts')
+api.add_resource(Create_Tutor_Accounts, '/create_tutor_accounts')
 
 # -- Module that create the tables in the BD
 # @app.before_first_request

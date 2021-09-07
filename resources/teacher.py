@@ -2,6 +2,7 @@ from flask_restful import Resource
 from flask import request
 from models.teacher import TeacherModel
 from Req_Parser import Req_Parser
+from flask_jwt_extended import jwt_required, get_jwt
 
 
 class Teacher(Resource):
@@ -36,7 +37,7 @@ class Teacher(Resource):
             return teacher.json(), 200
         return {'message': 'Teacher not found'}, 404
 
-    # @jwt_required()
+    @jwt_required()
     def delete(self, cod_teacher):
 
         # Delete a teacher from database if exist in it
