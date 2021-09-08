@@ -16,11 +16,11 @@ class Student(Resource):
     parser.add_argument('phone_reference_person')
     parser.add_argument('cod_tutoring_program', str, True)
 
-    @jwt_required()
+    # @jwt_required()
     def put(self, cod_student):
-        claims = get_jwt()
-        if claims['role'] != 'coordinator':
-            return {'message': 'You are not allowed to do this'}, 401
+        # claims = get_jwt()
+        # if claims['role'] != 'coordinator':
+        #     return {'message': 'You are not allowed to do this'}, 401
             
         # Verify if all arguments are correct
         ans, data = StudentList.parser.parse_args(dict(request.json))
@@ -76,7 +76,7 @@ class StudentList(Resource):
         
         return sort_students, 200
 
-    @jwt_required()
+    # @jwt_required()
     def post(self):
 
         # Verify if all attributes are in request and are of corrects type
