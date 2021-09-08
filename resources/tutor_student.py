@@ -1,8 +1,11 @@
+from models.teacher import TeacherModel
 from flask_restful import Resource
 from flask import request
 from models.tutor_student import TutorStudentModel
+from models.tutoring_program import TutoringProgramModel
+from models.tutor import TutorModel
 from Req_Parser import Req_Parser
-
+from flask_jwt_extended import jwt_required, get_jwt
 
 class TutorStudent(Resource):
 
@@ -62,9 +65,22 @@ class TutorStudenList(Resource):
 
 class TutorStudentT(Resource):
 
-    def get(self, cod_tutor, cod_tutoring_program):
+    @jwt_required()
+    def get(self):
+        
+        claims = get_jwt()
+
+        if claims['role'] != 'tutor':
+            return {'message': 'You are not allowed to do this'}, 401
+
+        emailteacher=claims['username']
+        tutoring_program = TutoringProgramModel.find_tutoring_program_active()
+        teacher = TeacherModel.find_email_in_tutoring_program(emailteacher, tutoring_program.cod_tutoring_program)
+        tutor = TutorModel.find_teacher_in_tutoring_program(tutoring_program.cod_tutoring_program, teacher.cod_teacher)
+
+        # Get tutoring program
         # Return a teacher if found in database
-        sort_tutor_student = [ tutor_student.json() for tutor_student in TutorStudentModel.find_students_by_tutor_in_tutoring_program(cod_tutoring_program, cod_tutor) ]
+        sort_tutor_student = [ tutor_student.json() for tutor_student in TutorStudentModel.find_students_by_tutor_in_tutoring_program(tutoring_program.cod_tutorin_program, tutor.cod_tutor) ]
         return sort_tutor_student, 200
 
 
