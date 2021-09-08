@@ -121,7 +121,7 @@ api.add_resource(TutoringProgram, '/tutoring_program/<string:cod_tutoring_progra
 api.add_resource(TutoringProgramList, '/tutoring_programs')
 api.add_resource(UserRegister, '/register')
 api.add_resource(Login, '/login')
-api.add_resource(TutorStudentT, '/tutor_student/<string:cod_tutor>/<string:cod_tutoring_program>')
+api.add_resource(TutorStudentT, '/students')
 api.add_resource(TutorStudentC, '/tutor_student/<string:cod_tutor>/<string:cod_tutoring_program>/<string:cod_student>')
 api.add_resource(TutorStudentList, '/tutor_students')
 api.add_resource(DistributeStudent, '/distribute_students')

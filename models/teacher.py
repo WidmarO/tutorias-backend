@@ -51,6 +51,11 @@ class TeacherModel(db.Model):
         return cls.query.filter_by(cod_teacher=_cod_teacher).first()
 
     @classmethod
+    def find_email_in_tutoring_program(cls, _email, _cod_tutorin_program):
+        # -> SELECT * FROM items where email=email LIMIT 1
+        return cls.query.filter_by(cod_email=_email).filter_by(cod_tutorin_program=_cod_tutorin_program).first()
+
+    @classmethod
     def find_all(cls):
         # -> SELECT * FROM items
         return cls.query.all()
