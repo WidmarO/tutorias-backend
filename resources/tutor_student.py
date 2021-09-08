@@ -65,7 +65,7 @@ class TutorStudenList(Resource):
 
 class TutorStudentT(Resource):
 
-    @jwt_required
+    @jwt_required()
     def get(self):
         
         claims = get_jwt()
