@@ -20,8 +20,8 @@ class Appointment(Resource):
     parser.add_argument('private_description', str, True)
     parser.add_argument('diagnosis', str, True)
     parser.add_argument('cod_tutoring_program', str, True)
-    # @jwt_required()
 
+    @jwt_required()
     def put(self, cod_appointment):
         # Verify if all attributes are in request and are of correct type
         ans, data = AppointmentList.parser.parse_args(dict(request.json))
@@ -35,12 +35,14 @@ class Appointment(Resource):
             return appointment.json(), 200
         return {'message': 'Appointment not found.'}, 404
 
+    @jwt_required()
     def get(self, cod_appointment):
         appointment = AppointmentModel.find_by_cod_appointment(cod_appointment)
         if appointment:
             return appointment.json(), 200
         return {'message': 'Appointment not found.'}, 404
     
+    @jwt_required()
     def delete(self, cod_appointment):
         '''Delete a appointment from database if exist in it'''
         appointment = AppointmentModel.find_by_cod_appointment(cod_appointment)
