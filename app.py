@@ -64,7 +64,7 @@ CORS(app)
 # app.config["JWT_COOKIE_SECURE"] = False
 # app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
 app.config["JWT_SECRET_KEY"] = "widmaro"
-app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=30)
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=45)
 
 jwt = JWTManager(app)
 
@@ -110,7 +110,7 @@ api = Api(app)
 # -- RESOURCES OF THE APPLICATION
 api.add_resource(Documentation, '/')
 api.add_resource(Student, '/student/<string:cod_student>')
-api.add_resource(StudentList, '/students')
+# api.add_resource(StudentList, '/students')
 api.add_resource(Teacher, '/teacher/<string:cod_teacher>')
 api.add_resource(TeacherList, '/teachers')
 api.add_resource(Tutor, '/tutor/<string:cod_tutor>')
