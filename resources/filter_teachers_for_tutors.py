@@ -2,7 +2,6 @@ from resources.teacher import TeacherList
 from typing import List
 from flask_restful import Resource
 from flask import request
-from models.teacher import TeacherModel
 from models.tutor import TutorModel
 from models.tutoring_program import TutoringProgramModel
 from Req_Parser import Req_Parser
