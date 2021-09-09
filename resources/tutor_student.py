@@ -82,7 +82,9 @@ class TutorStudentT(Resource):
         # Get tutoring program
         # Return a teacher if found in database
         sort_tutor_student = [ tutor_student.json() for tutor_student in TutorStudentModel.find_students_by_tutor_in_tutoring_program(tutoring_program.cod_tutoring_program, tutor.cod_tutor) ]
-        return sort_tutor_student, 200
+        students_by_tutor = [ StudentModel.find_by_cod_student(student['cod_student']).json() for student in sort_tutor_student ]
+
+        return students_by_tutor, 200
 
 
 class TutorStudentC(Resource):

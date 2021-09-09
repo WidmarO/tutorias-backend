@@ -20,7 +20,6 @@ class Appointment(Resource):
     parser.add_argument('private_description', str, True)
     parser.add_argument('diagnosis', str, True)
     parser.add_argument('cod_tutoring_program', str, True)
-    # @jwt_required()
 
     @jwt_required()
     def put(self, cod_appointment):

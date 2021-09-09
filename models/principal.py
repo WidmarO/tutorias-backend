@@ -7,6 +7,7 @@ class PrincipalModel(db.Model):
     cod_principal = db.Column(db.String(6), primary_key=True)
     cod_teacher = db.Column(db.String(6), db.ForeignKey('teachers.cod_teacher'), primary_key=True)
     cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'), primary_key=True)
+    email = db.Column(db.String(100), primary_key=True)
 
     # -- Relations --
     
