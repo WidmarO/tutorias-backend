@@ -2,6 +2,7 @@ from flask_restful import Resource
 from flask import request
 from models.coordinator import CoordinatorModel
 from Req_Parser import Req_Parser
+from flask_jwt_extended import jwt_required, get_jwt
 
 class Coordinator(Resource):
     parser = Req_Parser()
@@ -13,6 +14,7 @@ class Coordinator(Resource):
     parser.add_argument('email', str, True)
     # @jwt_required()
 
+    @jwt_required()
     def put(self, cod_coordinator):
         
         # Verify if all attributes are in request and are of correct type
@@ -27,12 +29,14 @@ class Coordinator(Resource):
             return coordinator.json(), 200
         return {'message': 'Coordinator not found.'}, 404
 
+    @jwt_required()
     def get(self, cod_coordinator):
         coordinator = CoordinatorModel.find_by_cod_coordinator(cod_coordinator)
         if coordinator:
             return coordinator.json(), 200
         return {'message': 'Coordinator not found.'}, 404
 
+    @jwt_required()
     def delete(self, cod_coordinator):
         '''Delete a coodinator from database if exist in it'''
         coordinator = CoordinatorModel.find_by_cod_coordinator(cod_coordinator)

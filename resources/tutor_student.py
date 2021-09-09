@@ -1,3 +1,4 @@
+from models.student import StudentModel
 from models.teacher import TeacherModel
 from flask_restful import Resource
 from flask import request
@@ -73,14 +74,14 @@ class TutorStudentT(Resource):
         if claims['role'] != 'tutor':
             return {'message': 'You are not allowed to do this'}, 401
 
-        emailteacher=claims['username']
+        email_teacher=claims['sub']
         tutoring_program = TutoringProgramModel.find_tutoring_program_active()
-        teacher = TeacherModel.find_email_in_tutoring_program(emailteacher, tutoring_program.cod_tutoring_program)
+        teacher = TeacherModel.find_email_in_tutoring_program(email_teacher, tutoring_program.cod_tutoring_program)
         tutor = TutorModel.find_teacher_in_tutoring_program(tutoring_program.cod_tutoring_program, teacher.cod_teacher)
 
         # Get tutoring program
         # Return a teacher if found in database
-        sort_tutor_student = [ tutor_student.json() for tutor_student in TutorStudentModel.find_students_by_tutor_in_tutoring_program(tutoring_program.cod_tutorin_program, tutor.cod_tutor) ]
+        sort_tutor_student = [ tutor_student.json() for tutor_student in TutorStudentModel.find_students_by_tutor_in_tutoring_program(tutoring_program.cod_tutoring_program, tutor.cod_tutor) ]
         return sort_tutor_student, 200
 
 

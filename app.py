@@ -110,7 +110,6 @@ api = Api(app)
 # -- RESOURCES OF THE APPLICATION
 api.add_resource(Documentation, '/')
 api.add_resource(Student, '/student/<string:cod_student>')
-api.add_resource(StudentList, '/students')
 api.add_resource(Teacher, '/teacher/<string:cod_teacher>')
 api.add_resource(TeacherList, '/teachers')
 api.add_resource(Tutor, '/tutor/<string:cod_tutor>')
@@ -134,9 +133,9 @@ api.add_resource(Create_Student_Accounts, '/create_student_accounts')
 api.add_resource(Create_Tutor_Accounts, '/create_tutor_accounts')
 
 # -- Module that create the tables in the BD
-@app.before_first_request
-def create_tables():
-    db.create_all()
+# @app.before_first_request
+# def create_tables():
+#     db.create_all()
 
 if __name__ == '__main__':
     from db import db
