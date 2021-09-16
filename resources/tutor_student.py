@@ -15,7 +15,11 @@ class TutorStudent(Resource):
     parser.add_argument('cod_student', str, True)
     parser.add_argument('cod_tutoring_program', str, True)
 
+    @jwt_required()
     def put(self, cod_tutor):
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
         # Verify if all attributes are in request and are of correct type
         ans, data = TutorStudentList.parser.parse_args(dict(request.json))
         if not ans:
@@ -28,17 +32,22 @@ class TutorStudent(Resource):
             return tutor_student.json(), 200
         return {'message': 'tutor_student not found.'}, 404
 
+    @jwt_required()
     def get(self, cod_tutor):
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
         tutor_student = TutorStudentModel.find_by_cod_tutor(cod_tutor)
         if tutor_student:
             return tutor_student.json(), 200
         return {'message': 'tutor_student not found.'}, 404
     
+    @jwt_required()
     def delete(self, cod_tutor):
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
         '''Delete a tutor_student from database if exist in it'''
-        # print(request.json)
-        # cod_tutor = request.json['cod_tutor']
-
         tutor_student = TutorStudentModel.find_by_cod_tutor(cod_tutor)
         if tutor_student:
             tutor_student.delete_from_db()
@@ -53,9 +62,12 @@ class TutorStudenList(Resource):
     parser.add_argument('cod_tutor', str, True)
     parser.add_argument('cod_student', str, True)
     parser.add_argument('cod_tutoring_program', str, True)
-    # @jwt_required()
-
+    
+    @jwt_required()
     def get(self):
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
         # Return all tutor_student in database
         sort_tutor_students = [ tutor_student.json() for tutor_student in TutorStudentModel.find_all()]
         sort_tutor_students = sorted(sort_tutor_students, key=lambda x: x[list(sort_tutor_students[0].keys())[0]])
@@ -89,12 +101,20 @@ class TutorStudentT(Resource):
 
 class TutorStudentC(Resource):
 
+    @jwt_required()
     def get(self, cod_tutor, cod_tutoring_program, cod_student):
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
         # Return a teacher if found in database
         sort_tutor_student = [ tutor_student.json() for tutor_student in TutorStudentModel.find_if_relation_exists_in_tutoring_program(cod_tutor, cod_student, cod_tutoring_program) ]
         return sort_tutor_student, 200
     
+    @jwt_required()
     def delete(self, cod_tutor, cod_tutoring_program, cod_student):
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
         # Delete a student from database if exist in it
         tutor_student = TutorStudentModel.find_if_relation_exists_in_tutoring_program(cod_tutor, cod_student, cod_tutoring_program)
         if tutor_student:
@@ -104,6 +124,9 @@ class TutorStudentC(Resource):
         return {'message': 'Student not found.'}, 404  
     
     def put(self, cod_tutor, cod_tutoring_program, cod_student):
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
         # if request['rol'] != 'admin':
         #     return {'message': 'Admin privilege required.'}, 401
         # Verify if all arguments are correct
@@ -126,16 +149,22 @@ class TutorStudentList(Resource):
     parser.add_argument('cod_student', str, True)
     parser.add_argument('cod_tutoring_program', str, True)
     
-    # @jwt_required()
+    @jwt_required()
     def get(self):
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
         # Return all relation of the tutor with students in database        
         sort_tutor_student = [ tutor_student.json() for tutor_student in TutorStudentModel.find_all() ]
         sort_tutor_student = sorted(sort_tutor_student, key=lambda x: x[list(sort_tutor_student[0].keys())[0]])
         
         return sort_tutor_student, 200
 
+    @jwt_required()
     def post(self):
-
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
         '''Add or created a new tutor_student in database if already them not exist'''
         # Verify if all attributes are in request and are of corrects type
         ans, data = TutorStudentList.parser.parse_args(dict(request.json))

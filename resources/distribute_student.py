@@ -4,10 +4,17 @@ from models.student import StudentModel
 from models.tutor import TutorModel
 from models.tutor_student import TutorStudentModel
 from Req_Parser import Req_Parser
+from flask_jwt_extended import jwt_required, get_jwt
+
 
 class DistributeStudent(Resource):
 
+    @jwt_required()
     def get(self):
+        claims = get_jwt()
+
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
         sort_students = [ student.json() for student in StudentModel.find_all() ]
         sort_students = sorted(sort_students, key=lambda x: x[list(sort_students[0].keys())[0]])
         liststudents = sort_students[::-1]

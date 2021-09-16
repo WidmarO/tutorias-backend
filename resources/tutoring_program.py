@@ -4,6 +4,7 @@ from flask import request
 from models.tutoring_program import TutoringProgramModel
 from Req_Parser import Req_Parser
 from datetime import date, datetime
+from flask_jwt_extended import jwt_required, get_jwt
 
 
 class TutoringProgram(Resource):
@@ -15,9 +16,12 @@ class TutoringProgram(Resource):
     parser.add_argument('semester', str, True)
     parser.add_argument('condition', str, True)
     parser.add_argument('cod_coordinator', str, True)
-    # @jwt_required()
-
+    
+    @jwt_required()
     def put(self, cod_tutoring_program):
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
         # Verify if all attributes are in request and are of correct type
         ans, data = TutoringProgramList.parser.parse_args(dict(request.json))
         if not ans:
@@ -31,12 +35,18 @@ class TutoringProgram(Resource):
         return {'message': 'Tutoring Program not found.'}, 404
 
     def get(self, cod_tutoring_program):
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
         tutoring_program = TutoringProgramModel.find_by_cod_tutoring_program(cod_tutoring_program)
         if tutoring_program:
             return tutoring_program.json(), 200
         return {'message': 'Tutoring Program not found.'}, 404
     
     def delete(self, cod_tutoring_program):
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
         '''Delete a tutoring program from database if exist in it'''
         #print(request.json)
         #cod_tutoring_program = request.json['cod_tutoring_program']
@@ -58,10 +68,13 @@ class TutoringProgramList(Resource):
     parser.add_argument('semester', str, True)
     parser.add_argument('condition', str, True)
     parser.add_argument('cod_coordinator', str, True)
-    # @jwt_required()
-
+    
+    
+    @jwt_required()
     def get(self):
-
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
         # Return all tutoring programs in database
         sort_tutoring_programs = [ tutoring_program.json() for tutoring_program in TutoringProgramModel.find_all()]
         sort_tutoring_programs = sorted(sort_tutoring_programs, key=lambda x: x[list(sort_tutoring_programs[0].keys())[0]])
@@ -69,10 +82,11 @@ class TutoringProgramList(Resource):
         return sort_tutoring_programs
         # return {'message': 'List of Tutoring Program'}
 
-
+    @jwt_required()
     def post(self):
-
-        print(request.json)
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
         cod_tutoring_program = request.json['cod_tutoring_program']
         '''Add or created a new tutoring program in database if already them not exist'''
         if TutoringProgramModel.find_by_cod_tutoring_program(cod_tutoring_program):

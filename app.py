@@ -38,16 +38,15 @@ from models.description_workshop_attendance import DescriptionWorkshopAttendance
 
 
 from security import authenticate, identity
-from resources.user import UserRegister
 
-from resources.student import StudentList, Student
+from resources.student import StudentList, Student, StudentS
 from resources.coordinator import CoordinatorList, Coordinator
 from resources.tutoring_program import TutoringProgramList, TutoringProgram
 from resources.workshop import Workshop, WorkshopList
 from resources.documentation import Documentation
-from resources.user import UserRegister, Login
+from resources.authenticate import UserRegister, Login
 from resources.teacher import TeacherList, Teacher
-from resources.tutor import TutorList, Tutor
+from resources.tutor import TutorList, Tutor, TutorT
 from resources.distribute_student import DistributeStudent
 from resources.tutor_student import TutorStudentList, TutorStudentT, TutorStudentC
 from resources.appointment import AppointmentList, Appointment
@@ -55,6 +54,7 @@ from resources.filter_teachers_for_tutors import Filter_Tutors_from_Teachers
 from resources.principal import Principal, PrincipalList
 from resources.create_student_accounts import Create_Student_Accounts
 from resources.create_tutor_accounts import Create_Tutor_Accounts
+from resources.user import User
 
 app = Flask(__name__)
 CORS(app)
@@ -87,17 +87,17 @@ jwt = JWTManager(app)
 
 
 # ----------------------------- LOCAL DATABASE
-# type_database = 'mysql'
-# user_database = 'root'
-# pass_database = 'toor' # for wid is toor
-# url_database = 'localhost:3307' # for wid is 127.0.0.1  #localhost:3307
-# name_database = 'tutoring-system-bd'
-# ---------------------------- CLEVER CLOUD DATABASE
 type_database = 'mysql'
-user_database = 'udwsw0hbqah0nikx'
-pass_database = '6eaqlxBNvKWNGUuRR32M'
-url_database = 'b0du4ayviyfhrlbnjckc-mysql.services.clever-cloud.com'
-name_database = 'b0du4ayviyfhrlbnjckc'
+user_database = 'root'
+pass_database = 'toor' # for wid is toor
+url_database = 'localhost:3307' # for wid is 127.0.0.1  #localhost:3307
+name_database = 'tutoring-system-bd'
+# ---------------------------- CLEVER CLOUD DATABASE
+# type_database = 'mysql'
+# user_database = 'udwsw0hbqah0nikx'
+# pass_database = '6eaqlxBNvKWNGUuRR32M'
+# url_database = 'b0du4ayviyfhrlbnjckc-mysql.services.clever-cloud.com'
+# name_database = 'b0du4ayviyfhrlbnjckc'
 
 # -- Set de BD configurations for conection
 sqlalchemy_database_uri = type_database + '://' + user_database + \
@@ -110,6 +110,7 @@ api = Api(app)
 # -- RESOURCES OF THE APPLICATION
 api.add_resource(Documentation, '/')
 api.add_resource(Student, '/student/<string:cod_student>')
+api.add_resource(StudentList, '/student')
 api.add_resource(Teacher, '/teacher/<string:cod_teacher>')
 api.add_resource(TeacherList, '/teachers')
 api.add_resource(Tutor, '/tutor/<string:cod_tutor>')
@@ -131,7 +132,9 @@ api.add_resource(Principal, '/principal')
 api.add_resource(PrincipalList, '/principals')
 api.add_resource(Create_Student_Accounts, '/create_student_accounts')
 api.add_resource(Create_Tutor_Accounts, '/create_tutor_accounts')
-
+api.add_resource(StudentS, '/studentS')
+api.add_resource(TutorT, '/tutorT')
+api.add_resource(User, '/authenticate_user')
 # -- Module that create the tables in the BD
 # @app.before_first_request
 # def create_tables():

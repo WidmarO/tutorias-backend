@@ -2,68 +2,69 @@ from flask_restful import Resource
 from flask import request
 
 from models.user import UserModel
+from models.tutoring_program import TutoringProgramModel
+from models.student import StudentModel
+from models.teacher import TeacherModel
+from models.tutor import TutorModel
+from models.student_helper import StudentHelperModel
+from models.coordinator import CoordinatorModel
+from models.principal import PrincipalModel
 from Req_Parser import Req_Parser
 
-from flask_jwt_extended import create_access_token
-from flask_jwt_extended import jwt_required
-from flask_jwt_extended import get_jwt
+from flask_jwt_extended import jwt_required, get_jwt
 
 
+class User(Resource):
 
-class UserRegister(Resource):
-  
-  parser = Req_Parser()
-  parser.add_argument('username', str, True)
-  parser.add_argument('password', str, True)
-  parser.add_argument('role', str, True)
-  
-  def post(self):
-    '''Add a user in a db'''
-    # verify if the request data is valid
-    ans, data = UserRegister.parser.parse_args(dict(request.json))
-    if not ans:
-      return data
-    # verify if the username already exists
-    if UserModel.find_by_username(data['username']):
-      return {'message': "A user with that username already exist"}, 400
-    # save the user in the db
-    user = UserModel(data['username'], data['password'], data['role'])
-    user.save_to_db()
-    # create a token for the user
-    access_token = create_access_token(user.username, additional_claims={'role': user.role, 'id': user.id})
-    # return token
-    return {'token': access_token}
+    @jwt_required()
+    def get(self):
+        claims = get_jwt()
+        if claims['role'] == 'tutor':
+            email_teacher=claims['sub']
+            tutoring_program = TutoringProgramModel.find_tutoring_program_active()
+            teacher = TeacherModel.find_email_in_tutoring_program(email_teacher, tutoring_program.cod_tutoring_program)
+            if not teacher:
+                return {'message': 'Teacher not found.'}, 404
+            tutor = TutorModel.find_teacher_in_tutoring_program(tutoring_program.cod_tutoring_program, teacher.cod_teacher)
+            if tutor:
+                return teacher.json(), 200
+            return {'message': 'Tutor not found.'}, 404
 
-  @jwt_required()
-  def get(self):
-        return {'message': 'You are logged in'}, 200
+        if claims['role'] == 'coordinator':
+            email_coordinator=claims['sub']
+            coordinator = CoordinatorModel.find_email_in_tutoring_program(email_coordinator)
+            if coordinator:
+                return coordinator.json(), 200
+            return {'message': 'Coordinator not found'}, 404
 
+        if claims['role'] == 'student':
+            email_student=claims['sub']
+            tutoring_program = TutoringProgramModel.find_tutoring_program_active()
+            student = StudentModel.find_email_in_tutoring_program(email_student, tutoring_program.cod_tutoring_program)
+            if student:
+                return student.json(), 200
+            return {'message': 'Student not found.'}, 404
 
-class Login(Resource):
-  parser = Req_Parser()
-  parser.add_argument('username', str, True)
-  parser.add_argument('password', str, True)
+        if claims['role'] == 'principal':
+            email_principal=claims['sub']
+            tutoring_program = TutoringProgramModel.find_tutoring_program_active()
+            teacher = TeacherModel.find_email_in_tutoring_program(email_principal, tutoring_program.cod_tutoring_program)
+            if not teacher:
+                return {'message': 'Teacher not found.'}, 404
+            principal = PrincipalModel.find_teacher_in_tutoring_program(tutoring_program.cod_tutoring_program, teacher.cod_teacher)
+            # principal = PrincipalModel.find_email(email_principal, tutoring_program.cod_tutoring_program)
+            if principal:
+                return principal.json(), 200
+            return {'message': "Principal not found."}, 404
 
-  def post(self):
-    '''Log a user in'''
-    ans, data = Login.parser.parse_args(dict(request.json))
-    if not ans:
-      return data
-
-    user = UserModel.find_by_username(data['username'])
-    if not user:
-      return {'message': 'User does not exist'}, 404
-
-    if user.password == data['password']:
-      access_token = create_access_token(user.username, additional_claims={'role': user.role, 'id': user.id})
-      return {'token': access_token}
-    else:
-      return {'message': 'Wrong credentials'}, 401
-
-  @jwt_required()
-  def get(self):
-    claims = get_jwt()
-    print("===============================================================")
-    print(claims)
-    return {'message': 'You are logged in', 'role':claims['role'], 'username':claims['sub'], 'id':claims['id']}, 200
-
+        if claims['role'] == 'student_helper':
+            email_student=claims['sub']
+            tutoring_program = TutoringProgramModel.find_tutoring_program_active()
+            student = StudentModel.find_email_in_tutoring_program(email_student, tutoring_program.cod_tutoring_program)
+            if not student:
+                return {"message": "Student not found."}, 404
+            student_helper = StudentHelperModel.find_student_in_tutoring_program(tutoring_program.cod_tutoring_program, student.cod_student)
+            if student_helper :
+                return student_helper.json(), 200
+            return {"message": "Student Helper not found."}, 404
+    

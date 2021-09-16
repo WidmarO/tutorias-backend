@@ -1,6 +1,7 @@
 from flask_restful import Resource
 from flask import request
 from models.student import StudentModel
+from models.tutoring_program import TutoringProgramModel
 from Req_Parser import Req_Parser
 from flask_jwt_extended import jwt_required, get_jwt
 
@@ -12,15 +13,16 @@ class Student(Resource):
     parser.add_argument('m_lastname', str, True)
     parser.add_argument('phone')
     parser.add_argument('email', str, True)
+    parser.add_argument('address')
     parser.add_argument('reference_person')
     parser.add_argument('phone_reference_person')
     parser.add_argument('cod_tutoring_program', str, True)
 
-    # @jwt_required()
+    @jwt_required()
     def put(self, cod_student):
-        # claims = get_jwt()
-        # if claims['role'] != 'coordinator':
-        #     return {'message': 'You are not allowed to do this'}, 401
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
             
         # Verify if all arguments are correct
         ans, data = StudentList.parser.parse_args(dict(request.json))
@@ -45,7 +47,9 @@ class Student(Resource):
 
     @jwt_required()
     def delete(self, cod_student):
-
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401       
         # Delete a student from database if exist in it
         student = StudentModel.find_by_cod_student(cod_student)
         if student:
@@ -56,6 +60,35 @@ class Student(Resource):
         return {'message': 'Student not found.'}, 404
 
 
+class StudentS(Resource):
+    parser = Req_Parser()    
+    parser.add_argument('phone')
+    parser.add_argument('address')
+    parser.add_argument('reference_person')
+    parser.add_argument('phone_reference_person')
+
+    @jwt_required()
+    def put(self):
+        claims = get_jwt()
+        if claims['role'] != 'student':
+            return {'message': 'You are not allowed to do this'}, 401
+            
+        email_student = claims["sub"]
+        tutoring_program = TutoringProgramModel.find_tutoring_program_active()
+        student = StudentModel.find_email_in_tutoring_program(email_student, tutoring_program.cod_tutoring_program)
+        # Verify if all arguments are correct
+        ans, data = StudentS.parser.parse_args(dict(request.json))
+        if not ans:
+            return data
+        data['cod_student'] = student.cod_student 
+        # Verify if student exists in database
+        if student:
+            student.update_data_Student(**data)
+            student.save_to_db()
+            return student.json(), 200
+
+        return {'message': 'Student not found.'}, 404
+
 class StudentList(Resource):
     parser = Req_Parser()    
     parser.add_argument('cod_student', str, True)
@@ -64,6 +97,7 @@ class StudentList(Resource):
     parser.add_argument('m_lastname', str, True)
     parser.add_argument('phone')
     parser.add_argument('email', str, True)
+    parser.add_argument('address', str, True)
     parser.add_argument('reference_person')
     parser.add_argument('phone_reference_person')
     parser.add_argument('cod_tutoring_program', str, True)
@@ -76,9 +110,11 @@ class StudentList(Resource):
         
         return sort_students, 200
 
-    # @jwt_required()
+    @jwt_required()
     def post(self):
-
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
         # Verify if all attributes are in request and are of corrects type
         ans, data = StudentList.parser.parse_args(dict(request.json))
         if not ans:

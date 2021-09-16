@@ -5,15 +5,18 @@ from models.user import UserModel
 from models.teacher import TeacherModel
 from models.tutoring_program import TutoringProgramModel
 from Req_Parser import Req_Parser
-
+from flask_jwt_extended import jwt_required, get_jwt
 
 class Create_Tutor_Accounts(Resource):
 
     parser = Req_Parser()    
     parser.add_argument('tutor_list', list, True)
 
+    @jwt_required()
     def put(self):
-
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
         data = dict(request.json)
 
         for tutor in data['tutor_list']:

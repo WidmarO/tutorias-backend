@@ -35,6 +35,11 @@ class StudentHelperModel(db.Model):
         return cls.query.filter_by(cod_student_helper=_cod_student_helper).first()
 
     @classmethod
+    def find_student_in_tutoring_program(cls, _cod_tutoring_program, _cod_student):
+        # -> SELECT * FROM items where cod_tutoring_program=cod_tutoring_program LIMIT 1
+        return cls.query.filter_by(cod_tutoring_program=_cod_tutoring_program).filter_by(cod_student=_cod_student).first()
+
+    @classmethod
     def find_all(cls):
         # -> SELECT * FROM items
         return cls.query.all()

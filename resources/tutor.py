@@ -1,7 +1,10 @@
 from flask_restful import Resource
 from flask import request
 from models.tutor import TutorModel
+from models.tutoring_program import TutoringProgramModel
+from models.teacher import TeacherModel
 from Req_Parser import Req_Parser
+from flask_jwt_extended import jwt_required, get_jwt
 
 
 class Tutor(Resource):
@@ -45,6 +48,46 @@ class Tutor(Resource):
 
         # Return a messagge if not found
         return {'message': 'Teacher not found.'}, 404
+
+class TutorT(Resource):
+    parser = Req_Parser()    
+    parser.add_argument('phone')
+    parser.add_argument('filiation', str, True)
+    parser.add_argument('category', str, True)
+
+    @jwt_required()
+    def put(self):
+
+        claims = get_jwt()
+        if claims['role'] != 'tutor':
+            return {'message': 'You are not allowed to do this'}, 401
+            
+        # Verify if all arguments are correct
+        ans, data = TutorT.parser.parse_args(dict(request.json))
+        if not ans:
+            return data
+
+        email_tutor = claims["sub"]
+        
+        # Create tutoring program in relation at tutoring program active.
+        tutoring_program = TutoringProgramModel.find_tutoring_program_active()
+        
+        # Create teacher and Verify if teacher exits in database 
+        teacher = TeacherModel.find_email_in_tutoring_program(email_tutor, tutoring_program.cod_tutoring_program)
+        if not teacher:
+            return {"message": "Teacher not found."}, 404
+        tutor = TutorModel.find_teacher_in_tutoring_program(tutoring_program.cod_tutoring_program, teacher.cod_teacher)
+
+        # Add student's code to data
+        data['cod_teacher'] = teacher.cod_teacher 
+        
+        # Verify if tutor exists in database
+        if tutor:
+            teacher.update_data_Tutor(**data)
+            teacher.save_to_db()
+            return teacher.json(), 200
+
+        return {'message': 'Tutor not found.'}, 404
 
 
 class TutorList(Resource):

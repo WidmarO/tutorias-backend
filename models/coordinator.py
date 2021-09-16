@@ -46,6 +46,11 @@ class CoordinatorModel(db.Model):
         return cls.query.filter_by(cod_coordinator=_cod_coordinator).first()
 
     @classmethod
+    def find_email_in_tutoring_program(cls, _email):
+        # -> SELECT * FROM items where email=email LIMIT 1
+        return cls.query.filter_by(email=_email).first()
+
+    @classmethod
     def find_all(cls):
         # -> SELECT * FROM items
         return cls.query.all()

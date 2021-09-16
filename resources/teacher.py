@@ -13,6 +13,8 @@ class Teacher(Resource):
     parser.add_argument('m_lastname', str, True)
     parser.add_argument('phone')
     parser.add_argument('email', str, True)
+    parser.add_argument('filiation', str, True)
+    parser.add_argument('category', str, True)
     parser.add_argument('cod_tutoring_program', str, True)
 
     def put(self, cod_teacher):
@@ -39,7 +41,9 @@ class Teacher(Resource):
 
     @jwt_required()
     def delete(self, cod_teacher):
-
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
         # Delete a teacher from database if exist in it
         teacher = TeacherModel.find_by_cod_teacher(cod_teacher)
         if teacher:
@@ -49,7 +53,6 @@ class Teacher(Resource):
         # Return a messagge if not found
         return {'message': 'Teacher not found.'}, 404
 
-
 class TeacherList(Resource):
     parser = Req_Parser()    
     parser.add_argument('cod_teacher', str, True)
@@ -58,19 +61,26 @@ class TeacherList(Resource):
     parser.add_argument('m_lastname', str, True)
     parser.add_argument('phone')
     parser.add_argument('email', str, True)
+    parser.add_argument('filiation', str, True)
+    parser.add_argument('category', str, True)
     parser.add_argument('cod_tutoring_program', str, True)
     
-    # @jwt_required()
+    @jwt_required()
     def get(self):
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
         # Return all teachers in database
         sort_teachers = [ teacher.json() for teacher in TeacherModel.find_all() ]
         sort_teachers = sorted(sort_teachers, key=lambda x: x[list(sort_teachers[0].keys())[0]])
         
         return sort_teachers, 200
 
-
+    @jwt_required()
     def post(self):
-
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
         # Verify if all attributes are in request and are of corrects type
         ans, data = TeacherList.parser.parse_args(dict(request.json))
         if not ans:

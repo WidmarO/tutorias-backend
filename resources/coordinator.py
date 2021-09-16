@@ -16,7 +16,10 @@ class Coordinator(Resource):
 
     @jwt_required()
     def put(self, cod_coordinator):
-        
+        claims = get_jwt()
+
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
         # Verify if all attributes are in request and are of correct type
         ans, data = CoordinatorList.parser.parse_args(dict(request.json))
         if not ans:
@@ -31,6 +34,9 @@ class Coordinator(Resource):
 
     @jwt_required()
     def get(self, cod_coordinator):
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
         coordinator = CoordinatorModel.find_by_cod_coordinator(cod_coordinator)
         if coordinator:
             return coordinator.json(), 200

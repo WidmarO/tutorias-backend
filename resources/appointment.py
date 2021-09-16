@@ -23,6 +23,10 @@ class Appointment(Resource):
 
     @jwt_required()
     def put(self, cod_appointment):
+        claims = get_jwt()
+
+        if claims['role'] != 'tutor':
+            return {'message': 'You are not allowed to do this'}, 401
         # Verify if all attributes are in request and are of correct type
         ans, data = AppointmentList.parser.parse_args(dict(request.json))
         if not ans:
@@ -37,6 +41,9 @@ class Appointment(Resource):
 
     @jwt_required()
     def get(self, cod_appointment):
+        claims = get_jwt()
+        if claims['role'] != 'tutor':
+            return {'message': 'You are not allowed to do this'}, 401
         appointment = AppointmentModel.find_by_cod_appointment(cod_appointment)
         if appointment:
             return appointment.json(), 200
@@ -44,6 +51,9 @@ class Appointment(Resource):
     
     @jwt_required()
     def delete(self, cod_appointment):
+        claims = get_jwt()
+        if claims['role'] != 'tutor':
+            return {'message': 'You are not allowed to do this'}, 401
         '''Delete a appointment from database if exist in it'''
         appointment = AppointmentModel.find_by_cod_appointment(cod_appointment)
         if appointment:

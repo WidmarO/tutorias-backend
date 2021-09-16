@@ -13,11 +13,11 @@ class Filter_Tutors_from_Teachers(Resource):
     # parser = Req_Parser()    
     # parser.add_argument('tutors_list', list, True)
     
-    # @jwt_required()
+    @jwt_required()
     def put(self):
-        # claims = get_jwt()
-        # if not claims['role'] == 'principal':
-        #     return {'message': 'You are not allow to do this'}, 404
+        claims = get_jwt()
+        if not claims['role'] == 'principal':
+            return {'message': 'You are not allow to do this'}, 404
         # Return a teacher if found in database
         # ans, data = Filter_Tutors_from_Teachers.parser.parse_args(dict(request.json))
         # if not ans:

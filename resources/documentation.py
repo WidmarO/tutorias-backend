@@ -12,3 +12,4 @@ class Documentation(Resource):
     def get(self):
         headers = {'Content-Type': 'text/html'}
         return make_response(render_template('documentation.html'),200,headers)
+

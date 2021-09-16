@@ -4,21 +4,19 @@ from models.student import StudentModel
 from models.user import UserModel
 from models.tutoring_program import TutoringProgramModel
 from Req_Parser import Req_Parser
-
+from flask_jwt_extended import jwt_required, get_jwt
 
 class Create_Student_Accounts(Resource):
 
     parser = Req_Parser()    
     parser.add_argument('student_list', list, True)
 
+    @jwt_required()
     def put(self):
-        # Return a teacher if found in database
-        # ans, data = Filter_Tutors_from_Teachers.parser.parse_args(dict(request.json))
-        # if not ans:
-        #     return data
-
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
         data = dict(request.json)
-
         for student in data['student_list']:
             student_user = UserModel.find_by_username(student['email'])
             if not student_user:

@@ -37,6 +37,16 @@ class PrincipalModel(db.Model):
         # -> SELECT * FROM items
         return cls.query.all()
 
+    @classmethod
+    def find_email(cls, _email, _cod_tutoring_program):
+        # -> SELECT * FROM items where email=email LIMIT 1
+        return cls.query.filter_by(email=_email).filter_by(cod_tutoring_program=_cod_tutoring_program).first()
+
+    @classmethod
+    def find_teacher_in_tutoring_program(cls, _cod_tutoring_program, _cod_teacher):
+        # -> SELECT * FROM items where cod_tutoring_program=cod_tutoring_program LIMIT 1
+        return cls.query.filter_by(cod_tutoring_program=_cod_tutoring_program).filter_by(cod_teacher=_cod_teacher).first()
+
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
