@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+</head>
+<body>    
+    <h2>Welcome to Documentation for the Coordinator</h2>
+    <!----------------------------------------------COORDINATOR/S---------------------------------->
+    <div class="card">
+        <div class="card-header">
+           <h2> End point: <pre class="float float-rigth"> /coordinators </pre> </h2>
+        </div>
+        <div class="card-body">            
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : GET
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint get the list of coordinators</p>
+                    Example (request):
+                    <pre>
+                        <code class="code">
+                        NO BODY
+                        </code>
+                    </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                            [
+                                {
+                                    "cod_coordinator": "COO-01",
+                                    "name": "Lauro",
+                                    "f_lastname": "Enciso",
+                                    "m_lastname": "Rodas",
+                                    "phone": "981717171",
+                                    "email": "lauro@unsaac.edu.pe"
+                                },
+                                {
+                                    "cod_coordinator": "COO-02",
+                                    "name": "Waldo",
+                                    "f_lastname": "Ibarra",
+                                    "m_lastname": "Zambrano",
+                                    "phone": "981717154",
+                                    "email": "Waldo@unsaac.edu.pe"
+                                }
+                            ]
+                        </code>
+                    </pre>
+                    
+                </div>
+            </div>
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : POST
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint add a new coordinator in the DB</p>
+                    Example (request) :
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_coordinator": "COO-01",
+                                "name": "Lauro",
+                                "f_lastname": "Enciso",
+                                "m_lastname": "Rodas",
+                                "phone": "981717171",
+                                "email": "lauro@unsaac.edu.pe"
+                            }
+                        </code>
+                    </pre>
+                    Example (response) :
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_coordinator": "COO-01",
+                                "name": "Lauro",
+                                "f_lastname": "Enciso",
+                                "m_lastname": "Rodas",
+                                "phone": "981717171",
+                                "email": "lauro@unsaac.edu.pe"
+                            }
+                        </code>
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!----------------------------------------------COORDINATOR---------------------------------->
+    <div class="card">
+        <div class="card-header">
+           <h2> End point: <pre class="float float-rigth"> /coordinator </pre> </h2>
+        </div>
+        <div class="card-body">            
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : GET
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint get a coordinator with the token access</p>
+                    Example (request):
+                    <pre>
+                        <code class="code">
+                            Headers 
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                        </code>
+                    </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                                {
+                                    "cod_coordinator": "COO-01",
+                                    "name": "Lauro",
+                                    "f_lastname": "Enciso",
+                                    "m_lastname": "Rodas",
+                                    "phone": "981717171",
+                                    "email": "lauro@unsaac.edu.pe"
+                                }
+                        </code>
+                    </pre>
+                    
+                </div>
+            </div>
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : DELETE
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint delete a coordinator in the DB with the token access</p>
+                    Example (request) :
+                    <pre>
+                        <code class="code">
+                            Headers 
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                        </code>
+                    </pre>
+                    Example (response) :
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_coordinator": "COO-01",
+                                "name": "Lauro",
+                                "f_lastname": "Enciso",
+                                "m_lastname": "Rodas",
+                                "phone": "981717171",
+                                "email": "lauro@unsaac.edu.pe"
+                            }
+                        </code>
+                    </pre>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : PUT
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint update information of a coordinator with the token access and the new information</p>
+                    Example (request) :
+                    <pre>
+                        <code class="code">
+                            Headers 
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+
+                            The new information:
+                            {
+                                "cod_coordinator": "COO-02",
+                                "name": "Lauro",
+                                "f_lastname": "Enciso",
+                                "m_lastname": "Rodas",
+                                "phone": "981717190",
+                                "email": "lauro@unsaac.edu.pe"
+                            }
+                        </code>
+                    </pre>
+                    Example (response) :
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_coordinator": "COO-02",
+                                "name": "Lauro",
+                                "f_lastname": "Enciso",
+                                "m_lastname": "Rodas",
+                                "phone": "981717190",
+                                "email": "lauro@unsaac.edu.pe"
+                            }
+                        </code>
+                    </pre>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="card-header">
+           <h2> End point function for coordinator: <pre class="float float-rigth"> /student/cod_student </pre> </h2>
+        </div>
+        <div class="card-body">            
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : PUT
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint update a student with the token access from coordinator</p>
+                    Example (request):
+                    <pre>
+                        <code class="code">
+                            Headers 
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                        </code>
+                    </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                            {
+                              "cod_student":"160892",
+                              "name": "Widmaro",
+                              "f_lastname": "Cordova",
+                              "m_lastname": "Castro",
+                              "phone": "983048685",
+                              "email": "160892@unsaac.edu.pe",
+                              "reference_person": "Widmar",
+                              "phone_reference_person": "982312433",
+                              "cod_tutoring_program": "PT-04" 
+                            }
+                        </code>
+                    </pre>
+                    
+                </div>
+            </div>
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : DELETE
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint delete a student in the DB with the token access from coordinator</p>
+                    Example (request) :
+                    <pre>
+                        <code class="code">
+                            Headers 
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                        </code>
+                    </pre>
+                    Example (response) :
+                    <pre>
+                        <code class="code">
+                            {
+                              "cod_student":"160892",
+                              "name": "Widmaro",
+                              "f_lastname": "Cordova",
+                              "m_lastname": "Castro",
+                              "phone": "983048685",
+                              "email": "160892@unsaac.edu.pe",
+                              "reference_person": "Widmar",
+                              "phone_reference_person": "982312433",
+                              "cod_tutoring_program": "PT-04" 
+                            }
+                        </code>
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="card-header">
+           <h2> End point function for coordinator: <pre class="float float-rigth"> /student </pre> </h2>
+        </div>
+        <div class="card-body">            
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : POST
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint add a new student with the token access from coordinator</p>
+                    Example (request):
+                    <pre>
+                        <code class="code">
+                            Headers 
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                            Information of the student:
+                            {
+                                "cod_student":"160892",
+                                "name": "Widmaro",
+                                "f_lastname": "Cordova",
+                                "m_lastname": "Castro",
+                                "phone": "983048685",
+                                "email": "160892@unsaac.edu.pe",
+                                "reference_person": "Widmar",
+                                "phone_reference_person": "982312433",
+                                "cod_tutoring_program": "PT-04" 
+                            }
+                        </code>
+                    </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                            {
+                              "cod_student":"160892",
+                              "name": "Widmaro",
+                              "f_lastname": "Cordova",
+                              "m_lastname": "Castro",
+                              "phone": "983048685",
+                              "email": "160892@unsaac.edu.pe",
+                              "reference_person": "Widmar",
+                              "phone_reference_person": "982312433",
+                              "cod_tutoring_program": "PT-04" 
+                            }
+                        </code>
+                    </pre>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="card-header">
+           <h2> End point function for coordinator: <pre class="float float-rigth"> /teacher/cod_teacher </pre> </h2>
+        </div>
+        <div class="card-body">            
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : DELETE
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint delete a teacher in the DB with the token access from coordinator with cod_teacher</p>
+                    Example (request):
+                    <pre>
+                        <code class="code">
+                            Headers 
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                        </code>
+                    </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                                {
+                                    "cod_teacher":"TE-004",
+                                    "name": "Edwin",
+                                    "f_lastname": "Carrasco",
+                                    "m_lastname": "Poblete",
+                                    "phone": "953484436",
+                                    "email": "Edwin.Carrasco@unsaac.edu.pe",
+                                    "filiation": "Contradato",
+                                    "category": "A1",
+                                    "cod_tutoring_program":"PT-01"
+                                }
+                        </code>
+                    </pre>
+                    
+                </div>
+            </div>      
+        </div>
+
+
+    <div class="card">
+        <div class="card-header">
+           <h2> End point function for coordinator: <pre class="float float-rigth"> /teachers </pre> </h2>
+        </div>
+        <div class="card-body">            
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : GET
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint lists all teachers in the DB with the token access from coordinator</p>
+                    Example (request):
+                    <pre>
+                        <code class="code">
+                            Headers 
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                        </code>
+                    </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                            [
+                                {
+                                    "cod_teacher":"TE-004",
+                                    "name": "Edwin",
+                                    "f_lastname": "Carrasco",
+                                    "m_lastname": "Poblete",
+                                    "phone": "953484436",
+                                    "email": "Edwin.Carrasco@unsaac.edu.pe",
+                                    "filiation": "Contradato",
+                                    "category": "A1",
+                                    "cod_tutoring_program":"PT-01"
+                                },
+                                {
+                                    "cod_teacher":"TE-005",
+                                    "name": "Edwin2",
+                                    "f_lastname": "Carrasco2",
+                                    "m_lastname": "Poblete2",
+                                    "phone": "953484436",
+                                    "email": "Edwin.Carrasco2@unsaac.edu.pe",
+                                    "filiation": "Contradato2",
+                                    "category": "A1",
+                                    "cod_tutoring_program":"PT-01"
+                                }
+                            ]
+                        </code>
+                    </pre>
+                    
+                </div>
+            </div>      
+        </div>
+        <div class="card-body">            
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : POST
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint add a new teacher in the DB with the token access from coordinator</p>
+                    Example (request):
+                    <pre>
+                        <code class="code">
+                            Headers 
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                            The information of teacher:
+                            {
+                                "cod_teacher":"TE-004",
+                                "name": "Edwin",
+                                "f_lastname": "Carrasco",
+                                "m_lastname": "Poblete",
+                                "phone": "953484436",
+                                "email": "Edwin.Carrasco@unsaac.edu.pe",
+                                "filiation": "Contradato",
+                                "category": "A1",
+                                "cod_tutoring_program":"PT-01"
+                            }
+                        </code>
+                    </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_teacher":"TE-004",
+                                "name": "Edwin",
+                                "f_lastname": "Carrasco",
+                                "m_lastname": "Poblete",
+                                "phone": "953484436",
+                                "email": "Edwin.Carrasco@unsaac.edu.pe",
+                                "filiation": "Contradato",
+                                "category": "A1",
+                                "cod_tutoring_program":"PT-01"
+                            }
+                        </code>
+                    </pre>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="card-header">
+           <h2> End point function for coordinator: <pre class="float float-rigth"> /tutoring_program/cod_tutoring_program </pre> </h2>
+        </div>
+        <div class="card-body">            
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : GET
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint get a tutoring program in the DB with the token access from coordinator</p>
+                    Example (request):
+                    <pre>
+                        <code class="code">
+                            Headers 
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                        </code>
+                    </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                            {
+                              "cod_tutoring_program":"PT-01",
+                              "title": "PROGRAMA DE TUTORIA DE EPIIS 2021-I",
+                              "initial_date": "21-05-08",
+                              "final_date": "21-09-10",
+                              "semester": "2021-I",
+                              "condition": "active",
+                              "cod_coordinator": "COO-01"
+                            }
+                        </code>
+                    </pre>
+                    
+                </div>
+            </div>      
+        </div>
+        <div class="card-body">            
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : PUT
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint update a tutoring program in the DB with the token access from coordinator</p>
+                    Example (request):
+                    <pre>
+                        <code class="code">
+                            Headers 
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                            The new information:
+                            {
+                              "cod_tutoring_program":"PT-01",
+                              "title": "PROGRAMA DE TUTORIA DE EPIIS 2021-I",
+                              "initial_date": "21-05-08",
+                              "final_date": "21-09-10",
+                              "semester": "2021-I",
+                              "condition": "active",
+                              "cod_coordinator": "COO-01"
+                            }
+                        </code>
+                    </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                            {
+                                  "cod_tutoring_program":"PT-01",
+                                  "title": "PROGRAMA DE TUTORIA DE EPIIS 2021-I",
+                                  "initial_date": "21-05-08",
+                                  "final_date": "21-09-10",
+                                  "semester": "2021-I",
+                                  "condition": "active",
+                                  "cod_coordinator": "COO-01"
+                            }
+                        </code>
+                    </pre>
+                    
+                </div>
+            </div>      
+        </div>
+        <div class="card-body">            
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : DELETE
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint delete a tutoring program in the DB with the token access from coordinator</p>
+                    Example (request):
+                    <pre>
+                        <code class="code">
+                            Headers 
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9            
+                        </code>
+                    </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                            {
+                                  "cod_tutoring_program":"PT-01",
+                                  "title": "PROGRAMA DE TUTORIA DE EPIIS 2021-I",
+                                  "initial_date": "21-05-08",
+                                  "final_date": "21-09-10",
+                                  "semester": "2021-I",
+                                  "condition": "active",
+                                  "cod_coordinator": "COO-01"
+                            }
+                        </code>
+                    </pre>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+           <h2> End point function for coordinator: <pre class="float float-rigth"> /tutoring_programs </pre> </h2>
+        </div>
+        <div class="card-body">            
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : GET
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint get all tutoring programs in the DB with the token access from coordinator</p>
+                    Example (request):
+                    <pre>
+                        <code class="code">
+                            Headers 
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                        </code>
+                    </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                            [
+                                {
+                                    "cod_tutoring_program":"PT-01",
+                                    "title": "PROGRAMA DE TUTORIA DE EPIIS 2021-I",
+                                    "initial_date": "21-05-08",
+                                    "final_date": "21-09-10",
+                                    "semester": "2021-I",
+                                    "condition": "active",
+                                    "cod_coordinator": "COO-01"
+                                },
+                                {
+                                    "cod_tutoring_program":"PT-02",
+                                    "title": "PROGRAMA DE TUTORIA DE EPIIS 2021-II",
+                                    "initial_date": "21-09-08",
+                                    "final_date": "22-02-10",
+                                    "semester": "2021-I",
+                                    "condition": "deactive",
+                                    "cod_coordinator": "COO-01"
+                                }
+                            ]
+                        </code>
+                    </pre>
+                    
+                </div>
+            </div>      
+        </div>
+        <div class="card-body">            
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : POST
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint add a new tutoring program in the DB with the token access from coordinator</p>
+                    Example (request):
+                    <pre>
+                        <code class="code">
+                            Headers 
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                            The information of the tutoring program:
+                            {
+                                "cod_tutoring_program":"PT-01",
+                                "title": "PROGRAMA DE TUTORIA DE EPIIS 2021-I",
+                                "initial_date": "21-05-08",
+                                "final_date": "21-09-10",
+                                "semester": "2021-I",
+                                "condition": "active",
+                                "cod_coordinator": "COO-01"
+                            }
+                        </code>
+                    </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_tutoring_program":"PT-01",
+                                "title": "PROGRAMA DE TUTORIA DE EPIIS 2021-I",
+                                "initial_date": "21-05-08",
+                                "final_date": "21-09-10",
+                                "semester": "2021-I",
+                                "condition": "active",
+                                "cod_coordinator": "COO-01"
+                            }
+                        </code>
+                    </pre>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!----------------------------------------------DISTRIBUTE_STUDENT---------------------------------->
+
+    <div class="card">
+        <div class="card-header">
+           <h2> End point function for coordinator: <pre class="float float-rigth"> /distribute_students </pre> </h2>
+        </div>
+        <div class="card-body">            
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : GET
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint distribute students for tutors in program tutoring active for the DB with the token access from coordinator</p>
+                    Example (request):
+                    <pre>
+                        <code class="code">
+                            Headers 
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                        </code>
+                    </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                            {"message":"Distribute successful"}
+                        </code>
+                    </pre>
+                    
+                </div>
+            </div>      
+        </div>        
+    </div>
+
+    <!----------------------------------------------TUTOR_STUDENT---------------------------------->
+   
+    <div class="card">
+        <div class="card-header">
+           <h2> End point function for coordinator: <pre class="float float-rigth"> /tutor_student/cod_tutor/cod_tutoring_program/cod_student </pre> </h2>
+        </div>
+        <div class="card-body">            
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : GET
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint get a relation of a tutor with the student and tutoring program from DB with the token access from coordinator</p>
+                    Example (request):
+                    <pre>
+                        <code class="code">
+                            Headers 
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                        </code>
+                    </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_tutor":"TU-003",
+                                "cod_tutoring_program":"PT-01",
+                                "cod_student":"171070"
+                            }
+                        </code>
+                    </pre>
+                    
+                </div>
+            </div>      
+        </div> 
+        <div class="card-body">            
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : PUT
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint update the relation for tutor with student in a program tutoring with the token access from coordinator</p>
+                    Example (request):
+                    <pre>
+                        <code class="code">
+                            Headers 
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                            {
+                                "cod_tutor":"TU-003",
+                                "cod_tutoring_program":"PT-01",
+                                "cod_student":"171070"
+                            }
+                        </code>
+                    </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_tutor":"TU-003",
+                                "cod_tutoring_program":"PT-01",
+                                "cod_student":"171070"
+                            }
+                        </code>
+                    </pre>
+                    
+                </div>
+            </div>      
+        </div>
+        <div class="card-body">            
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : DELETE
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint delete a relation with tutor and student in program tutoring for the DB with the token access from coordinator</p>
+                    Example (request):
+                    <pre>
+                        <code class="code">
+                            Headers 
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                        </code>
+                    </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_tutor":"TU-003",
+                                "cod_tutoring_program":"PT-01",
+                                "cod_student":"171070"
+                            }
+                        </code>
+                    </pre>
+                    
+                </div>
+            </div>      
+        </div>                       
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+           <h2> End point function for coordinator: <pre class="float float-rigth"> /tutor_students </pre> </h2>
+        </div>
+        <div class="card-body">            
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : GET
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint get all relations of tutors with the students and tutoring programs from DB with the token access from coordinator</p>
+                    Example (request):
+                    <pre>
+                        <code class="code">
+                            Headers 
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                        </code>
+                    </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_tutor":"TU-003",
+                                "cod_tutoring_program":"PT-01",
+                                "cod_student":"171070"
+                            }
+                        </code>
+                    </pre>
+                </div>
+            </div>      
+        </div> 
+        <div class="card-body">            
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : POST
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint adding the relation for tutor with student in a program tutoring with the token access from coordinator</p>
+                    Example (request):
+                    <pre>
+                        <code class="code">
+                            Headers 
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                            {
+                                "cod_tutor":"TU-003",
+                                "cod_tutoring_program":"PT-01",
+                                "cod_student":"171070"
+                            }
+                        </code>
+                    </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_tutor":"TU-003",
+                                "cod_tutoring_program":"PT-01",
+                                "cod_student":"171070"
+                            }
+                        </code>
+                    </pre>
+                    
+                </div>
+            </div>      
+        </div>          
+    </div>
+
+
+    <!----------------------------------------------CREATE_STUDENT_ACCOUNTS---------------------------------->
+   
+    <div class="card">
+        <div class="card-header">
+           <h2> End point function for coordinator: <pre class="float float-rigth"> /create_student_accounts </pre> </h2>
+        </div>
+        <div class="card-body">            
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : PUT
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint create accounts for students in the DB with the token access from coordinator</p>
+                    Example (request):
+                    <pre>
+                        <code class="code">
+                            Headers 
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                            List of students:
+                            {
+                                "student_list": [
+                                                    {
+                                                        "cod_student":"171070",
+                                                        "name": "Melanie Indira",
+                                                        "f_lastname": "Sullca",
+                                                        "m_lastname": "Peralta",
+                                                        "phone": "978651743",
+                                                        "email": "171070@unsaac.edu.pe",
+                                                        "reference_person": "Widmar",
+                                                        "phone_reference_person": "9812242263",
+                                                        "cod_tutoring_program": "TP-001" 
+                                                    },
+                                                    {
+                                                        "cod_student":"171071",
+                                                        "name": "Mel",
+                                                        "f_lastname": "Sullca",
+                                                        "m_lastname": "Peralta",
+                                                        "phone": "978651743",
+                                                        "email": "171070@unsaac.edu.pe",
+                                                        "reference_person": "Etson",
+                                                        "phone_reference_person": "981224232",
+                                                        "cod_tutoring_program": "TP-001" 
+                                                    }
+                                                ]
+                            }
+                        </code>
+                    </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                            [
+                                {
+                                    "cod_student":"171070",
+                                    "name": "Melanie Indira",
+                                    "f_lastname": "Sullca",
+                                    "m_lastname": "Peralta",
+                                    "phone": "978651743",
+                                    "email": "171070@unsaac.edu.pe",
+                                    "reference_person": "Widmar",
+                                    "phone_reference_person": "9812242263",
+                                    "cod_tutoring_program": "TP-001" 
+                                },
+                                {
+                                    "cod_student":"171071",
+                                    "name": "Mel",
+                                    "f_lastname": "Sullca",
+                                    "m_lastname": "Peralta",
+                                    "phone": "978651743",
+                                    "email": "171070@unsaac.edu.pe",
+                                    "reference_person": "Etson",
+                                    "phone_reference_person": "981224232",
+                                    "cod_tutoring_program": "TP-001" 
+                                }
+                            ]
+                        </code>
+                    </pre>
+                </div>
+            </div>      
+        </div>                    
+    </div>
+
+    <!----------------------------------------------CREATE_TUTOR_ACCOUNTS---------------------------------->
+   
+    <div class="card">
+        <div class="card-header">
+           <h2> End point function for coordinator: <pre class="float float-rigth"> /create_tutor_accounts </pre> </h2>
+        </div>
+        <div class="card-body">            
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : PUT
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint create accounts for tutors in the DB with the token access from coordinator</p>
+                    Example (request):
+                    <pre>
+                        <code class="code">
+                            Headers 
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                            List of tutors:
+                            {
+                                "tutor_list": [
+                                                {
+                                                    "cod_tutor": "TU-001",
+                                                    "cod_teacher": "TE-001",
+                                                    "cod_tutoring_program": "TP-001",
+                                                    "schedule": "",
+                                                    "place": ""
+                                                },
+                                                {
+                                                    "cod_tutor": "TU-002",
+                                                    "cod_teacher": "TE-002",
+                                                    "cod_tutoring_program": "TP-001",
+                                                    "schedule": "",
+                                                    "place": ""
+                                                },
+                                                {
+                                                    "cod_tutor": "TU-003",
+                                                    "cod_teacher": "TE-003",
+                                                    "cod_tutoring_program": "TP-001",
+                                                    "schedule": "",
+                                                    "place": ""
+                                                },
+                                                {
+                                                    "cod_tutor": "TU-004",
+                                                    "cod_teacher": "TE-004",
+                                                    "cod_tutoring_program": "TP-001",
+                                                    "schedule": "",
+                                                    "place": ""
+                                                }
+                                            ]
+                            }
+                        </code>
+                    </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                        [
+                            {
+                                "cod_tutor": "TU-001",
+                                "cod_teacher": "TE-001",
+                                "cod_tutoring_program": "TP-001",
+                                "schedule": "",
+                                "place": ""
+                            },
+                            {
+                                "cod_tutor": "TU-002",
+                                "cod_teacher": "TE-002",
+                                "cod_tutoring_program": "TP-001",
+                                "schedule": "",
+                                "place": ""
+                            },
+                            {
+                                "cod_tutor": "TU-003",
+                                "cod_teacher": "TE-003",
+                                "cod_tutoring_program": "TP-001",
+                                "schedule": "",
+                                "place": ""
+                            },
+                            {
+                                "cod_tutor": "TU-004",
+                                "cod_teacher": "TE-004",
+                                "cod_tutoring_program": "TP-001",
+                                "schedule": "",
+                                "place": ""
+                            }
+                        ]
+                        </code>
+                    </pre>
+                </div>
+            </div>      
+        </div>                    
+    </div>    
+
+
+    <!----------------------------------------------PRINCIPAL---------------------------------->
+   
+        <div class="card">
+            <div class="card-header">
+               <h2> End point function for coordinator: <pre class="float float-rigth"> /principal </pre> </h2>
+            </div>
+            <div class="card-body">            
+                <div class="card mt-4">
+                    <div class="card-header">
+                        Method : PUT
+                    </div>
+                    <div class="card card-body">
+                        <p>This endpoint update a principal information in the DB with the token access from coordinator</p>
+                        Example (request):
+                        <pre>
+                            <code class="code">
+                                Headers 
+                                Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                                cod_principal: "PR-001"
+                                {   
+                                    "cod_principal": "PR-001",
+                                    "cod_teacher": "TE-001",
+                                    "cod_tutoring_program": "TP-001"
+                                }
+                            </code>
+                        </pre>
+                        Example (Response):
+                        <pre>
+                            <code class="code">
+                                {   
+                                    "cod_principal": "PR-001",
+                                    "cod_teacher": "TE-001",
+                                    "cod_tutoring_program": "TP-001"
+                                }
+                            </code>
+                        </pre>
+                    </div>
+                </div>      
+            </div>  
+            <div class="card-body">            
+                <div class="card mt-4">
+                    <div class="card-header">
+                        Method : DELETE
+                    </div>
+                    <div class="card card-body">
+                        <p>This endpoint delete a principal in the DB with the token access from coordinator</p>
+                        Example (request):
+                        <pre>
+                            <code class="code">
+                                Headers 
+                                Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                                cod_principal: "PR-001"
+                                {   
+                                    "cod_principal": "PR-001",
+                                    "cod_teacher": "TE-001",
+                                    "cod_tutoring_program": "TP-001"
+                                }
+                            </code>
+                        </pre>
+                        Example (Response):
+                        <pre>
+                            <code class="code">
+                                {   
+                                    "cod_principal": "PR-001",
+                                    "cod_teacher": "TE-001",
+                                    "cod_tutoring_program": "TP-001"
+                                }    
+                            </code>
+                        </pre>
+                    </div>
+                </div>      
+            </div>                  
+        </div>    
+
+        <div class="card">
+            <div class="card-header">
+               <h2> End point function for coordinator: <pre class="float float-rigth"> /principals </pre> </h2>
+            </div>
+            <div class="card-body">            
+                <div class="card mt-4">
+                    <div class="card-header">
+                        Method : GET
+                    </div>
+                    <div class="card card-body">
+                        <p>This endpoint get all principals registered in the DB with the token access from coordinator</p>
+                        Example (request):
+                        <pre>
+                            <code class="code">
+                                Headers 
+                                Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                            </code>
+                        </pre>
+                        Example (Response):
+                        <pre>
+                            <code class="code">
+                                [
+                                    {   
+                                        "cod_principal": "PR-001",
+                                        "cod_teacher": "TE-001",
+                                        "cod_tutoring_program": "TP-001"
+                                    },
+                                    {   
+                                        "cod_principal": "PR-002",
+                                        "cod_teacher": "TE-002",
+                                        "cod_tutoring_program": "TP-002"
+                                    }
+                                ]
+                            </code>
+                        </pre>
+                    </div>
+                </div>      
+            </div>  
+            <div class="card-body">            
+                <div class="card mt-4">
+                    <div class="card-header">
+                        Method : POST
+                    </div>
+                    <div class="card card-body">
+                        <p>This endpoint add a new principal in the DB with the token access from coordinator</p>
+                        Example (request):
+                        <pre>
+                            <code class="code">
+                                Headers 
+                                Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                                Arguments of the principal:
+                                {   
+                                    "cod_principal": "PR-001",
+                                    "cod_teacher": "TE-001",
+                                    "cod_tutoring_program": "TP-001"
+                                }
+                            </code>
+                        </pre>
+                        Example (Response):
+                        <pre>
+                            <code class="code">
+                                {   
+                                    "cod_principal": "PR-001",
+                                    "cod_teacher": "TE-001",
+                                    "cod_tutoring_program": "TP-001"
+                                }   
+                            </code>
+                        </pre>
+                    </div>
+                </div>      
+            </div>                  
+        </div>   
+
+</body>
+</html>

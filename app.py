@@ -43,7 +43,7 @@ from resources.student import StudentList, Student, StudentS
 from resources.coordinator import CoordinatorList, Coordinator
 from resources.tutoring_program import TutoringProgramList, TutoringProgram
 from resources.workshop import Workshop, WorkshopList
-from resources.documentation import Documentation
+from resources.documentation import Documentation, Documentation_coordinator,Documentation_principal,Documentation_teacher
 from resources.authenticate import UserRegister, Login
 from resources.teacher import TeacherList, Teacher
 from resources.tutor import TutorList, Tutor, TutorT
@@ -109,6 +109,9 @@ api = Api(app)
 
 # -- RESOURCES OF THE APPLICATION
 api.add_resource(Documentation, '/')
+api.add_resource(Documentation_coordinator, '/documentation_coordinator')
+api.add_resource(Documentation_teacher, '/documentation_teacher')
+api.add_resource(Documentation_principal, '/documentation_principal')
 api.add_resource(Student, '/student/<string:cod_student>')
 api.add_resource(StudentList, '/student')
 api.add_resource(Teacher, '/teacher/<string:cod_teacher>')
