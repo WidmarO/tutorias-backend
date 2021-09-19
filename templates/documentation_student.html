@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+</head>
+<body>    
+    <h2>Welcome to Documentation for the Student</h2>
+    <!----------------------------------------------STUDENT/S---------------------------------->
+
+    <div class="card">
+        <div class="card-header">
+           <h2> End point: <pre class="float float-rigth"> /students </pre> </h2>
+        </div>
+        <div class="card-body">            
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : GET
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint get a students from the DB</p>                   
+                    Example (request):
+                    <pre>
+                        <code class="code">
+                            Headers 
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9  
+                        </code>
+                    </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_student":"160892",
+                                "name": "Marko",
+                                "f_lastname": "Cordova",
+                                "m_lastname": "Castro",
+                                "phone": "983048685",
+                                "email": "160890@unsaac.edu.pe",
+                                "reference_person": "Widmar",
+                                "phone_reference_person": "982312433",
+                                "cod_tutoring_program": "PT-01"
+                            },
+                            {
+                                "cod_student":"160202",
+                                "name": "Widmaro",
+                                "f_lastname": "Quispe",
+                                "m_lastname": "Leon",
+                                "phone": "983041010",
+                                "email": "160202@unsaac.edu.pe",
+                                "reference_person": "Marko",
+                                "phone_reference_person": "982312433",
+                                "cod_tutoring_program": "PT-01"
+                            }
+                        </code>
+                    </pre>           
+                </div>
+            </div>
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : PUT
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint add a new student in the DB</p>
+                    required fields: cod_student,name,f_lastname,m_lastname,email,cod_tutoring_program
+                    Example (request) : 
+                    <pre>
+                        <code class="code">
+                            Headers 
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9  
+                            The new information:
+                            {
+                                "cod_student":"160892",
+                                "name": "Jorge",
+                                "f_lastname": "Polo",
+                                "m_lastname": "Dolmos",
+                                "phone": "983048685",
+                                "email": "180890@unsaac.edu.pe",
+                                "reference_person": "Marko",
+                                "phone_reference_person": "982312433",
+                                "cod_tutoring_program": "PT-01"
+                            }
+                        </code>
+                    </pre>
+                    Example (response) :
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_student":"160892",
+                                "name": "Jorge",
+                                "f_lastname": "Polo",
+                                "m_lastname": "Dolmos",
+                                "phone": "983048685",
+                                "email": "180890@unsaac.edu.pe",
+                                "reference_person": "Marko",
+                                "phone_reference_person": "982312433",
+                                "cod_tutoring_program": "PT-01"
+                            }
+                        </code>
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

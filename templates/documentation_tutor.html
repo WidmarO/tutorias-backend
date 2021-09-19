@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+</head>
+<body>    
+    <h2>Welcome to Documentation for the Teacher</h2>
+    <!----------------------------------------------TUTOR/S---------------------------------->
+
+    <div class="card">
+        <div class="card-header">
+           <h2> End point: <pre class="float float-rigth"> /tutors </pre> </h2>
+        </div>
+        <div class="card-body">            
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : GET
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint get a tutors from the DB</p>
+                    Example (request):
+                    <pre>
+                        <code class="code">
+                            Headers 
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9  
+                        </code>
+                    </pre>
+                    Example (Response):
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_tutor": "TU-001",
+                                "cod_teacher":"TE-001",
+                                "cod_tutoring_program":"PT-01"
+                                "schedule": "2021-I",
+                                "place": "IN 204 - UNSAAC"                                
+                            },
+                            {
+                                "cod_tutor": "TU-004",
+                                "cod_teacher":"TE-004",
+                                "cod_tutoring_program":"PT-01"
+                                "schedule": "2021-I",
+                                "place": "IN 102 - UNSAAC"   
+                            }
+                        </code>
+                    </pre>           
+                </div>
+            </div>
+            <div class="card mt-4">
+                <div class="card-header">
+                    Method : PUT
+                </div>
+                <div class="card card-body">
+                    <p>This endpoint add a new tutor in the DB</p>
+                    required fields: cod_tutor,cod_teacher,cod_tutoring_program
+                    Example (request) :
+                    <pre>
+                        <code class="code">
+                            Headers 
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9  
+                            The new information:
+                            {
+                                "cod_tutor": "TU-001",
+                                "cod_teacher":"TE-001",
+                                "cod_tutoring_program":"PT-01"
+                                "schedule": "2021-I",
+                                "place": "IN 204 - UNSAAC"
+                            }
+                        </code>
+                    </pre>
+                    Example (response) :
+                    <pre>
+                        <code class="code">
+                            {
+                                "cod_tutor": "TU-001",
+                                "cod_teacher":"TE-001",
+                                "cod_tutoring_program":"PT-01"
+                                "schedule": "2021-I",
+                                "place": "IN 204 - UNSAAC"
+                            }
+                        </code>
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
