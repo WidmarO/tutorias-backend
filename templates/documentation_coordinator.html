@@ -12,7 +12,7 @@
     <!----------------------------------------------COORDINATOR/S---------------------------------->
     <div class="card">
         <div class="card-header">
-           <h2> End point: <pre class="float float-rigth"> /coordinators </pre> </h2>
+           <h2> Endpoint: <pre class="float float-rigth"> /coordinators </pre> </h2>
         </div>
         <div class="card-body">            
             <div class="card mt-4">
@@ -24,7 +24,8 @@
                     Example (request):
                     <pre>
                         <code class="code">
-                        NO BODY
+                            Headers 
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
                         </code>
                     </pre>
                     Example (Response):
@@ -58,10 +59,16 @@
                     Method : POST
                 </div>
                 <div class="card card-body">
-                    <p>This endpoint add a new coordinator in the DB</p>
+                    <p>This endpoint add a new coordinator in the DB with the access token</p>
                     Example (request) :
                     <pre>
                         <code class="code">
+                            Headers 
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                            
+                            Neccesary arguments: cod_coordinator, name, f_lastname, m_lastname, email
+                            
+                            The information:
                             {
                                 "cod_coordinator": "COO-01",
                                 "name": "Lauro",
@@ -92,7 +99,7 @@
     <!----------------------------------------------COORDINATOR---------------------------------->
     <div class="card">
         <div class="card-header">
-           <h2> End point: <pre class="float float-rigth"> /coordinator </pre> </h2>
+           <h2> Endpoint: <pre class="float float-rigth"> /coordinator/cod_coordinator </pre> </h2>
         </div>
         <div class="card-body">            
             <div class="card mt-4">
@@ -105,7 +112,7 @@
                     <pre>
                         <code class="code">
                             Headers 
-                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9 
                         </code>
                     </pre>
                     Example (Response):
@@ -164,6 +171,8 @@
                         <code class="code">
                             Headers 
                             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                            
+                            Neccesary arguments:  cod_coordinator, name, f_lastname, m_lastname, email
 
                             The new information:
                             {
@@ -195,10 +204,11 @@
         </div>
     </div>
 
+    <!----------------------------------------------STUDENT---------------------------------->
 
     <div class="card">
         <div class="card-header">
-           <h2> End point function for coordinator: <pre class="float float-rigth"> /student/cod_student </pre> </h2>
+           <h2> Endpoint function for coordinator: <pre class="float float-rigth"> /student/cod_student </pre> </h2>
         </div>
         <div class="card-body">            
             <div class="card mt-4">
@@ -212,6 +222,21 @@
                         <code class="code">
                             Headers 
                             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                            
+                            Neccesary arguments:  cod_coordinator, name, f_lastname, m_lastname, email, cod_tutoring_program
+
+                            The new information:
+                            {
+                                "cod_student":"160892",
+                                "name": "Widmaro",
+                                "f_lastname": "Cordova",
+                                "m_lastname": "Castro",
+                                "phone": "983048685",
+                                "email": "160892@unsaac.edu.pe",
+                                "reference_person": "Widmar",
+                                "phone_reference_person": "982312433",
+                                "cod_tutoring_program": "PT-04" 
+                            }
                         </code>
                     </pre>
                     Example (Response):
@@ -270,7 +295,7 @@
 
     <div class="card">
         <div class="card-header">
-           <h2> End point function for coordinator: <pre class="float float-rigth"> /student </pre> </h2>
+           <h2> Endpoint function for coordinator: <pre class="float float-rigth"> /student </pre> </h2>
         </div>
         <div class="card-body">            
             <div class="card mt-4">
@@ -284,6 +309,9 @@
                         <code class="code">
                             Headers 
                             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                            
+                            Argument neccesary:  cod_coordinator, name, f_lastname, m_lastname, email, cod_tutoring_program
+                        
                             Information of the student:
                             {
                                 "cod_student":"160892",
@@ -321,10 +349,11 @@
         </div>
     </div>
 
+    <!----------------------------------------------TEACHER---------------------------------->
 
     <div class="card">
         <div class="card-header">
-           <h2> End point function for coordinator: <pre class="float float-rigth"> /teacher/cod_teacher </pre> </h2>
+           <h2> Endpoint function for coordinator: <pre class="float float-rigth"> /teacher/cod_teacher </pre> </h2>
         </div>
         <div class="card-body">            
             <div class="card mt-4">
@@ -364,7 +393,7 @@
 
     <div class="card">
         <div class="card-header">
-           <h2> End point function for coordinator: <pre class="float float-rigth"> /teachers </pre> </h2>
+           <h2> Endpoint function for coordinator: <pre class="float float-rigth"> /teachers </pre> </h2>
         </div>
         <div class="card-body">            
             <div class="card mt-4">
@@ -425,6 +454,9 @@
                         <code class="code">
                             Headers 
                             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                            
+                            Neccesary arguments: cod_teacher, name, f_lastname, m_lastname, email, filiation, category, cod_tutoring_program
+
                             The information of teacher:
                             {
                                 "cod_teacher":"TE-004",
@@ -465,7 +497,7 @@
 
     <div class="card">
         <div class="card-header">
-           <h2> End point function for coordinator: <pre class="float float-rigth"> /tutoring_program/cod_tutoring_program </pre> </h2>
+           <h2> Endpoint function for coordinator: <pre class="float float-rigth"> /tutoring_program/cod_tutoring_program </pre> </h2>
         </div>
         <div class="card-body">            
             <div class="card mt-4">
@@ -511,6 +543,9 @@
                         <code class="code">
                             Headers 
                             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                            
+                            Neccesary Arguments: cod_tutoring_program, title, initial_date, final_date, semester, condition, cod_coordinator
+
                             The new information:
                             {
                               "cod_tutoring_program":"PT-01",
@@ -578,7 +613,7 @@
 
     <div class="card">
         <div class="card-header">
-           <h2> End point function for coordinator: <pre class="float float-rigth"> /tutoring_programs </pre> </h2>
+           <h2> Endpoint function for coordinator: <pre class="float float-rigth"> /tutoring_programs </pre> </h2>
         </div>
         <div class="card-body">            
             <div class="card mt-4">
@@ -635,6 +670,9 @@
                         <code class="code">
                             Headers 
                             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                            
+                            Neccesary Arguments: cod_tutoring_program, title, initial_date, final_date, semester, condition, cod_coordinator
+
                             The information of the tutoring program:
                             {
                                 "cod_tutoring_program":"PT-01",
@@ -672,7 +710,7 @@
 
     <div class="card">
         <div class="card-header">
-           <h2> End point function for coordinator: <pre class="float float-rigth"> /distribute_students </pre> </h2>
+           <h2> Endpoint function for coordinator: <pre class="float float-rigth"> /distribute_students </pre> </h2>
         </div>
         <div class="card-body">            
             <div class="card mt-4">
@@ -704,7 +742,7 @@
    
     <div class="card">
         <div class="card-header">
-           <h2> End point function for coordinator: <pre class="float float-rigth"> /tutor_student/cod_tutor/cod_tutoring_program/cod_student </pre> </h2>
+           <h2> Endpoint function for coordinator: <pre class="float float-rigth"> /tutor_student/cod_tutor/cod_tutoring_program/cod_student </pre> </h2>
         </div>
         <div class="card-body">            
             <div class="card mt-4">
@@ -746,6 +784,9 @@
                         <code class="code">
                             Headers 
                             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                            
+                            Neccesary arguments: cod_tutor, cod_student, cod_tutoring_program 
+
                             {
                                 "cod_tutor":"TU-003",
                                 "cod_tutoring_program":"PT-01",
@@ -799,7 +840,7 @@
 
     <div class="card">
         <div class="card-header">
-           <h2> End point function for coordinator: <pre class="float float-rigth"> /tutor_students </pre> </h2>
+           <h2> Endpoint function for coordinator: <pre class="float float-rigth"> /tutor_students </pre> </h2>
         </div>
         <div class="card-body">            
             <div class="card mt-4">
@@ -840,6 +881,9 @@
                         <code class="code">
                             Headers 
                             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                            
+                            Neccesary arguments: cod_tutor, cod_student, cod_tutoring_program 
+
                             {
                                 "cod_tutor":"TU-003",
                                 "cod_tutoring_program":"PT-01",
@@ -868,7 +912,7 @@
    
     <div class="card">
         <div class="card-header">
-           <h2> End point function for coordinator: <pre class="float float-rigth"> /create_student_accounts </pre> </h2>
+           <h2> Endpoint function for coordinator: <pre class="float float-rigth"> /create_student_accounts </pre> </h2>
         </div>
         <div class="card-body">            
             <div class="card mt-4">
@@ -882,6 +926,9 @@
                         <code class="code">
                             Headers 
                             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                            
+                            Neccesary arguments: student_list
+
                             List of students:
                             {
                                 "student_list": [
@@ -949,7 +996,7 @@
    
     <div class="card">
         <div class="card-header">
-           <h2> End point function for coordinator: <pre class="float float-rigth"> /create_tutor_accounts </pre> </h2>
+           <h2> Endpoint function for coordinator: <pre class="float float-rigth"> /create_tutor_accounts </pre> </h2>
         </div>
         <div class="card-body">            
             <div class="card mt-4">
@@ -963,6 +1010,9 @@
                         <code class="code">
                             Headers 
                             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+                            
+                            Neccesary arguments: tutor_list
+
                             List of tutors:
                             {
                                 "tutor_list": [
@@ -1043,7 +1093,7 @@
    
         <div class="card">
             <div class="card-header">
-               <h2> End point function for coordinator: <pre class="float float-rigth"> /principal </pre> </h2>
+               <h2> Endpoint function for coordinator: <pre class="float float-rigth"> /principal </pre> </h2>
             </div>
             <div class="card-body">            
                 <div class="card mt-4">
@@ -1057,7 +1107,10 @@
                             <code class="code">
                                 Headers 
                                 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
-                                cod_principal: "PR-001"
+                                
+                                Neccesary arguments: cod_principal, cod_teacher, cod_tutoring_program
+                                
+                                The new information:
                                 {   
                                     "cod_principal": "PR-001",
                                     "cod_teacher": "TE-001",
@@ -1115,7 +1168,7 @@
 
         <div class="card">
             <div class="card-header">
-               <h2> End point function for coordinator: <pre class="float float-rigth"> /principals </pre> </h2>
+               <h2> Endpoint function for coordinator: <pre class="float float-rigth"> /principals </pre> </h2>
             </div>
             <div class="card-body">            
                 <div class="card mt-4">
@@ -1163,7 +1216,10 @@
                             <code class="code">
                                 Headers 
                                 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
-                                Arguments of the principal:
+                                
+                                Neccesary arguments: cod_principal, cod_teacher, cod_tutoring_program
+                                
+                                The information:
                                 {   
                                     "cod_principal": "PR-001",
                                     "cod_teacher": "TE-001",

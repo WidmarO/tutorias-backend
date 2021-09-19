@@ -45,6 +45,7 @@ from resources.tutoring_program import TutoringProgramList, TutoringProgram
 from resources.workshop import Workshop, WorkshopList
 from resources.documentation import Documentation, Documentation_coordinator,Documentation_principal,Documentation_teacher,Documentation_student,Documentation_tutor
 from resources.authenticate import UserRegister, Login
+from resources.authenticate import UserRegister, Login, UpdateCredentials
 from resources.teacher import TeacherList, Teacher
 from resources.tutor import TutorList, Tutor, TutorT
 from resources.distribute_student import DistributeStudent
@@ -140,6 +141,7 @@ api.add_resource(Create_Tutor_Accounts, '/create_tutor_accounts')
 api.add_resource(StudentS, '/studentS')
 api.add_resource(TutorT, '/tutorT')
 api.add_resource(User, '/authenticate_user')
+api.add_resource(UpdateCredentials, '/update_credentials')
 # -- Module that create the tables in the BD
 # @app.before_first_request
 # def create_tables():
