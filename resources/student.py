@@ -147,7 +147,11 @@ class AddStudents(Resource):
         claims = get_jwt()
         if claims['role'] != 'coordinator':
             return {'message': 'You are not allowed to do this'}, 401
-        data = dict(request.json)
+        # data = dict(request.json)
+        ans, data = self.parser.parse_args(dict(request.json))
+        if not ans:
+            return data
+
         tutoring_program = TutoringProgramModel.find_tutoring_program_active()
         for s in data['student_list']:
             s['phone'] = ''
@@ -169,7 +173,6 @@ class AddStudents(Resource):
         student_list = sorted(student_list, key=lambda x: x[list(student_list[0].keys())[0]])
         student_account_list = [ student_user.json() for student_user in UserModel.find_by_role('student')]
         student_account_list = sorted(student_account_list, key=lambda x: x[list(student_account_list[0].keys())[0]])
-    
         return student_list, 200
 
     def create_password_student(self, email):

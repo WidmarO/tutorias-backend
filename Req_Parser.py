@@ -45,6 +45,9 @@ class Req_Parser():
                         if request[p].strip() == '':
                             return False, {"help": "Field '{}' is required".format(p)}
                         self.ans[p] = request[p]
+            
+            if self.params[p]['type'] is list:
+                self.ans[p] = request[p]
 
         return True, self.ans
 
