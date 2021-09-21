@@ -9,11 +9,11 @@
 </head>
 <body>    
     <h2>Welcome to Documentation for the Teacher</h2>
-    <!----------------------------------------------TEACHER/S---------------------------------->
+    <!----------------------------------------------TUTOR/S---------------------------------->
 
     <div class="card">
         <div class="card-header">
-           <h2> End point: <pre class="float float-rigth"> /teacher/cod_teacher </pre> </h2>
+           <h2> End point: <pre class="float float-rigth"> /tutors </pre> </h2>
         </div>
         <div class="card-body">            
             <div class="card mt-4">
@@ -21,7 +21,7 @@
                     Method : GET
                 </div>
                 <div class="card card-body">
-                    <p>This endpoint get a teachers from the DB</p>
+                    <p>This endpoint get a tutors from the DB</p>
                     Example (request):
                     <pre>
                         <code class="code">
@@ -33,15 +33,18 @@
                     <pre>
                         <code class="code">
                             {
-                                "cod_teacher":"TE-004",
-                                "name": "Edwin",
-                                "f_lastname": "Carrasco",
-                                "m_lastname": "Poblete",
-                                "phone": "953484436",
-                                "email": "Edwin.Carrasco@unsaac.edu.pe",
-                                "filiation": "Contradato",
-                                "category": "A1",
+                                "cod_tutor": "TU-001",
+                                "cod_teacher":"TE-001",
                                 "cod_tutoring_program":"PT-01"
+                                "schedule": "2021-I",
+                                "place": "IN 204 - UNSAAC"                                
+                            },
+                            {
+                                "cod_tutor": "TU-004",
+                                "cod_teacher":"TE-004",
+                                "cod_tutoring_program":"PT-01"
+                                "schedule": "2021-I",
+                                "place": "IN 102 - UNSAAC"   
                             }
                         </code>
                     </pre>           
@@ -52,26 +55,20 @@
                     Method : PUT
                 </div>
                 <div class="card card-body">
-                    <p>This endpoint add a new teacher in the DB</p>
+                    <p>This endpoint add a new tutor in the DB</p>
+                    required fields: cod_tutor,cod_teacher,cod_tutoring_program
                     Example (request) :
                     <pre>
                         <code class="code">
                             Headers 
                             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.....eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9  
-                            
-                            Neccesary arguments:  cod_teacher, name, f_lastname, m_lastname, email, filiation, category, cod_tutoring_program
-
                             The new information:
                             {
-                                "cod_teacher":"TE-004",
-                                "name": "Edwin",
-                                "f_lastname": "Carrasco",
-                                "m_lastname": "Poblete",
-                                "phone": "953484436",
-                                "email": "Edwin.Carrasco@unsaac.edu.pe",
-                                "filiation": "Contradato",
-                                "category": "A1",
+                                "cod_tutor": "TU-001",
+                                "cod_teacher":"TE-001",
                                 "cod_tutoring_program":"PT-01"
+                                "schedule": "2021-I",
+                                "place": "IN 204 - UNSAAC"
                             }
                         </code>
                     </pre>
@@ -79,15 +76,11 @@
                     <pre>
                         <code class="code">
                             {
-                                "cod_teacher":"TE-004",
-                                "name": "Edwin",
-                                "f_lastname": "Carrasco",
-                                "m_lastname": "Poblete",
-                                "phone": "953484436",
-                                "email": "Edwin.Carrasco@unsaac.edu.pe",
-                                "filiation": "Contradato",
-                                "category": "A1",
+                                "cod_tutor": "TU-001",
+                                "cod_teacher":"TE-001",
                                 "cod_tutoring_program":"PT-01"
+                                "schedule": "2021-I",
+                                "place": "IN 204 - UNSAAC"
                             }
                         </code>
                     </pre>
