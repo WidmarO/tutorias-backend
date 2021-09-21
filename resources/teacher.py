@@ -54,7 +54,7 @@ class Teacher(Resource):
         return {'message': 'Teacher not found.'}, 404
 
 class TeacherList(Resource):
-    parser = Req_Parser()    
+    parser = Req_Parser()
     parser.add_argument('cod_teacher', str, True)
     parser.add_argument('name', str, True)
     parser.add_argument('f_lastname', str, True)

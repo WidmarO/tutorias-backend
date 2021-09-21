@@ -10,6 +10,7 @@ class Principal(Resource):
     parser.add_argument('cod_principal', str, True)
     parser.add_argument('cod_teacher', str, True)
     parser.add_argument('cod_tutoring_program', str, True)
+    parser.add_argument('email', str, True)
 
     @jwt_required()
     def put(self, cod_principal):
