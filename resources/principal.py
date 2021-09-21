@@ -8,11 +8,10 @@ from Req_Parser import Req_Parser
 from flask_jwt_extended import jwt_required, get_jwt
 
 
-class Principal(Resource):
+class Principal(Resource): # /principal/<cod_principal>
     parser = Req_Parser() 
     parser.add_argument('cod_principal', str, True)
     parser.add_argument('cod_teacher', str, True)
-    parser.add_argument('cod_tutoring_program', str, True)
     parser.add_argument('email', str, True)
 
     @jwt_required()
@@ -20,21 +19,29 @@ class Principal(Resource):
         claims = get_jwt()
         if claims['role'] != 'coordinator':
             return {'message': 'You are not allowed to do this'}, 401
+
         # Verify if all arguments are correct
-        ans, data = PrincipalList.parser.parse_args(dict(request.json))
+        ans, data = Principal.parser.parse_args(dict(request.json))
         if not ans:
             return data
+
+        # Get the tutoring program active 
+        tutoring_program_active = TutoringProgramModel.find_tutoring_program_active() 
+        data['cod_tutoring_program'] = tutoring_program_active.cod_tutoring_program
 
         # Verify if principal exists in database
         principal = PrincipalModel.find_by_cod_principal(cod_principal)
         if principal:
             principal.update_data(**data)
-            principal.save_to_db()
+            try:
+                principal.save_to_db()
+            except:
+                return {'message': 'An error occurred while updating data of the principal.'}, 500
             return principal.json(), 200
-
         return {'message': 'Director Principal not found.'}, 404
 
-    def get(self, cod_principal):
+    @jwt_required()
+    def get(self, cod_principal):        
         # Return a teacher if found in database
         principal = PrincipalModel.find_by_cod_principal(cod_principal)
         if principal:
@@ -46,19 +53,19 @@ class Principal(Resource):
         claims = get_jwt()
         if claims['role'] != 'coordinator':
             return {'message': 'You are not allowed to do this'}, 401
-        # Delete a teacher from database if exist in it
+        
+        # Delete a principal from database if exist in it
         principal = PrincipalModel.find_by_cod_principal(cod_principal)
         user_principal = UserModel.find_by_username(principal.email)
         if principal and user_principal:
             principal.delete_from_db()
             user_principal.delete_from_db()
-            return principal.json(), 200
-            
+            return principal.json(), 202            
         # Return a messagge if not found
         return {'message': 'Director Principal not found.'}, 404
 
 
-class PrincipalList(Resource):
+class PrincipalList(Resource): # /principals
     parser = Req_Parser()    
     parser.add_argument('cod_principal', str, True)
     parser.add_argument('cod_teacher', str, True)
@@ -72,7 +79,6 @@ class PrincipalList(Resource):
         # Return all teachers in database        
         sort_principal = [ principal.json() for principal in PrincipalModel.find_all() ]
         sort_principal = sorted(sort_principal, key=lambda x: x[list(sort_principal[0].keys())[0]])
-        
         return sort_principal, 200
 
     @jwt_required()
@@ -104,7 +110,7 @@ class PrincipalList(Resource):
         return principal.json(), 201
 
 
-class PrincipalC(Resource):
+class PrincipalC(Resource): # /principal
     parser = Req_Parser()    
     parser.add_argument('cod_teacher', str, True)
     parser.add_argument('name', str, True)
@@ -114,24 +120,13 @@ class PrincipalC(Resource):
     parser.add_argument('email', str, True)
     parser.add_argument('filiation')
     parser.add_argument('category')
-    
-    @jwt_required()
-    def get(self):
-        claims = get_jwt()
-        if claims['role'] != 'coordinator':
-            return {'message': 'You are not allowed to do this'}, 401
-        # Return all teachers in database        
-        sort_principal = [ principal.json() for principal in PrincipalModel.find_all() ]
-        sort_principal = sorted(sort_principal, key=lambda x: x[list(sort_principal[0].keys())[0]])
-        
-        return sort_principal, 200
 
     @jwt_required()
     def post(self):
         claims = get_jwt()
-
         if claims['role'] != 'coordinator':
             return {'message': 'You are not allowed to do this'}, 401
+
         # Verify if all attributes are in request and are of corrects type
         ans, data = PrincipalC.parser.parse_args(dict(request.json))
         if not ans:
@@ -148,7 +143,7 @@ class PrincipalC(Resource):
                 return {'message': "A principal director with cod_teacher: '{}' already exist".format(teacher.cod_teacher)}
             if PrincipalModel.find_by_cod_principal(cod_principal):
                 return {'message': "A principal director with cod_principal: '{}' already exist".format(cod_principal)}
-                    # Create a instance of PrincipalModel with the data provided
+
             principal = PrincipalModel(cod_principal, teacher.cod_teacher, tutoring_program.cod_tutoring_program, self.create_email_principal(teacher.email))
             # Try to insert the teacher in database
             try:
@@ -156,34 +151,36 @@ class PrincipalC(Resource):
             except:
                 return {'message': "An error ocurred when adding the principal in DB"}, 500
 
+            # Create user for principal
             user_principal = UserModel.find_by_username(principal.email)
             if not user_principal:
                 user_principal = UserModel(principal.email, self.create_password_principal(principal.email), 'principal')
                 try:
                     user_principal.save_to_db()
                 except:
-                    return {'message': "An error ocurred when adding the user principal in DB"}, 500
-            
+                    return {'message': "An error ocurred when adding the user principal in DB"}, 500            
             else:
                 return {'message': "A principal with username: '{}' already exist".format(principal.email)}
             # Return the teacher data with a status code 201
             return principal.json(), 201
+
         else: 
             data['cod_tutoring_program'] = tutoring_program.cod_tutoring_program
             teacher = TeacherModel(**data)
             teacher.save_to_db()
+
             # Verify if principal already exists in database
             cod_principal = self.create_cod_principal()
             if PrincipalModel.find_teacher_in_tutoring_program(tutoring_program.cod_tutoring_program, teacher.cod_teacher):
                 return {'message': "A principal director with cod_teacher: '{}' already exist".format(teacher.cod_teacher)}
             if PrincipalModel.find_by_cod_principal(cod_principal):
                 return {'message': "A principal director with cod_principal: '{}' already exist".format(cod_principal)}
+            
             # Create a instance of PrincipalModel with the data provided
             principal = PrincipalModel(cod_principal, teacher.cod_teacher, tutoring_program.cod_tutoring_program, self.create_email_principal(teacher.email))
             # Try to insert the teacher in database
             try:
-                principal.save_to_db()
-                
+                principal.save_to_db()                
             except:
                 return {'message': "An error ocurred when adding the principal in DB"}, 500
 
