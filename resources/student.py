@@ -2,6 +2,7 @@ from flask_restful import Resource
 from flask import request
 from models.student import StudentModel
 from models.tutoring_program import TutoringProgramModel
+from models.user import UserModel
 from Req_Parser import Req_Parser
 from flask_jwt_extended import jwt_required, get_jwt
 
@@ -137,3 +138,42 @@ class StudentList(Resource):
         # Return the student data with a status code 201
         return student.json(), 201
 
+class AddStudents(Resource):
+    parser = Req_Parser()    
+    parser.add_argument('student_list', list, True)
+
+    @jwt_required()
+    def put(self):
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
+        data = dict(request.json)
+        tutoring_program = TutoringProgramModel.find_tutoring_program_active()
+        for s in data['student_list']:
+            s['phone'] = ''
+            s['address'] = ''
+            s['reference_person'] = ''
+            s['phone_reference_person'] = '' 
+            student = StudentModel.find_student_in_tutoring_program(tutoring_program.cod_tutoring_program, s['cod_student'])
+            student_user = UserModel.find_by_username(s['email'])
+            if not student_user and not student:
+                student = StudentModel(s['cod_student'], s['name'], s['f_lastname'], s['m_lastname'], s['phone'], s['email'], s['address'], s['reference_person'], s['phone_reference_person'], tutoring_program.cod_tutoring_program)
+                student_user  = UserModel(s['email'], self.create_password_student(s['email']), 'student')
+                try:
+                    student.save_to_db()
+                    student_user.save_to_db()
+                except:
+                    return {'message': 'An error ocurred while trying add Student and UserStudent in DB'} , 500
+        
+        student_list = [ student.json() for student in StudentModel.find_by_cod_tutoring_program(tutoring_program.cod_tutoring_program)]
+        student_list = sorted(student_list, key=lambda x: x[list(student_list[0].keys())[0]])
+        student_account_list = [ student_user.json() for student_user in UserModel.find_by_role('student')]
+        student_account_list = sorted(student_account_list, key=lambda x: x[list(student_account_list[0].keys())[0]])
+    
+        return student_list, 200
+
+    def create_password_student(self, email):
+        _string = email
+        _string = _string.split('@')
+        new_password = _string[0]
+        return new_password

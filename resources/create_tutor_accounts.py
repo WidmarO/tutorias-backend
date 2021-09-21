@@ -18,12 +18,14 @@ class Create_Tutor_Accounts(Resource):
         if claims['role'] != 'coordinator':
             return {'message': 'You are not allowed to do this'}, 401
         data = dict(request.json)
-
+        tutoring_program = TutoringProgramModel.find_tutoring_program_active()
         for tutor in data['tutor_list']:
             teacher = TeacherModel.find_by_cod_teacher(tutor['cod_teacher'])
+            if not teacher:
+                return {'message': 'Teacher not found in DB'}, 404
             tutor_user = UserModel.find_by_username(teacher.email)
             if not tutor_user:
-                tutor_user  = UserModel(teacher.email, teacher.email, 'tutor')
+                tutor_user  = UserModel(teacher.email, self.create_password_tutor, 'tutor')
                 try:
                     tutor_user.save_to_db()
                 except:
@@ -39,11 +41,9 @@ class Create_Tutor_Accounts(Resource):
         list_tutor_accounts = [ tutor_account.json() for tutor_account in list_tutor_accounts]
         list_tutor_accounts = sorted(list_tutor_accounts, key=lambda x: x[list(list_tutor_accounts[0].keys())[0]])
         if len(list_tutor_accounts) == 0 :
-            return 'T000001'
+            return 'tutor'
         
-        string = list_tutor_accounts[-1]['username']
-        string = string[:6]
-        code = str(string)
-        new_code = '{:>00}'.format(str('T')) + code
-        
-        return new_code
+        _string = list_tutor_accounts[-1]['username']
+        _string = _string.split('@')
+        new_password = _string[0]
+        return new_password

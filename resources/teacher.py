@@ -1,6 +1,7 @@
 from flask_restful import Resource
 from flask import request
 from models.teacher import TeacherModel
+from models.tutoring_program import TutoringProgramModel
 from Req_Parser import Req_Parser
 from flask_jwt_extended import jwt_required, get_jwt
 
@@ -103,3 +104,37 @@ class TeacherList(Resource):
         # Return the teacher data with a status code 201
         return teacher.json(), 201
 
+class AddTeachers(Resource):
+
+    parser = Req_Parser()    
+    parser.add_argument('teacher_list', list, True)
+    
+    @jwt_required()
+    def post(self):
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
+        data = dict(request.json)
+        tutoring_program = TutoringProgramModel.find_tutoring_program_active()
+        number_teachers = 0
+        number_exist_teacher = 0
+        number_add_teachers = 0
+        for t in data['teacher_list']:
+            teacher = TeacherModel.find_teacher_in_tutoring_program(tutoring_program.cod_tutoring_program , t['cod_teacher'])
+            number_teachers = number_teachers + 1
+            if not teacher:
+                number_add_teachers = number_add_teachers +1
+                teacher = TeacherModel(t['cod_teacher'], t['name'], t['f_lastname'], t['m_lastname'], t['phone'], t['email'], t['filiation'], t['category'], tutoring_program.cod_tutoring_program)
+                try:
+                    teacher.save_to_db()
+                except:
+                    return {'message': 'An error ocurred while trying add Teacher in DB'} , 500
+            else:
+                number_exist_teacher = number_exist_teacher + 1
+        
+        teacher_list = [ teacher.json() for teacher in TeacherModel.find_by_cod_tutoring_program(tutoring_program.cod_tutoring_program)]
+        teacher_list = sorted(teacher_list, key=lambda x: x[list(teacher_list[0].keys())[0]])
+        
+        res = {'number_teachers': number_teachers, 'number_exist_teachers': number_exist_teacher, 'number_add_teachers': number_add_teachers, "teacher_list": teacher_list}
+
+        return res, 200

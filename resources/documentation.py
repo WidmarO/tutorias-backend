@@ -43,3 +43,22 @@ class Documentation_teacher(Resource):
         headers = {'Content-Type': 'text/html'}
         return make_response(render_template('documentation_teacher.html'),200,headers)        
 
+class Documentation_student(Resource):
+    parser = Req_Parser()
+    # parser.add_argument('id', esp_attr=True)
+    parser.add_argument('brand', str, True)
+    # @jwt_required()
+
+    def get(self):
+        headers = {'Content-Type': 'text/html'}
+        return make_response(render_template('documentation_student.html'),200,headers)
+
+class Documentation_tutor(Resource):
+    parser = Req_Parser()
+    # parser.add_argument('id', esp_attr=True)
+    parser.add_argument('brand', str, True)
+    # @jwt_required()
+
+    def get(self):
+        headers = {'Content-Type': 'text/html'}
+        return make_response(render_template('documentation_tutor.html'),200,headers)  
