@@ -31,14 +31,15 @@ class Create_Student_Accounts(Resource):
     
         return student_account_list, 200
 
+
     def create_password_student(self):
         list_student_accounts = UserModel.find_by_role('student')
         list_student_accounts = [ student_account.json() for student_account in list_student_accounts]
         list_student_accounts = sorted(list_student_accounts, key=lambda x: x[list(list_student_accounts[0].keys())[0]])
         if len(list_student_accounts) == 0 :
             return 'S000001'
-        string = list_student_accounts[-1]['username']
-        string = string[:6]
-        code = str(string)
+        _string = list_student_accounts[-1]['username']
+        _string = _string.split('@')
+        code = _string[0]
         new_code = '{:>00}'.format(str('S')) + code
         return new_code

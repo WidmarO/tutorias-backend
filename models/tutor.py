@@ -49,6 +49,11 @@ class TutorModel(db.Model):
         return cls.query.filter_by(cod_tutoring_program=_cod_tutoring_program).filter_by(cod_teacher=_cod_teacher).first()
 
     @classmethod
+    def find_by_cod_tutoring_program(cls, _cod_tutoring_program):
+        # -> SELECT * FROM items where dni=dni LIMIT 1
+        return cls.query.filter_by(cod_tutoring_program=_cod_tutoring_program)
+
+    @classmethod
     def find_all(cls):
         # -> SELECT * FROM items
         return cls.query.all()

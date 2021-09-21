@@ -11,27 +11,35 @@ class PrincipalModel(db.Model):
 
     # -- Relations --
     
-    def __init__(self, cod_principal, cod_teacher, cod_tutoring_program):
+    def __init__(self, cod_principal, cod_teacher, cod_tutoring_program, email):
         self.cod_principal = cod_principal
         self.cod_teacher = cod_teacher
         self.cod_tutoring_program = cod_tutoring_program
+        self.email = email
 
     def json(self):
         return {'cod_principal': self.cod_principal,
                 'cod_teacher': self.cod_teacher,
-                'cod_tutoring_program': self.cod_tutoring_program
+                'cod_tutoring_program': self.cod_tutoring_program,
+                'email': self.email
                 }
 
-    def update_data(self, cod_principal, cod_teacher, cod_tutoring_program):
+    def update_data(self, cod_principal, cod_teacher, cod_tutoring_program, email):
         self.cod_principal = cod_principal
         self.cod_teacher = cod_teacher
         self.cod_tutoring_program = cod_tutoring_program
+        self.email = email
 
     @classmethod
     def find_by_cod_principal(cls, _cod_principal):
         # -> SELECT * FROM items where cod_principal=_cod_principal LIMIT 1
         return cls.query.filter_by(cod_principal=_cod_principal).first()
     
+    @classmethod
+    def find_by_cod_teacher(cls, _cod_teacher):
+        # -> SELECT * FROM items where dni=dni LIMIT 1
+        return cls.query.filter_by(cod_teacher=_cod_teacher).first()
+
     @classmethod
     def find_all(cls):
         # -> SELECT * FROM items

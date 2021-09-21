@@ -49,8 +49,8 @@ class Coordinator(Resource):
         if coordinator:
             coordinator.delete_from_db()
             return coordinator.json(), 200
-
-        return {'message': 'Coordinator not found.'}
+        else:
+            return {'message': 'Coordinator not found.'}
 
 
 class CoordinatorList(Resource):

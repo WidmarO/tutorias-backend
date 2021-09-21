@@ -65,6 +65,16 @@ class TeacherModel(db.Model):
         return cls.query.filter_by(cod_teacher=_cod_teacher).first()
 
     @classmethod
+    def find_by_cod_tutoring_program(cls, _cod_tutoring_program):
+        # -> SELECT * FROM items where dni=dni LIMIT 1
+        return cls.query.filter_by(cod_tutoring_program=_cod_tutoring_program)
+
+    @classmethod
+    def find_teacher_in_tutoring_program(cls, _cod_tutoring_program, _cod_teacher):
+        # -> SELECT * FROM items where cod_tutoring_program=cod_tutoring_program LIMIT 1
+        return cls.query.filter_by(cod_tutoring_program=_cod_tutoring_program).filter_by(cod_teacher=_cod_teacher).first()
+
+    @classmethod
     def find_email_in_tutoring_program(cls, _email, _cod_tutoring_program):
         # -> SELECT * FROM items where email=email LIMIT 1
         return cls.query.filter_by(email=_email).filter_by(cod_tutoring_program=_cod_tutoring_program).first()
