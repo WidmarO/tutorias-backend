@@ -49,6 +49,9 @@ class Req_Parser():
             if self.params[p]['type'] is list:
                 self.ans[p] = request[p]
 
+            if self.params[p]['type'] is list:
+                self.ans[p] = request[p]
+                
         return True, self.ans
 
     # def parse_args(self, request):

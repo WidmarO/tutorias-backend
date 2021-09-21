@@ -3,6 +3,7 @@ import os
 from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api
+import time
 
 from datetime import datetime, timedelta, timezone
 
@@ -13,7 +14,6 @@ from flask_jwt_extended import JWTManager
 # from flask_jwt_extended import set_access_cookies
 # from flask_jwt_extended import unset_jwt_cookies
 # from flask_jwt_extended import jwt_required
-
 
 from models.role import RoleModel
 from models.user import UserModel
@@ -37,15 +37,14 @@ from models.curricular_advancement import CurricularAdvancementModel
 from models.description_workshop_attendance import DescriptionWorkshopAttendanceModel
 
 
-from security import authenticate, identity
+# from security import authenticate, identity
 
 from resources.student import StudentList, Student, StudentS, AddStudents
 from resources.coordinator import CoordinatorList, Coordinator
 from resources.tutoring_program import TutoringProgramList, TutoringProgram
-from resources.workshop import Workshop, WorkshopList
+# from resources.workshop import Workshop, WorkshopList
 from resources.documentation import Documentation, Documentation_coordinator,Documentation_principal,Documentation_teacher,Documentation_student,Documentation_tutor
-from resources.authenticate import UserRegister, Login
-from resources.authenticate import UserRegister, Login, UpdateCredentials
+from resources.authenticate import Login, UpdateCredentials
 from resources.teacher import TeacherList, Teacher, AddTeachers
 from resources.tutor import TutorList, Tutor, TutorT
 from resources.distribute_student import DistributeStudent
@@ -91,8 +90,8 @@ jwt = JWTManager(app)
 # ----------------------------- LOCAL DATABASE
 type_database = 'mysql'
 user_database = 'root'
-pass_database = 'root' # for wid is toor
-url_database = 'localhost:3307' # for wid is 127.0.0.1  #localhost:3307
+pass_database = 'toor' # for wid is toor
+url_database = '127.0.0.1' # for wid is 127.0.0.1  #localhost:3307
 name_database = 'tutoring-system-bd'
 # ---------------------------- CLEVER CLOUD DATABASE
 # type_database = 'mysql'
@@ -128,7 +127,7 @@ api.add_resource(Coordinator, '/coordinator/<string:cod_coordinator>')
 api.add_resource(CoordinatorList, '/coordinators')
 api.add_resource(TutoringProgram, '/tutoring_program/<string:cod_tutoring_program>')
 api.add_resource(TutoringProgramList, '/tutoring_programs')
-api.add_resource(UserRegister, '/register')
+# api.add_resource(UserRegister, '/register')
 api.add_resource(Login, '/login')
 api.add_resource(TutorStudentT, '/students')
 api.add_resource(TutorStudentC, '/tutor_student/<string:cod_tutor>/<string:cod_tutoring_program>/<string:cod_student>')
@@ -142,11 +141,12 @@ api.add_resource(PrincipalList, '/principals')
 api.add_resource(PrincipalC, '/principalC')
 api.add_resource(Create_Student_Accounts, '/create_student_accounts')
 api.add_resource(Create_Tutor_Accounts, '/create_tutor_accounts')
-api.add_resource(StudentS, '/student_update')
+api.add_resource(StudentS, '/students_update')
 api.add_resource(TutorT, '/tutorT')
 api.add_resource(User, '/authenticate_user')
 api.add_resource(UpdateCredentials, '/update_credentials')
 api.add_resource(UpdateCredentialsCoordinator, '/update_credentials_coordinator')
+
 # -- Module that create the tables in the BD
 # @app.before_first_request
 # def create_tables():
