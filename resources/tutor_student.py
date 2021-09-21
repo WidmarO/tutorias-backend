@@ -8,12 +8,13 @@ from models.tutor import TutorModel
 from Req_Parser import Req_Parser
 from flask_jwt_extended import jwt_required, get_jwt
 
+
 class TutorStudent(Resource):
 
     parser = Req_Parser()    
     parser.add_argument('cod_tutor', str, True)
     parser.add_argument('cod_student', str, True)
-    parser.add_argument('cod_tutoring_program', str, True)
+    # parser.add_argument('cod_tutoring_program', str, True)
 
     @jwt_required()
     def put(self, cod_tutor):
@@ -24,6 +25,11 @@ class TutorStudent(Resource):
         ans, data = TutorStudentList.parser.parse_args(dict(request.json))
         if not ans:
             return data
+
+        # Get the tutoring program active 
+        tutoring_program_active = TutoringProgramModel.find_tutoring_program_active() 
+        data['cod_tutoring_program'] = tutoring_program_active.cod_tutoring_program
+
         # Create a instance of TutorStudentModel with the data provided
         tutor_student = TutorStudentModel.find_by_cod_tutor(cod_tutor)
         if tutor_student:
@@ -41,7 +47,7 @@ class TutorStudent(Resource):
         if tutor_student:
             return tutor_student.json(), 200
         return {'message': 'tutor_student not found.'}, 404
-    
+
     @jwt_required()
     def delete(self, cod_tutor):
         claims = get_jwt()
@@ -109,7 +115,7 @@ class TutorStudentC(Resource):
         # Return a teacher if found in database
         sort_tutor_student = [ tutor_student.json() for tutor_student in TutorStudentModel.find_if_relation_exists_in_tutoring_program(cod_tutor, cod_student, cod_tutoring_program) ]
         return sort_tutor_student, 200
-    
+
     @jwt_required()
     def delete(self, cod_tutor, cod_tutoring_program, cod_student):
         claims = get_jwt()
@@ -122,7 +128,7 @@ class TutorStudentC(Resource):
             return tutor_student.json(), 200
         # Return a messagge if not found
         return {'message': 'Student not found.'}, 404  
-    
+
     def put(self, cod_tutor, cod_tutoring_program, cod_student):
         claims = get_jwt()
         if claims['role'] != 'coordinator':
@@ -157,7 +163,6 @@ class TutorStudentList(Resource):
         # Return all relation of the tutor with students in database        
         sort_tutor_student = [ tutor_student.json() for tutor_student in TutorStudentModel.find_all() ]
         sort_tutor_student = sorted(sort_tutor_student, key=lambda x: x[list(sort_tutor_student[0].keys())[0]])
-        
         return sort_tutor_student, 200
 
     @jwt_required()
@@ -185,5 +190,3 @@ class TutorStudentList(Resource):
             return {'message': "An error ocurred adding the tutor_student in DB"}, 500
 
         return tutor_student.json(), 201
-        
-        
