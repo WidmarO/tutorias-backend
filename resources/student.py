@@ -7,7 +7,7 @@ from models.user import UserModel
 from Req_Parser import Req_Parser
 from flask_jwt_extended import jwt_required, get_jwt
 
-class Student(Resource):
+class Student(Resource): #/student
     parser = Req_Parser()    
     parser.add_argument('cod_student', str, True)
     parser.add_argument('name', str, True)
@@ -157,7 +157,7 @@ class StudentList(Resource): # /students
         return student.json(), 201
 
 
-class StudentListTutoringProgram(Resource):
+class StudentListTutoringProgram(Resource): # /studentlist/cod_tutoring_program
     
     @jwt_required()
     def get(self, cod_tutoring_program):

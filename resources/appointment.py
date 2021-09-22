@@ -97,7 +97,7 @@ class AppointmentList(Resource):
     def get(self, cod_student):
         claims = get_jwt()
 
-        if claims['role'] != 'tutor':
+        if claims['role'] != 'tutor' :
             return {'message': 'You are not allowed to do this'}, 401
 
         emailteacher=claims['sub']
@@ -168,7 +168,7 @@ class AppointmentList(Resource):
         return new_code
 
 
-class AppointmentListTutoringProgram(Resource):
+class AppointmentListTutoringProgram(Resource): # /appointment_list/<cod_tutoring_program>
     
     @jwt_required()
     def get(self, cod_tutoring_program):
@@ -180,14 +180,15 @@ class AppointmentListTutoringProgram(Resource):
         list_appointments_in_tutoring_program = sorted(list_appointments_in_tutoring_program, key=lambda x: x[list(list_appointments_in_tutoring_program[0].keys())[0]])    
         return list_appointments_in_tutoring_program, 200
 
-class AppointmentTutor(Resource):
 
+class AppointmentTutor(Resource): 
     @jwt_required()
     def get(self, cod_tutor):
         claims = get_jwt()
         if claims['role'] != 'tutor':
             return {'message': 'You are not allowed to do this'}, 401
-        # Return all students in database        
+        
+        # Return all students in database
         list_appointments_of_a_tutor = [ appointment.json() for appointment in AppointmentModel.find_by_cod_tutor(cod_tutor) ]
         list_appointments_of_a_tutor = sorted(list_appointments_of_a_tutor, key=lambda x: x[list(list_appointments_of_a_tutor[0].keys())[0]])    
         return list_appointments_of_a_tutor, 200
