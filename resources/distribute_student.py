@@ -135,6 +135,7 @@ class DistributeStudent(Resource):
             # we do the standard distribute
             current_students_list = [ student.cod_student for student in StudentModel.find_by_cod_tutoring_program(current_code_tutoring_program)]
             current_tutors_list = [ tutor.cod_tutor for tutor in TutorModel.find_by_cod_tutoring_program(current_code_tutoring_program)]
+            current_tutor_student_list = [tutor_student.json() for tutor_student in TutorStudentModel.find_by_cod_tutoring_program(current_code_tutoring_program) ]
             new_tutor_students_list = {}
             for t in current_tutors_list:
                 new_tutor_students_list[t] = []
@@ -142,7 +143,9 @@ class DistributeStudent(Resource):
                 for t in current_tutors_list:
                     if len(current_students_list) > 0:
                         st = current_students_list.pop()
-                        new_tutor_students_list[t].append(st)
+                        for s in current_tutor_student_list:
+                            if s['cod_student'] != st:
+                                new_tutor_students_list[t].append(st)
         
         # Save the new data in the database
         for tutor in new_tutor_students_list:

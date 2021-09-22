@@ -93,8 +93,6 @@ class UpdateCredentials(Resource):
     user = UserModel.find_by_username(data['username'])
     if not user:
       return {'message': 'User does not exist'}, 404
-    print('==========================================')
-    print(data)
     # Verify if the password is correct
     if user.password == data['password']:
       # Update the password

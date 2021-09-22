@@ -9,7 +9,6 @@ from flask_jwt_extended import jwt_required, get_jwt
 
 class TutoringProgram(Resource):
     parser = Req_Parser()
-    parser.add_argument('cod_tutoring_program', str, True)
     parser.add_argument('title', str, True)
     parser.add_argument('initial_date', str, True)
     parser.add_argument('final_date', str, True)
@@ -23,10 +22,16 @@ class TutoringProgram(Resource):
             return {'message': 'You are not allowed to do this'}, 401
 
         # Verify if all attributes are in request and are of correct type
-        ans, data = TutoringProgramList.parser.parse_args(dict(request.json))
+        ans, data = TutoringProgram.parser.parse_args(dict(request.json))
         if not ans:
             return data
 
+        email_coordinator = claims['sub']
+        coordinator = CoordinatorModel.find_email_in_tutoring_program(email_coordinator)
+        if not coordinator:
+            return {'message': 'Coordinator not found'}, 404
+        data['cod_tutoring_program'] = cod_tutoring_program
+        data['cod_coordinator'] = coordinator.cod_coordinator
         # Create an instance of TutoringProgramModel with the data provided
         tutoring_program = TutoringProgramModel.find_by_cod_tutoring_program(cod_tutoring_program)
         if tutoring_program:
@@ -86,7 +91,7 @@ class TutoringProgramList(Resource):
             return {'message': 'You are not allowed to do this'}, 401
         
         # Verify if all attributes are in request and are of correct type
-        ans, data = TutoringProgramList.parser.parse_args(dict(request.json))
+        ans, data = self.parser.parse_args(dict(request.json))
         if not ans:
             return data
 
