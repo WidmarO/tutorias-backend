@@ -190,6 +190,7 @@ class DistributeStudent(Resource):
                 tutor_student = TutorStudentModel(tutor, current_code_tutoring_program, student)
                 if not tutor_student:
                     try:
+                        tutor_student.update_data(tutor, current_code_tutoring_program, student)
                         tutor_student.save_to_db()
                     except:
                         print("message : 2 An error occurred inserting data of the student '{}' for the tutor '{}' in the tutoring program with code '{}'".format(student, tutor, current_code_tutoring_program))

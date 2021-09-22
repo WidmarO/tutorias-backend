@@ -28,7 +28,6 @@ class Filter_Tutors_from_Teachers(Resource): # /filter_tutors_from_teachers
 
         # Get tutoring program
         tutoring_program = TutoringProgramModel.find_tutoring_program_active()
-
         current_tutors_list = [ dict(tutor.json()) for tutor in TutorModel.find_by_cod_tutoring_program(tutoring_program.cod_tutoring_program) ]
         current_codes_tutors_list = [ tutor['cod_teacher'] for tutor in current_tutors_list ]
         incoming_codes_tutors_list = [ tutor['cod_teacher'] for tutor in data['tutor_list'] ]
@@ -83,7 +82,7 @@ class Filter_Tutors_from_Teachers(Resource): # /filter_tutors_from_teachers
                         except:
                             return {'message': 'Error creating user'}, 500
                 else:
-                    return {'message': 'Teacher not found'}, 404
+                    return {'message': 'Teacher not found, There are no teachers to filter. Wait for the coordinator to raise the teachers'}, 404
 
         # si existe pero esta en la lista de nuevos lo actualiza
             else:
