@@ -189,7 +189,7 @@ class DistributeStudent(Resource):
 
         student = data['student']
         tutor = data['tutor']
-        tutor_student = TutorStudentModel(tutor, tutoring_program, student)
+        tutor_student = TutorStudentModel(tutor, tutoring_program_active.cod_tutoring_program, student)
         try:
             tutor_student.save_to_db()
         except:

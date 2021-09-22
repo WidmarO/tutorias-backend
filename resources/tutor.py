@@ -158,7 +158,7 @@ class TutorList(Resource):
         # Return the student data with a status code 201
         return tutor.json(), 201
 
-class TutorListTutoringProgram(Resource):
+class TutorListTutoringProgram(Resource):   #tutor_list/cod_tutoring_program
     
     @jwt_required()
     def get(self, cod_tutoring_program):

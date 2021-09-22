@@ -157,7 +157,7 @@ class StudentList(Resource): # /students
         return student.json(), 201
 
 
-class StudentListTutoringProgram(Resource):
+class StudentListTutoringProgram(Resource): #/student_list/cod_tutoring_program
     
     @jwt_required()
     def get(self, cod_tutoring_program):
