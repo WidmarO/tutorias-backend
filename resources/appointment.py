@@ -13,13 +13,13 @@ from flask_jwt_extended import jwt_required, get_jwt
 class Appointment(Resource):
     parser = Req_Parser()
     parser.add_argument('cod_appointment', str, True)
-    parser.add_argument('cod_tutor', str, True)
+    # parser.add_argument('cod_tutor', str, True)
     parser.add_argument('cod_student', str, True)
     parser.add_argument('date_time', str, True)
     parser.add_argument('general_description', str, True)
     parser.add_argument('private_description', str, True)
     parser.add_argument('diagnosis', str, True)
-    parser.add_argument('cod_tutoring_program', str, True)
+    # parser.add_argument('cod_tutoring_program', str, True)
 
     @jwt_required()
     def put(self, cod_appointment):
@@ -31,11 +31,30 @@ class Appointment(Resource):
         ans, data = AppointmentList.parser.parse_args(dict(request.json))
         if not ans:
             return data
+
+        email_tutor = claims["sub"]
+        # Create tutoring program in relation at tutoring program active.
+        tutoring_program = TutoringProgramModel.find_tutoring_program_active()
+        data['cod_tutoring_program'] = tutoring_program.cod_tutoring_program
+        
+        # Create teacher and Verify if teacher exits in database 
+        teacher = TeacherModel.find_email_in_tutoring_program(email_tutor, tutoring_program.cod_tutoring_program)
+        if not teacher:
+            return {"message": "Teacher not found."}, 404
+        tutor = TutorModel.find_teacher_in_tutoring_program(tutoring_program.cod_tutoring_program, teacher.cod_teacher)
+        if not tutor:
+            return {"message": "Tutorr not found."}, 404
+        # Add student's code to data
+        data['cod_tutor'] = tutor.cod_teacher 
         # Create a instance of TutoringProgramModel with the data provided
         appointment = AppointmentModel.find_by_cod_appointment(cod_appointment)
         if appointment:
-            appointment.update_data(**data)
-            appointment.save_to_db()
+            try:
+                appointment.update_data(**data)
+                appointment.save_to_db()
+                
+            except:
+                return {'message': 'An error occurred while updating appointment'}, 500
             return appointment.json(), 200
         return {'message': 'Appointment not found.'}, 404
 
@@ -54,12 +73,15 @@ class Appointment(Resource):
         claims = get_jwt()
         if claims['role'] != 'tutor':
             return {'message': 'You are not allowed to do this'}, 401
+
         '''Delete a appointment from database if exist in it'''
         appointment = AppointmentModel.find_by_cod_appointment(cod_appointment)
         if appointment:
-            appointment.delete_from_db()
+            try:
+                appointment.delete_from_db()
+            except:
+                return {'message': 'An error occurred while deleting appointment'}, 500
             return appointment.json(), 200
-
         return {'message': 'Appointment not found.'}
 
 
@@ -81,8 +103,14 @@ class AppointmentList(Resource):
         emailteacher=claims['sub']
         tutoring_program = TutoringProgramModel.find_tutoring_program_active()
         teacher = TeacherModel.find_email_in_tutoring_program(emailteacher, tutoring_program.cod_tutoring_program)
+        if not teacher:
+            return {"message": "Teacher not found."}, 404
         tutor = TutorModel.find_teacher_in_tutoring_program(tutoring_program.cod_tutoring_program, teacher.cod_teacher)
+        if not tutor:
+            return {"message": "Tutor not found."}, 404
         student = StudentModel.find_by_cod_student(cod_student)
+        if not student:
+            return {"message": "Student not found."}, 404
 
         list_appointment_student = [ appointment_student.json() for appointment_student in AppointmentModel.find_appointment_of_student_in_tutoring_program(student.cod_student, tutor.cod_tutor, tutoring_program.cod_tutoring_program)]
         return list_appointment_student, 200
@@ -99,7 +127,6 @@ class AppointmentList(Resource):
         teacher = TeacherModel.find_email_in_tutoring_program(email_teacher, tutoring_program.cod_tutoring_program)
         tutor = TutorModel.find_teacher_in_tutoring_program(tutoring_program.cod_tutoring_program, teacher.cod_teacher)
 
-        print(request.json)
         # Verify if all attributes are in request and are of correct type
         ans, data = AppointmentList.parser.parse_args(dict(request.json))
         if not ans:
@@ -141,6 +168,26 @@ class AppointmentList(Resource):
         return new_code
 
 
+class AppointmentListTutoringProgram(Resource):
+    
+    @jwt_required()
+    def get(self, cod_tutoring_program):
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
+        # Return all students in database        
+        list_appointments_in_tutoring_program = [ appointment.json() for appointment in AppointmentModel.find_by_cod_tutoring_program(cod_tutoring_program) ]
+        list_appointments_in_tutoring_program = sorted(list_appointments_in_tutoring_program, key=lambda x: x[list(list_appointments_in_tutoring_program[0].keys())[0]])    
+        return list_appointments_in_tutoring_program, 200
 
-        
+class AppointmentTutor(Resource):
 
+    @jwt_required()
+    def get(self, cod_tutor):
+        claims = get_jwt()
+        if claims['role'] != 'tutor':
+            return {'message': 'You are not allowed to do this'}, 401
+        # Return all students in database        
+        list_appointments_of_a_tutor = [ appointment.json() for appointment in AppointmentModel.find_by_cod_tutor(cod_tutor) ]
+        list_appointments_of_a_tutor = sorted(list_appointments_of_a_tutor, key=lambda x: x[list(list_appointments_of_a_tutor[0].keys())[0]])    
+        return list_appointments_of_a_tutor, 200

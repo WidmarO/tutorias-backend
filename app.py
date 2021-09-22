@@ -56,6 +56,7 @@ from resources.create_student_accounts import Create_Student_Accounts
 from resources.create_tutor_accounts import Create_Tutor_Accounts
 from resources.user import User
 from resources.update_credentials_coordinator import UpdateCredentialsCoordinator
+from resources.user_in_tutoring_program import UserTutoringProgram
 
 app = Flask(__name__)
 CORS(app)
@@ -146,6 +147,7 @@ api.add_resource(TutorT, '/tutorT')
 api.add_resource(User, '/authenticate_user')
 api.add_resource(UpdateCredentials, '/update_credentials')
 api.add_resource(UpdateCredentialsCoordinator, '/update_credentials_coordinator')
+api.add_resource(UserTutoringProgram, '/user_tutoring_program')
 
 # -- Module that create the tables in the BD
 # @app.before_first_request
