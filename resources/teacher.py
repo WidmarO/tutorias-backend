@@ -161,6 +161,9 @@ class AddTeachers(Resource): # /add_teachers
         for t in data['teacher_list']:
             teacher = TeacherModel.find_teacher_in_tutoring_program(tutoring_program.cod_tutoring_program , t['cod_teacher'])
             count_teachers += 1
+            t['phone'] = ''
+            t['filiation'] = ''
+            t['category'] = ''
             if not teacher:
                 teacher = TeacherModel(t['cod_teacher'], t['name'], t['f_lastname'], t['m_lastname'], t['phone'], t['email'], t['filiation'], t['category'], tutoring_program.cod_tutoring_program)
                 try:
