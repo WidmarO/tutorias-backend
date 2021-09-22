@@ -35,7 +35,7 @@ from flask_jwt_extended import get_jwt
   #   return {'token': access_token}
 
 
-class Login(Resource):
+class Login(Resource): # /login
   parser = Req_Parser()
   parser.add_argument('username', str, True)
   parser.add_argument('password', str, True)
@@ -66,6 +66,8 @@ class Login(Resource):
         if user.password == data['password']:
           access_token = create_access_token(user.username, additional_claims={'role': user.role, 'id': user.id})
           return {'token': access_token}
+        else:
+          return {'message': 'Wrong credentials'}, 401
       else:
         return {'message': 'There is no active tutoring program, wait that the coordinator active the plan of tutoring program. Thanks.'}, 401
 

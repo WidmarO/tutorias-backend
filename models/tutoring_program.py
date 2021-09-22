@@ -48,14 +48,13 @@ class TutoringProgramModel(db.Model):
                 'cod_coordinator': self.cod_coordinator
                 }
 
-    def update_data(self, cod_tutoring_program, title, initial_date, final_date, semester, condition, cod_coordinator):
+    def update_data(self, cod_tutoring_program, title, initial_date, final_date, semester, condition):
         self.cod_tutoring_program = cod_tutoring_program
         self.title = title
         self.initial_date = initial_date
         self.final_date = final_date
         self.semester = semester
-        self.condition = condition
-        self.cod_coordinator = cod_coordinator
+        self.condition = condition        
 
     @classmethod
     def find_by_cod_tutoring_program(cls, _cod_tutoring_program):
