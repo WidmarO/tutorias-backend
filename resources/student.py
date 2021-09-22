@@ -157,6 +157,19 @@ class StudentList(Resource): # /students
         return student.json(), 201
 
 
+class StudentListTutoringProgram(Resource):
+    
+    @jwt_required()
+    def get(self, cod_tutoring_program):
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
+        # Return all students in database        
+        sort_students_in_tutoring_program = [ student.json() for student in StudentModel.find_by_cod_tutoring_program(cod_tutoring_program) ]
+        sort_students_in_tutoring_program = sorted(sort_students_in_tutoring_program, key=lambda x: x[list(sort_students_in_tutoring_program[0].keys())[0]])    
+        return sort_students_in_tutoring_program, 200
+
+
 class AddStudents(Resource): # /students_update
     parser = Req_Parser()
     parser.add_argument('student_list', list, True)

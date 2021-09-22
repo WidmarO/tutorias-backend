@@ -55,6 +55,11 @@ class PrincipalModel(db.Model):
         # -> SELECT * FROM items where cod_tutoring_program=cod_tutoring_program LIMIT 1
         return cls.query.filter_by(cod_tutoring_program=_cod_tutoring_program).filter_by(cod_teacher=_cod_teacher).first()
 
+    @classmethod
+    def find_by_cod_tutoring_program(cls, _cod_tutoring_program):
+        # -> SELECT * FROM items where dni=dni LIMIT 1
+        return cls.query.filter_by(cod_tutoring_program=_cod_tutoring_program)
+
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()

@@ -93,3 +93,16 @@ class NewList(Resource):
             return {'message': "An error ocurred adding the new"}, 500
 
         return new.json(), 201
+
+
+class NewListTutoringProgram(Resource):
+    
+    @jwt_required()
+    def get(self, cod_tutoring_program):
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
+        # Return all students in database        
+        list_new_in_tutoring_program = [ new.json() for new in NewModel.find_by_cod_tutoring_program(cod_tutoring_program) ]
+        list_new_in_tutoring_program = sorted(list_new_in_tutoring_program, key=lambda x: x[list(list_new_in_tutoring_program[0].keys())[0]])    
+        return list_new_in_tutoring_program, 200

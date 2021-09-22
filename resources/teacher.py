@@ -121,6 +121,18 @@ class TeacherList(Resource): # /teachers
         # Return the teacher data with a status code 201
         return teacher.json(), 201
 
+class TeacherListTutoringProgram(Resource):
+    
+    @jwt_required()
+    def get(self, cod_tutoring_program):
+        claims = get_jwt()
+        if claims['role'] != 'coordinator' and claims['role'] != 'principal':
+            return {'message': 'You are not allowed to do this'}, 401
+        # Return all teachers of the tutoring program con cod_tutoring_program of the database        
+        sort_teachers_in_tutoring_program = [ teacher.json() for teacher in TeacherModel.find_by_cod_tutoring_program(cod_tutoring_program) ]
+        sort_teachers_in_tutoring_program = sorted(sort_teachers_in_tutoring_program, key=lambda x: x[list(sort_teachers_in_tutoring_program[0].keys())[0]])    
+        return sort_teachers_in_tutoring_program, 200
+
 class AddTeachers(Resource): # /add_teachers
 
     parser = Req_Parser()    

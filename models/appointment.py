@@ -53,8 +53,18 @@ class AppointmentModel(db.Model):
         return cls.query.filter_by(cod_appointment=_cod_appointment).first()
     
     @classmethod
+    def find_by_cod_tutor(cls, _cod_tutor):
+        # -> SELECT * FROM items where cod_coordinator=cod_coordinator LIMIT 1
+        return cls.query.filter_by(cod_tutor=_cod_tutor).first()
+    
+    @classmethod
     def find_appointment_of_student_in_tutoring_program(cls, _cod_student, _cod_tutor, _cod_tutoring_program):
         return cls.query.filter_by(cod_student=_cod_student).filter_by(cod_tutor=_cod_tutor).filter_by(cod_tutoring_program=_cod_tutoring_program)
+
+    @classmethod
+    def find_by_cod_tutoring_program(cls, _cod_tutoring_program):
+        # -> SELECT * FROM items where dni=dni LIMIT 1
+        return cls.query.filter_by(cod_tutoring_program=_cod_tutoring_program)
 
     @classmethod
     def find_all(cls):
