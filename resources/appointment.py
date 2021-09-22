@@ -171,7 +171,7 @@ class AppointmentList(Resource):
 class AppointmentListTutoringProgram(Resource): # /appointment_list/<cod_tutoring_program>
     
     @jwt_required()
-    def get(self, cod_tutoring_program):
+    def get(self, cod_tutoring_program, cod_student):
         claims = get_jwt()
         if claims['role'] != 'coordinator':
             return {'message': 'You are not allowed to do this'}, 401
@@ -180,15 +180,22 @@ class AppointmentListTutoringProgram(Resource): # /appointment_list/<cod_tutorin
         list_appointments_in_tutoring_program = sorted(list_appointments_in_tutoring_program, key=lambda x: x[list(list_appointments_in_tutoring_program[0].keys())[0]])    
         return list_appointments_in_tutoring_program, 200
 
-
-class AppointmentTutor(Resource): 
+class AppointmentTutor(Resource):  # /list_student_appointment/<cod_student>/<cod_tutoring_program>
     @jwt_required()
-    def get(self, cod_tutor):
+    def get(self, cod_student, cod_tutoring_program):
         claims = get_jwt()
         if claims['role'] != 'tutor':
             return {'message': 'You are not allowed to do this'}, 401
-        
-        # Return all students in database
-        list_appointments_of_a_tutor = [ appointment.json() for appointment in AppointmentModel.find_by_cod_tutor(cod_tutor) ]
-        list_appointments_of_a_tutor = sorted(list_appointments_of_a_tutor, key=lambda x: x[list(list_appointments_of_a_tutor[0].keys())[0]])    
-        return list_appointments_of_a_tutor, 200
+
+        email_tutor = claims['email']
+        teacher = TeacherModel.find_teacher_by_email_in_tutoring_program(email_tutor, cod_tutoring_program)
+        if not teacher:
+            return {'message': 'The teacher with email {} not exist'.format(email_tutor)}, 400
+        tutor = TutorModel.find_teacher_in_tutoring_program(cod_tutoring_program, teacher.cod_teacher)
+        if not tutor:
+            return {'message': 'The tutor with code {} not exist'.format(teacher.cod_teacher)}, 400
+
+        # Return all students in database        
+        list_appointments_of_a_student_in_tp = [ appointment.json() for appointment in AppointmentModel.find_appointment_of_student_in_tutoring_program(cod_student, tutor.cod_tutor, cod_tutoring_program) ]
+        list_appointments_of_a_student_in_tp = sorted(list_appointments_of_a_student_in_tp, key=lambda x: x[list(list_appointments_of_a_student_in_tp[0].keys())[0]])    
+        return list_appointments_of_a_student_in_tp, 200

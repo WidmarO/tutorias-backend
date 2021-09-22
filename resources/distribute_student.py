@@ -189,10 +189,10 @@ class DistributeStudent(Resource):
 
         student = data['student']
         tutor = data['tutor']
-        tutor_student = TutorStudentModel(tutor, tutoring_program_active.cod_tutoring_program , student)
+        tutor_student = TutorStudentModel(tutor, tutoring_program_active.cod_tutoring_program, student)
         try:
             tutor_student.save_to_db()
         except:
-            return {"message":"An error occurred inserting data of the student '{}' for the tutor '{}' in the tutoring program with code '{}'".format(student, tutor, tutoring_program)}, 500
+            return {"message":"An error occurred inserting data of the student '{}' for the tutor '{}' in the tutoring program with code '{}'".format(student, tutor, tutoring_program_active.cod_tutoring_program)}, 500
         return {"message":"Tutor student created successfully"}, 201
 
