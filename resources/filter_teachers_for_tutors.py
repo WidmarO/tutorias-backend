@@ -30,8 +30,8 @@ class Filter_Tutors_from_Teachers(Resource): # /filter_tutors_from_teachers
         tutoring_program = TutoringProgramModel.find_tutoring_program_active()
 
         current_tutors_list = [ dict(tutor.json()) for tutor in TutorModel.find_by_cod_tutoring_program(tutoring_program.cod_tutoring_program) ]
-        current_codes_tutors_list = [ tutor['cod_tutor'] for tutor in current_tutors_list ]
-        incoming_codes_tutors_list = [ tutor['cod_teacher'] for tutor in data ]
+        current_codes_tutors_list = [ tutor['cod_teacher'] for tutor in current_tutors_list ]
+        incoming_codes_tutors_list = [ tutor['cod_teacher'] for tutor in data['tutor_list'] ]
                 
         # If already exist in the current table tutor but is not in the incoming list
         # delete the tutor and respective user from the db
@@ -43,8 +43,8 @@ class Filter_Tutors_from_Teachers(Resource): # /filter_tutors_from_teachers
         for code in diference_list:
             teacher = TeacherModel.find_teacher_in_tutoring_program(tutoring_program.cod_tutoring_program, code)
             if not teacher:
-                return {'message': "There isn't a teacher with code '{}'".format(teacher.cod_teacher)}, 404
-            user = UserModel.find_user_by_username(teacher.email)
+                return {'message': "There is not a teacher with code '{}'".format(code)}, 404
+            user = UserModel.find_by_username(teacher.email)
             if not user:
                 return {'message': "There isn't the user with username '{}' ".format(teacher.email)}, 404
             
@@ -64,7 +64,9 @@ class Filter_Tutors_from_Teachers(Resource): # /filter_tutors_from_teachers
                     new_tutor = TutorModel(
                         cod_tutor = self.create_cod_tutor(),
                         cod_tutoring_program = tutoring_program.cod_tutoring_program,
-                        cod_teacher = code
+                        cod_teacher = code,
+                        schedule = '',
+                        place = ''
                     )
                     new_tutor.save_to_db()
                     new_user = UserModel.find_by_username(teacher.email)
