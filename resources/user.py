@@ -10,7 +10,7 @@ from models.coordinator import CoordinatorModel
 from models.principal import PrincipalModel
 
 
-class User(Resource):
+class User(Resource): # /authenticate_user
 
     @jwt_required()
     def get(self):
@@ -27,7 +27,10 @@ class User(Resource):
             # Find tutor by cod_teacher in tutoring program
             tutor = TutorModel.find_teacher_in_tutoring_program(tutoring_program_active.cod_tutoring_program, teacher.cod_teacher)
             if tutor:
-                return teacher.json(), 200
+                ans = dict(tutor.json())
+                ans['role'] = 'tutor'
+                ans['username'] = email_teacher
+                return ans, 200
             return {"message": "The teacher is not a tutor"}, 404
 
         # Get the user if the role is coordinator
@@ -35,7 +38,10 @@ class User(Resource):
             email_coordinator = claims['sub']
             coordinator = CoordinatorModel.find_email_in_tutoring_program(email_coordinator)
             if coordinator:
-                return coordinator.json(), 200
+                ans = dict(coordinator.json())
+                ans['role'] = 'coordinator'
+                ans['username'] = email_coordinator
+                return ans, 200
             return {'message': 'Coordinator not found'}, 404
         
         # Get the user if the role is student
@@ -43,18 +49,24 @@ class User(Resource):
             email_student = claims['sub']
             student = StudentModel.find_email_in_tutoring_program(email_student, tutoring_program_active.cod_tutoring_program)
             if student:
-                return student.json(), 200
+                ans = dict(student.json())
+                ans['role'] = 'student'
+                ans['username'] = email_student
+                return ans, 200
             return {'message': 'Student not found.'}, 404
         
         # Get the user if the role is principal
         if claims['role'] == 'principal':
             email_principal = claims['sub']
-            teacher = TeacherModel.find_email_in_tutoring_program(email_principal, tutoring_program_active.cod_tutoring_program)
+            teacher = PrincipalModel.find_email(email_principal,tutoring_program_active.cod_tutoring_program)
             if not teacher:
                 return {'message': 'Teacher not found.'}, 404
             principal = PrincipalModel.find_teacher_in_tutoring_program(tutoring_program_active.cod_tutoring_program, teacher.cod_teacher)    
             if principal:
-                return principal.json(), 200
+                ans = dict(principal.json())
+                ans['role'] = 'principal'
+                ans['username'] = email_principal
+                return ans, 200
             return {'message': "Principal not found."}, 404
 
         # Get the user if the role is student helper
@@ -65,6 +77,9 @@ class User(Resource):
                 return {"message": "Student not found."}, 404
             student_helper = StudentHelperModel.find_student_in_tutoring_program(tutoring_program_active.cod_tutoring_program, student.cod_student)
             if student_helper :
-                return student.json(), 200
+                ans = dict(student_helper.json())
+                ans['role'] = 'student_helper'
+                ans['username'] = email_student
+                return ans, 200
             return {"message": "Student Helper not found."}, 404
     
