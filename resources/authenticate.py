@@ -85,7 +85,7 @@ class UpdateCredentials(Resource):
   def put(self):
     '''Log a user in'''
     # Verify if the request data is valid
-    ans, data = Login.parser.parse_args(dict(request.json))
+    ans, data = UpdateCredentials.parser.parse_args(dict(request.json))
     if not ans:
       return data
 
@@ -93,11 +93,13 @@ class UpdateCredentials(Resource):
     user = UserModel.find_by_username(data['username'])
     if not user:
       return {'message': 'User does not exist'}, 404
-
+    print('==========================================')
+    print(data)
     # Verify if the password is correct
     if user.password == data['password']:
       # Update the password
       user.password = data['new_password']
+      user.save_to_db()
       # Create a token for the user with new credentials
       access_token = create_access_token(user.username, additional_claims={'role': user.role, 'id': user.id})
       return {'token': access_token}
