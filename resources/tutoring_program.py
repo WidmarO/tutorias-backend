@@ -23,7 +23,7 @@ class TutoringProgram(Resource):
             return {'message': 'You are not allowed to do this'}, 401
 
         # Verify if all attributes are in request and are of correct type
-        ans, data = TutoringProgramList.parser.parse_args(dict(request.json))
+        ans, data = TutoringProgram.parser.parse_args(dict(request.json))
         if not ans:
             return data
 
