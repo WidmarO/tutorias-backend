@@ -40,20 +40,51 @@ class DistributeStudent(Resource):
         # Get the before code of the tutoring program     
         current_tutoring_program = TutoringProgramModel.find_tutoring_program_active()
         current_code_tutoring_program = current_tutoring_program.cod_tutoring_program
-
+        before_code_tutoring_program = current_code_tutoring_program
         # before_code_tutoring_program = current_code_tutoring_program.split('-')[1] # '002'
         # before_code_tutoring_program = int(before_code_tutoring_program) 
 
         before_tutor_students_list =  [ tutor_student.json() for tutor_student in TutorStudentModel.find_by_cod_tutoring_program(current_code_tutoring_program)]
+        current_students_list = []
+        current_tutors_list = []
+        new_tutor_students_list = {}
         if len(before_tutor_students_list) == 0:
-            before_code_tutoring_program = current_code_tutoring_program.split('-')[1] # '002'
-            before_code_tutoring_program = int(before_code_tutoring_program) 
-            before_code_tutoring_program = before_code_tutoring_program - 1   
-            before_code_tutoring_program = 'PT-' + '{:>03}'.format(str(before_code_tutoring_program))
-            before_tutor_students_list = [ tutor_student.json() for tutor_student in TutorStudentModel.find_by_cod_tutoring_program(before_code_tutoring_program)]
+            print("si entra aqui before_tutor_students_list is empty =========================================")
+            # if the current_code_tutoring_program is the first tutoring program,
+            if current_code_tutoring_program == "PT-001":
+                print("si entra aqui -> current_code_tutoring_program = PT-001 ===========================")
+                # we do the standard distribute
+                current_students_list = [ student.cod_student for student in StudentModel.find_by_cod_tutoring_program(current_code_tutoring_program)]
+                current_tutors_list = [ tutor.cod_tutor for tutor in TutorModel.find_by_cod_tutoring_program(current_code_tutoring_program)]
+                # print('students =>', current_students_list)
+                # print('tutors =>', current_tutors_list)
+                new_tutor_students_list = {}
+                for t in current_tutors_list:
+                    new_tutor_students_list[t] = []
+                while len(current_students_list)>0:
+                    for t in current_tutors_list:
+                        if len(current_students_list) > 0:
+                            st = current_students_list.pop()
+                            new_tutor_students_list[t].append(st)
+                
+                # Save the new data in the database
+                for tutor in new_tutor_students_list:
+                    for student in new_tutor_students_list[tutor]:
+                        tutor_student = TutorStudentModel(tutor, current_code_tutoring_program, student)
+                        try:
+                            tutor_student.save_to_db()                    
+                        except:
+                            print("message : 1 An error occurred inserting data of the student '{}' for the tutor '{}' in the tutoring program with code '{}'".format(student, tutor, current_code_tutoring_program))
+                return {"message":"Distribute successful"}, 200
 
+            else:
+                print("entro al else ======================================")
+                before_code_tutoring_program = current_code_tutoring_program.split('-')[1] # '002'
+                before_code_tutoring_program = int(before_code_tutoring_program) 
+                before_code_tutoring_program = before_code_tutoring_program - 1   
+                before_code_tutoring_program = 'PT-' + '{:>03}'.format(str(before_code_tutoring_program))
+                before_tutor_students_list = [ tutor_student.json() for tutor_student in TutorStudentModel.find_by_cod_tutoring_program(before_code_tutoring_program)]            
 
-        
         # Get the before distribution of students by tutors BTS (before tutors students list)
         before_tutor_students_list =  [ tutor_student.json() for tutor_student in TutorStudentModel.find_by_cod_tutoring_program(before_code_tutoring_program)]
         # Sorted the before_tutor_students_list
@@ -157,16 +188,13 @@ class DistributeStudent(Resource):
         for tutor in new_tutor_students_list:
             for student in new_tutor_students_list[tutor]:
                 tutor_student = TutorStudentModel(tutor, current_code_tutoring_program, student)
-                try:
-                    tutor_student.save_to_db()
-                    # Escribir en el archivo history el cambio de tutoring program
-                    history_file = open(self.history_file, "a")
-                    history_file.write("{} {} {} {} {}\n".format(current_code_tutoring_program, tutor, student, "add", datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
-                    history_file.close()
-                    
-                except:
-                    print("message : An error occurred inserting data of the student '{}' for the tutor '{}' in the tutoring program with code '{}'".format(student, tutor, current_code_tutoring_program))
-
+                if not tutor_student:
+                    try:
+                        tutor_student.save_to_db()
+                    except:
+                        print("message : 2 An error occurred inserting data of the student '{}' for the tutor '{}' in the tutoring program with code '{}'".format(student, tutor, current_code_tutoring_program))
+                else:
+                    print("message : The student '{}' for the tutor '{}' in the tutoring program with code '{}' already exist, but is not a problem".format(student, tutor, current_code_tutoring_program))
         return {"message":"Distribute successful"}, 200
 
     @jwt_required()
