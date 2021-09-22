@@ -25,7 +25,7 @@ class TutoringProgram(Resource):
         # Verify if all attributes are in request and are of correct type
         ans, data = TutoringProgramList.parser.parse_args(dict(request.json))
         if not ans:
-            return data    
+            return data
 
         # Create an instance of TutoringProgramModel with the data provided
         tutoring_program = TutoringProgramModel.find_by_cod_tutoring_program(cod_tutoring_program)

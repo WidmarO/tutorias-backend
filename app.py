@@ -39,23 +39,25 @@ from models.description_workshop_attendance import DescriptionWorkshopAttendance
 
 # from security import authenticate, identity
 
-from resources.student import StudentList, Student, StudentS, AddStudents
+from resources.student import StudentList, Student, StudentS, AddStudents, StudentListTutoringProgram
 from resources.coordinator import CoordinatorList, Coordinator
 from resources.tutoring_program import TutoringProgramList, TutoringProgram
 # from resources.workshop import Workshop, WorkshopList
 from resources.documentation import Documentation, Documentation_coordinator,Documentation_principal,Documentation_teacher,Documentation_student,Documentation_tutor
 from resources.authenticate import Login, UpdateCredentials
-from resources.teacher import TeacherList, Teacher, AddTeachers
-from resources.tutor import TutorList, Tutor, TutorT
+from resources.teacher import TeacherList, Teacher, AddTeachers, TeacherListTutoringProgram
+from resources.tutor import TutorList, Tutor, TutorT, TutorListTutoringProgram
 from resources.distribute_student import DistributeStudent
 from resources.tutor_student import TutorStudentList, TutorStudentT, TutorStudentC
-from resources.appointment import AppointmentList, Appointment
+from resources.appointment import AppointmentList, Appointment, AppointmentListTutoringProgram
 from resources.filter_teachers_for_tutors import Filter_Tutors_from_Teachers
 from resources.principal import Principal, PrincipalList, PrincipalC
 from resources.create_student_accounts import Create_Student_Accounts
 from resources.create_tutor_accounts import Create_Tutor_Accounts
 from resources.user import User
 from resources.update_credentials_coordinator import UpdateCredentialsCoordinator
+from resources.user_in_tutoring_program import UserTutoringProgram
+from resources.new import New, NewList, NewListTutoringProgram
 from resources.user_in_tutoring_program import UserTutoringProgram
 
 app = Flask(__name__)
@@ -148,6 +150,7 @@ api.add_resource(User, '/authenticate_user')
 api.add_resource(UpdateCredentials, '/update_credentials')
 api.add_resource(UpdateCredentialsCoordinator, '/update_credentials_coordinator')
 api.add_resource(UserTutoringProgram, '/user_tutoring_program')
+api.add_resource()
 
 # -- Module that create the tables in the BD
 # @app.before_first_request

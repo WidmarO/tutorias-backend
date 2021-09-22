@@ -3,6 +3,7 @@ from flask import request
 
 from models.user import UserModel
 from Req_Parser import Req_Parser
+from models.tutoring_program import TutoringProgramModel
 
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import jwt_required
@@ -44,20 +45,29 @@ class Login(Resource):
     # Verify if the request data is valid
     ans, data = Login.parser.parse_args(dict(request.json))
     if not ans:
-      return data
+      return data    
 
     # Verify if the user exists
     user = UserModel.find_by_username(data['username'])
     if not user:
       return {'message': 'User does not exist'}, 404
 
-    # Verify if the password is correct
-    if user.password == data['password']:
-      # Create a token for the user
-      access_token = create_access_token(user.username, additional_claims={'role': user.role, 'id': user.id})
-      return {'token': access_token}
+    tutoring_program_active = TutoringProgramModel.find_tutoring_program_active()
+    if tutoring_program_active:
+      # Verify if the password is correct
+      if user.password == data['password']:
+        # Create a token for the user
+        access_token = create_access_token(user.username, additional_claims={'role': user.role, 'id': user.id})
+        return {'token': access_token}
+      else:
+        return {'message': 'Wrong credentials'}, 401
     else:
-      return {'message': 'Wrong credentials'}, 401
+      if user.role == 'coordinator':
+        if user.password == data['password']:
+          access_token = create_access_token(user.username, additional_claims={'role': user.role, 'id': user.id})
+          return {'token': access_token}
+      else:
+        return {'message': 'There is no active tutoring program, wait that the coordinator active the plan of tutoring program. Thanks.'}, 401
 
   # @jwt_required()
   # def get(self):
