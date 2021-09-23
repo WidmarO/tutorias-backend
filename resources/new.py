@@ -87,7 +87,7 @@ class NewList(Resource):
         new = NewModel(**data)
 
         try:
-            new.save_to_db()
+            new.save_to_db(), 201
         except:
             return {'message': "An error ocurred adding the new"}, 500
 

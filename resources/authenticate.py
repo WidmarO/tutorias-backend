@@ -45,7 +45,7 @@ class Login(Resource): # /login
     # Verify if the request data is valid
     ans, data = Login.parser.parse_args(dict(request.json))
     if not ans:
-      return data    
+      return data, 400
 
     # Verify if the user exists
     user = UserModel.find_by_username(data['username'])

@@ -94,7 +94,7 @@ class TutorStudentT(Resource):
 
         email_teacher=claims['sub']
         tutoring_program = TutoringProgramModel.find_tutoring_program_active()
-        teacher = TeacherModel.find_email_in_tutoring_program(email_teacher, tutoring_program.cod_tutoring_program)
+        teacher = TeacherModel.find_teacher_by_email_in_tutoring_program(email_teacher, tutoring_program.cod_tutoring_program)
         tutor = TutorModel.find_teacher_in_tutoring_program(tutoring_program.cod_tutoring_program, teacher.cod_teacher)
 
         # Get tutoring program
