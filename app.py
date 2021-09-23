@@ -49,7 +49,7 @@ from resources.teacher import TeacherList, Teacher, AddTeachers, TeacherListTuto
 from resources.tutor import TutorList, Tutor, TutorT, TutorListTutoringProgram
 from resources.distribute_student import DistributeStudent
 from resources.tutor_student import TutorStudentList, TutorStudentT, TutorStudentC
-from resources.appointment import AppointmentList, Appointment, AppointmentListTutoringProgram
+from resources.appointment import AppointmentList, Appointment, AppointmentListTutoringProgram, AppointmentTutor, AppointmentListCoordinator
 from resources.filter_teachers_for_tutors import Filter_Tutors_from_Teachers
 from resources.principal import Principal, PrincipalList, PrincipalC, PrincipalP
 from resources.create_student_accounts import Create_Student_Accounts
@@ -57,7 +57,7 @@ from resources.create_tutor_accounts import Create_Tutor_Accounts
 from resources.user import User
 from resources.update_credentials_coordinator import UpdateCredentialsCoordinator
 from resources.user_in_tutoring_program import UserTutoringProgram
-from resources.new import New, NewList, NewListTutoringProgram
+from resources.new import New, NewList, NewListCoordinator, NewListTutoringProgram
 from resources.user_in_tutoring_program import UserTutoringProgram
 
 app = Flask(__name__)
@@ -142,6 +142,9 @@ api.add_resource(TutorStudentList, '/tutor_students')
 api.add_resource(DistributeStudent, '/distribute_students')
 api.add_resource(Appointment, '/appointment/<string:cod_appointment>')
 api.add_resource(AppointmentList, '/appointments/<string:cod_student>')
+api.add_resource(AppointmentTutor, '/student_appointment_list/<string:cod_student>/<string:cod_tutoring_program>')
+api.add_resource(AppointmentListTutoringProgram, '/appointment_list/<string:cod_tutoring_program>')
+api.add_resource(AppointmentListCoordinator, '/appointment_list_coordinator')
 api.add_resource(Filter_Tutors_from_Teachers, '/filter_tutors_from_teachers')
 api.add_resource(Principal, '/principal/<string:cod_principal>')
 api.add_resource(PrincipalList, '/principals')
@@ -155,6 +158,10 @@ api.add_resource(User, '/authenticate_user')
 api.add_resource(UpdateCredentials, '/update_credentials')
 api.add_resource(UpdateCredentialsCoordinator, '/update_credentials_coordinator')
 api.add_resource(UserTutoringProgram, '/user_tutoring_program')
+api.add_resource(New, '/new/<string:cod_new>')
+api.add_resource(NewList, '/news')
+api.add_resource(NewListTutoringProgram, '/new_tutoring_program/<string:cod_tutoring_program>')
+api.add_resource(NewListCoordinator, '/new_list_coordinator')
 
 # -- Module that create the tables in the BD
 @app.before_first_request
