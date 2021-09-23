@@ -94,7 +94,7 @@ jwt = JWTManager(app)
 type_database = 'mysql'
 user_database = 'root'
 pass_database = 'toor' # for wid is toor
-url_database = 'localhost:3307' # for wid is 127.0.0.1  #localhost:3307
+url_database = '127.0.0.1' # for wid is 127.0.0.1  #localhost:3307
 name_database = 'tutoring-system-bd'
 # ---------------------------- CLEVER CLOUD DATABASE
 # type_database = 'mysql'
@@ -165,9 +165,9 @@ api.add_resource(NewListTutoringProgram, '/new_tutoring_program/<string:cod_tuto
 api.add_resource(NewListCoordinator, '/new_list_coordinator')
 
 # -- Module that create the tables in the BD
-@app.before_first_request
-def create_tables():
-    db.create_all()
+# @app.before_first_request
+# def create_tables():
+#     db.create_all()
 
 if __name__ == '__main__':
     from db import db

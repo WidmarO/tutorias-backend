@@ -29,21 +29,21 @@ class Req_Parser():
             # verify if the required fields exists
             if self.params[p]['required']:
                 if p not in request:
-                    return False, {"help": "Field '{}' is required".format(p)}
+                    return False, {"message": "Field '{}' is required".format(p)}
                 if self.params[p]['type'] is not type(request[p]):
-                    return False, {"help": "Diferent type of variable in '{}' argument".format(p)}
+                    return False, {"message": "Diferent type of variable in '{}' argument".format(p)}
                 else:
                     if self.params[p]['type'] is str:
                         if request[p].strip() == '':
-                            return False, {"help": "Field '{}' is required".format(p)}
+                            return False, {"message": "Field '{}' is required".format(p)}
                         self.ans[p] = request[p]
             else:
                 if self.params[p]['type'] is not type(request[p]):
-                    return False, {"help": "Diferent type of variable in '{}' argument".format(p)}
+                    return False, {"message": "Diferent type of variable in '{}' argument".format(p)}
                 else:
                     if self.params[p]['type'] is str:
                         if request[p].strip() == '':
-                            return False, {"help": "Field '{}' is required".format(p)}
+                            return False, {"message": "Field '{}' is required".format(p)}
                         self.ans[p] = request[p]
             
             if self.params[p]['type'] is list:

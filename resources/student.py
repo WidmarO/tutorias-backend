@@ -217,7 +217,7 @@ class StudentListTutoringProgram(Resource): # /student_list/<cod_tutoring_progra
         return sort_students_in_tutoring_program, 200
 
 
-class AddStudents(Resource): # /students_update
+class AddStudents(Resource): # /addstudents
     parser = Req_Parser()
     parser.add_argument('student_list', list, True)
     # for each student:

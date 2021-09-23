@@ -92,7 +92,7 @@ class NewList(Resource):  # /news
         new = NewModel(cod_new, data['title'], data['description'], data['whom'], data['date_time'], tutoring_program_active.cod_tutoring_program)
 
         try:
-            new.save_to_db()
+            new.save_to_db(), 201
         except:
             return {'message': "An error ocurred adding the new"}, 500
 
@@ -125,7 +125,7 @@ class NewListTutoringProgram(Resource):   # /new_tutoring_program/cod_tutoring_p
 class NewListCoordinator(Resource):   # /new_list_coordinator
     @jwt_required()
     def get(self):
-
+        
         tutoring_program_active = TutoringProgramModel.find_tutoring_program_active()
         # Return all students in database        
         list_new_coordinator = [ new.json() for new in NewModel.find_by_cod_tutoring_program(tutoring_program_active.cod_tutoring_program) ]
