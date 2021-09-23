@@ -46,6 +46,11 @@ class AppointmentModel(db.Model):
         self.diagnosis= diagnosis
         self.cod_tutoring_program= cod_tutoring_program
 
+    def update_data_student(self,cod_appointment, cod_tutor, cod_student, cod_tutoring_program):
+        self.cod_appointment = cod_appointment
+        self.cod_tutor = cod_tutor
+        self.cod_student= cod_student
+        self.cod_tutoring_program= cod_tutoring_program
 
     @classmethod
     def find_by_cod_appointment(cls, _cod_appointment):
@@ -60,6 +65,10 @@ class AppointmentModel(db.Model):
     @classmethod
     def find_appointment_of_student_in_tutoring_program(cls, _cod_student, _cod_tutor, _cod_tutoring_program):
         return cls.query.filter_by(cod_student=_cod_student).filter_by(cod_tutor=_cod_tutor).filter_by(cod_tutoring_program=_cod_tutoring_program)
+
+    @classmethod
+    def find_appointment_of_student_in_tutoring_program_first(cls, _cod_student, _cod_tutor, _cod_tutoring_program):
+        return cls.query.filter_by(cod_student=_cod_student).filter_by(cod_tutor=_cod_tutor).filter_by(cod_tutoring_program=_cod_tutoring_program).first()
 
     @classmethod
     def find_by_cod_tutoring_program(cls, _cod_tutoring_program):

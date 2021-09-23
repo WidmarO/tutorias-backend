@@ -1,5 +1,5 @@
 from db import db
-from datetime import datetime
+from datetime import date
 
 class NewModel(db.Model):
     __tablename__ = 'news'
@@ -8,7 +8,7 @@ class NewModel(db.Model):
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(500))
     whom = db.Column(db.String(150))
-    date_time = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    date_time = db.Column(db.Date, nullable=False, default=date.ctime)
     cod_tutoring_program = db.Column(db.String(6), db.ForeignKey('tutoring_programs.cod_tutoring_program'), primary_key=True)
 
     # -- Relations --
@@ -26,7 +26,7 @@ class NewModel(db.Model):
                 'title': self.title,
                 'description': self.description,
                 'whom': self.whom,
-                'date_time': self.date_time,
+                'date_time': str(self.date_time),
                 'cod_tutoring_program': self.cod_tutoring_program
                 }
 
