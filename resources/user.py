@@ -27,7 +27,7 @@ class User(Resource): # /authenticate_user
             # Find tutor by cod_teacher in tutoring program
             tutor = TutorModel.find_teacher_in_tutoring_program(tutoring_program_active.cod_tutoring_program, teacher.cod_teacher)
             if tutor:
-                ans = dict(tutor.json())
+                ans = dict(teacher.json())
                 ans['role'] = 'tutor'
                 ans['username'] = email_teacher
                 return ans, 200

@@ -1,8 +1,10 @@
 from re import escape
 from flask_restful import Resource
-from flask import request
+from flask import app, request
 from models.student import StudentModel
 from models.tutoring_program import TutoringProgramModel
+from models.tutor_student import TutorStudentModel
+from models.appointment import AppointmentModel
 from models.user import UserModel
 from Req_Parser import Req_Parser
 from flask_jwt_extended import jwt_required, get_jwt
@@ -75,6 +77,7 @@ class StudentS(Resource): # /student_update
     parser.add_argument('address')
     parser.add_argument('reference_person')
     parser.add_argument('phone_reference_person')
+    parser.add_argument('is_private')
 
     @jwt_required()
     def put(self):
@@ -89,19 +92,67 @@ class StudentS(Resource): # /student_update
 
         # Get student by email in tutoring program
         email_student = claims["sub"]
-        tutoring_program = TutoringProgramModel.find_tutoring_program_active()
-        student = StudentModel.find_email_in_tutoring_program(email_student, tutoring_program.cod_tutoring_program)
+        is_private = data['is_private']
+        tutoring_program_active = TutoringProgramModel.find_tutoring_program_active()
+        student = StudentModel.find_email_in_tutoring_program(email_student, tutoring_program_active.cod_tutoring_program)
+        
+        if is_private == 'true' and student:
+            before_code_tutoring_program = self.Find_Student_in_before_tutoring_program(student.cod_student)
+            print('----------------------')
+            print(before_code_tutoring_program)
+            current_tutor_of_student = TutorStudentModel.find_tutor_by_student_in_tutoring_program(tutoring_program_active.cod_tutoring_program, student.cod_student)
+            print('------------------------')
+            print(current_tutor_of_student)
+            if not current_tutor_of_student:
+                return {'message': "A student with cod_student: '{}' not has tutor in current tutoring program. ".format(student.cod_student)}  
+            before_tutor_of_student = TutorStudentModel.find_tutor_by_student_in_tutoring_program(before_code_tutoring_program, student.cod_student)
+            if not before_tutor_of_student:
+                return {'message': "A student with cod_student: '{}' not has tutor in current tutoring program. ".format(student.cod_student)} 
+            print('---------------------------')
+            print(before_tutor_of_student)
+            appointment = AppointmentModel.find_appointment_of_student_in_tutoring_program_first(before_tutor_of_student.cod_student, before_tutor_of_student.cod_tutor, before_code_tutoring_program)
+            print('-------------------------')
+            print(appointment)
+            if not appointment:
+                return {'message': "The appointment with cod_student: '{}' not exist in DB in before tutoring program. ".format(student.cod_student)} 
+            try:
+                # cod_appointment, cod_tutor, cod_student,general_description,private_description,diagnosis,cod_tutoring_program
+                appointment.update_data(appointment.cod_appointment, current_tutor_of_student.cod_tutor , current_tutor_of_student.cod_student, appointment.general_description, appointment.private_description, appointment.diagnosis, tutoring_program_active.cod_tutoring_program)
+                appointment.save_to_db()
+            except:
+                return {'message': 'An error occurred while updating appointment'}, 500
 
         data['cod_student'] = student.cod_student 
         # Verify if student exists in database
         if student:
             try:
-                student.update_data_Student(**data)
+                # cod_student, phone, address, reference_person, phone_reference_person
+                student.update_data_Student(data['cod_student'], data['phone'], data['address'], data['reference_person'], data['phone_reference_person'] )
                 student.save_to_db()
             except:
                 return {'message': 'An error occurred while updating student'}, 500
             return student.json(), 200
         return {'message': 'Student not found.'}, 404
+    
+    def Find_Student_in_before_tutoring_program(self, cod_student):
+        tutoring_program_active = TutoringProgramModel.find_tutoring_program_active()
+        list_tutoring_program = [ tutoring_program.cod_tutoring_program for tutoring_program in TutoringProgramModel.find_all()]
+        list_tutoring_program = sorted(list_tutoring_program)
+        list_tutoring_program.remove(tutoring_program_active.cod_tutoring_program)
+
+        list_tutoring_program = list_tutoring_program[::-1]
+        if len(list_tutoring_program) == 0:
+            return tutoring_program_active.cod_tutoring_program
+        for t in list_tutoring_program:
+            student = StudentModel.find_student_in_tutoring_program(t, cod_student)
+            if student:
+                before_core_tutoring_program = student.cod_tutoring_program
+                return before_core_tutoring_program
+            else:
+                if StudentModel.find_student_in_tutoring_program(tutoring_program_active.cod_tutoring_program, cod_student):
+                    return tutoring_program_active.cod_tutoring_program
+                else: 
+                    return "Student not exist in DB"
 
 
 class StudentList(Resource): # /students
@@ -155,6 +206,9 @@ class StudentList(Resource): # /students
 
         # Return the student data with a status code 201
         return student.json(), 201
+    
+
+        
 
 
 class StudentListTutoringProgram(Resource): # /student_list/<cod_tutoring_program>

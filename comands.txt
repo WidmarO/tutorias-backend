@@ -4,3 +4,4 @@ pip install -U flask-cors
 pip install requests
 pip uninstall Flask-JWT
 pip install flask-jwt-extended
+$ pip install flask-bcrypt

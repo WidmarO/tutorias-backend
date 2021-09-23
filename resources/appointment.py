@@ -11,7 +11,7 @@ from datetime import date, datetime
 from flask_jwt_extended import jwt_required, get_jwt
 
 class Appointment(Resource):
-    parser = Req_Parser()
+    #parser = Req_Parser()
     # parser.add_argument('cod_appointment', str, True)
     # parser.add_argument('cod_tutor', str, True)
     # parser.add_argument('cod_student', str, True)
