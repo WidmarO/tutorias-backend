@@ -1,5 +1,6 @@
 from flask_restful import Resource
 from flask import request
+import bcrypt
 from models.principal import PrincipalModel
 from models.teacher import TeacherModel
 from models.tutoring_program import TutoringProgramModel
@@ -194,7 +195,9 @@ class PrincipalC(Resource): # /principal
             # Create user for principal
             user_principal = UserModel.find_by_username(principal.email)
             if not user_principal:
-                user_principal = UserModel(principal.email, self.create_password_principal(principal.email), 'principal')
+                password_principal = self.create_password_principal(principal.email)
+                hashed_principal = bcrypt.hashpw(password_principal.encode('utf-8'), bcrypt.gensalt())
+                user_principal = UserModel(principal.email, hashed_principal, 'principal')
                 try:
                     user_principal.save_to_db()
                 except:
@@ -226,7 +229,9 @@ class PrincipalC(Resource): # /principal
 
             user_principal = UserModel.find_by_username(principal.email)
             if not user_principal:
-                user_principal = UserModel(principal.email, self.create_password_principal(principal.email), 'principal')
+                password_principal = self.create_password_principal(principal.email)
+                hashed_principal = bcrypt.hashpw(password_principal.encode('utf-8'), bcrypt.gensalt())
+                user_principal = UserModel(principal.email, hashed_principal, 'principal')
                 try:
                     user_principal.save_to_db()
                 except:

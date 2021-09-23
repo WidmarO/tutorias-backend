@@ -1,6 +1,7 @@
 from flask_restful import Resource
 from flask import request
 from models.tutor import TutorModel
+import bcrypt
 from models.tutoring_program import TutoringProgramModel
 from models.teacher import TeacherModel
 from Req_Parser import Req_Parser

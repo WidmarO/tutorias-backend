@@ -184,7 +184,7 @@ class TeacherListPrincipal(Resource): # /teacher_list_principal
     @jwt_required()
     def get(self):
         claims = get_jwt()
-        if claims['role'] != 'principal':
+        if claims['role'] != 'principal' and claims['role'] != 'coordinator':
             return {'message': 'You are not allowed to do this'}, 401
         # Return all teachers of the tutoring program con cod_tutoring_program of the database    
         tutoring_program_active = TutoringProgramModel.find_tutoring_program_active()    

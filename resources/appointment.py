@@ -3,6 +3,7 @@ from flask_restful import Resource
 from flask import app, request
 from models.appointment import AppointmentModel
 from models.tutoring_program import TutoringProgramModel
+from models.tutor_student import TutorStudentModel
 from models.teacher import TeacherModel
 from models.tutor import TutorModel
 from models.student import StudentModel
@@ -129,8 +130,19 @@ class AppointmentList(Resource):
         email_teacher=claims['sub']
         tutoring_program = TutoringProgramModel.find_tutoring_program_active()
         teacher = TeacherModel.find_teacher_by_email_in_tutoring_program(email_teacher, tutoring_program.cod_tutoring_program)
+        if not teacher:
+            return {'message': "Teacher not found"}, 400
         tutor = TutorModel.find_teacher_in_tutoring_program(tutoring_program.cod_tutoring_program, teacher.cod_teacher)
+        if not tutor:
+            return {'message': "Tutor not found"}, 400
 
+        tutor_student = TutorStudentModel.find_tutor_by_student_in_tutoring_program(tutoring_program.cod_tutoring_program, cod_student)
+        if not tutor_student:
+            return {'message': "A tutor with cod_student: '{}' already exist".format(cod_student)}
+        
+        if tutor_student.cod_tutor != tutor.cod_tutor:
+            return {'message': "You are not allowed to do this appointment. This student is not your mentee"}, 401
+        
         # Verify if all attributes are in request and are of correct type
         ans, data = AppointmentList.parser.parse_args(dict(request.json))
         if not ans:

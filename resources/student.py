@@ -1,6 +1,7 @@
 from re import escape
 from flask_restful import Resource
 from flask import app, request
+import bcrypt
 from models.student import StudentModel
 from models.tutoring_program import TutoringProgramModel
 from models.tutor_student import TutorStudentModel
@@ -98,21 +99,13 @@ class StudentS(Resource): # /student_update
         
         if is_private == 'true' and student:
             before_code_tutoring_program = self.Find_Student_in_before_tutoring_program(student.cod_student)
-            print('----------------------')
-            print(before_code_tutoring_program)
             current_tutor_of_student = TutorStudentModel.find_tutor_by_student_in_tutoring_program(tutoring_program_active.cod_tutoring_program, student.cod_student)
-            print('------------------------')
-            print(current_tutor_of_student)
             if not current_tutor_of_student:
                 return {'message': "A student with cod_student: '{}' not has tutor in current tutoring program. ".format(student.cod_student)}  
             before_tutor_of_student = TutorStudentModel.find_tutor_by_student_in_tutoring_program(before_code_tutoring_program, student.cod_student)
             if not before_tutor_of_student:
                 return {'message': "A student with cod_student: '{}' not has tutor in current tutoring program. ".format(student.cod_student)} 
-            print('---------------------------')
-            print(before_tutor_of_student)
             appointment = AppointmentModel.find_appointment_of_student_in_tutoring_program_first(before_tutor_of_student.cod_student, before_tutor_of_student.cod_tutor, before_code_tutoring_program)
-            print('-------------------------')
-            print(appointment)
             if not appointment:
                 return {'message': "The appointment with cod_student: '{}' not exist in DB in before tutoring program. ".format(student.cod_student)} 
             try:
@@ -268,8 +261,10 @@ class AddStudents(Resource): # /students_update
 
             # verify if student_user already exists in database
             student_user = UserModel.find_by_username(s['email'])
-            if not student_user:            
-                student_user  = UserModel(s['email'], self.create_password_student(s['email']), 'student')
+            if not student_user: 
+                password_student = self.create_password_student(s['email'])  
+                hashed_student = bcrypt.hashpw(password_student.encode('utf-8'), bcrypt.gensalt())       
+                student_user  = UserModel(s['email'], hashed_student, 'student')
                 try:                    
                     student_user.save_to_db()
                 except:
@@ -297,7 +292,7 @@ class StudentListPrincipal(Resource): # /student_list_principal
     @jwt_required()
     def get(self):
         claims = get_jwt()
-        if claims['role'] != 'principal':
+        if claims['role'] != 'principal' and claims['role'] != 'coordinator':
             return {'message': 'You are not allowed to do this'}, 401
         # Return all students in database      
         tutoring_program_active = TutoringProgramModel.find_tutoring_program_active()  

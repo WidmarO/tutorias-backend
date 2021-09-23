@@ -1,5 +1,6 @@
 from flask_restful import Resource
 from flask import request
+import bcrypt
 from models.tutor import TutorModel
 from models.tutoring_program import TutoringProgramModel
 from models.teacher import TeacherModel
@@ -73,9 +74,11 @@ class Filter_Tutors_from_Teachers(Resource): # /filter_tutors_from_teachers
                     if new_user:
                         return {'message': 'The teacher with email {} already exist'.format(teacher.email)}, 400
                     else:
+                        password_tutor = self.create_password_tutor(teacher.email)
+                        hashed_tutor = bcrypt.hashpw(password_tutor.encode('utf-8'), bcrypt.gensalt())
                         new_user = UserModel(
                             username = teacher.email,
-                            password = self.create_password_tutor(teacher.email),
+                            password = hashed_tutor,
                             role = 'tutor'
                         )
                         try:

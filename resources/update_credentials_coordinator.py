@@ -1,6 +1,6 @@
 from flask_restful import Resource
 from flask import request
-
+import bcrypt
 from models.user import UserModel
 from models.coordinator import CoordinatorModel
 from Req_Parser import Req_Parser
@@ -32,15 +32,17 @@ class UpdateCredentialsCoordinator(Resource):
         ans, data = UpdateCredentialsCoordinator.parser.parse_args(dict(request.json))
         if not ans:
             return data
-
+        password = data['before_password']
         # Verify if the user exists
         user = UserModel.find_by_username(data['before_username'])
         if not user:
             return {'message': 'User does not exist'}, 404
 
+        new_password = data['new_password']
+        new_hashed = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt())
         # Verify if the before password is correct
-        if not (user.password == data['before_password']):
-            user.username = data['new_username']
+        if not (bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8'))):
+            user.username = new_hashed
             return {'message': 'The before credentials are wrong'}, 401
 
         # Verify if the new username already exists
@@ -59,7 +61,7 @@ class UpdateCredentialsCoordinator(Resource):
 
         # Update credentials of the user            
         user.username = data['new_username']
-        user.password = data['new_password']
+        user.password = new_hashed
         try:
             user.save_to_db()
         except:
