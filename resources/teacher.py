@@ -1,3 +1,4 @@
+from models.tutor import TutorModel
 from flask_restful import Resource
 from flask import request
 from models.teacher import TeacherModel
@@ -122,7 +123,6 @@ class TeacherList(Resource): # /teachers
         return teacher.json(), 201
 
 class TeacherListTutoringProgram(Resource): # /teacher_list/<cod_tutoring_program>
-    
     @jwt_required()
     def get(self, cod_tutoring_program):
         claims = get_jwt()
@@ -178,3 +178,22 @@ class AddTeachers(Resource): # /add_teachers
         # teacher_list = sorted(teacher_list, key=lambda x: x[list(teacher_list[0].keys())[0]])
 
         return {'message': '{} total_teachers, {} teachers added, {} teachers not added'.format(count_teachers, count_teachers_added, count_teachers_not_added)}, 200
+
+
+class TeacherListPrincipal(Resource): # /teacher_list_principal
+    @jwt_required()
+    def get(self):
+        claims = get_jwt()
+        if claims['role'] != 'principal':
+            return {'message': 'You are not allowed to do this'}, 401
+        # Return all teachers of the tutoring program con cod_tutoring_program of the database    
+        tutoring_program_active = TutoringProgramModel.find_tutoring_program_active()    
+        sort_teachers_in_tutoring_program = [ teacher.json() for teacher in TeacherModel.find_by_cod_tutoring_program(tutoring_program_active.cod_tutoring_program) ]
+        sort_teachers_in_tutoring_program = sorted(sort_teachers_in_tutoring_program, key=lambda x: x[list(sort_teachers_in_tutoring_program[0].keys())[0]]) 
+        for teacher in sort_teachers_in_tutoring_program:
+            if TutorModel.find_teacher_in_tutoring_program(teacher.cod_teacher):
+                teacher['Is_tutor'] = True
+            else:
+                teacher['Is_tutor'] = False   
+        return sort_teachers_in_tutoring_program, 200
+

@@ -236,3 +236,17 @@ class AddStudents(Resource): # /students_update
         _string = _string.split('@')
         new_password = _string[0]
         return new_password
+
+
+class StudentListPrincipal(Resource): # /student_list_principal
+    
+    @jwt_required()
+    def get(self):
+        claims = get_jwt()
+        if claims['role'] != 'principal':
+            return {'message': 'You are not allowed to do this'}, 401
+        # Return all students in database      
+        tutoring_program_active = TutoringProgramModel.find_tutoring_program_active()  
+        sort_students_in_tutoring_program = [ student.json() for student in StudentModel.find_by_cod_tutoring_program(tutoring_program_active.cod_tutoring_program) ]
+        sort_students_in_tutoring_program = sorted(sort_students_in_tutoring_program, key=lambda x: x[list(sort_students_in_tutoring_program[0].keys())[0]])    
+        return sort_students_in_tutoring_program, 200

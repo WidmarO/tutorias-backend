@@ -64,7 +64,7 @@ class TutoringProgram(Resource):
         return {'message': 'Tutoring Program not found.'}
 
 
-class TutoringProgramList(Resource):
+class TutoringProgramList(Resource):     # /tutoring_programs
     parser = Req_Parser()
     parser.add_argument('title', str, True)
     parser.add_argument('initial_date', str, True)
@@ -76,7 +76,7 @@ class TutoringProgramList(Resource):
     @jwt_required()
     def get(self):
         claims = get_jwt()
-        if claims['role'] != 'coordinator':
+        if claims['role'] != 'coordinator' and claims['role'] != 'principal':
             return {'message': 'You are not allowed to do this'}, 401
 
         # Return all tutoring programs in database

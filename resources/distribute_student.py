@@ -49,10 +49,8 @@ class DistributeStudent(Resource):
         current_tutors_list = []
         new_tutor_students_list = {}
         if len(before_tutor_students_list) == 0:
-            print("si entra aqui before_tutor_students_list is empty =========================================")
             # if the current_code_tutoring_program is the first tutoring program,
             if current_code_tutoring_program == "PT-001":
-                print("si entra aqui -> current_code_tutoring_program = PT-001 ===========================")
                 # we do the standard distribute
                 current_students_list = [ student.cod_student for student in StudentModel.find_by_cod_tutoring_program(current_code_tutoring_program)]
                 current_tutors_list = [ tutor.cod_tutor for tutor in TutorModel.find_by_cod_tutoring_program(current_code_tutoring_program)]
@@ -78,7 +76,6 @@ class DistributeStudent(Resource):
                 return {"message":"Distribute successful"}, 200
 
             else:
-                print("entro al else ======================================")
                 before_code_tutoring_program = current_code_tutoring_program.split('-')[1] # '002'
                 before_code_tutoring_program = int(before_code_tutoring_program) 
                 before_code_tutoring_program = before_code_tutoring_program - 1   
@@ -187,10 +184,10 @@ class DistributeStudent(Resource):
         # Save the new data in the database
         for tutor in new_tutor_students_list:
             for student in new_tutor_students_list[tutor]:
-                tutor_student = TutorStudentModel(tutor, current_code_tutoring_program, student)
+                tutor_student = TutorStudentModel.find_if_relation_exists_in_tutoring_program(tutor, student, current_code_tutoring_program)
                 if not tutor_student:
+                    tutor_student = TutorStudentModel(tutor, current_code_tutoring_program, student)
                     try:
-                        tutor_student.update_data(tutor, current_code_tutoring_program, student)
                         tutor_student.save_to_db()
                     except:
                         print("message : 2 An error occurred inserting data of the student '{}' for the tutor '{}' in the tutoring program with code '{}'".format(student, tutor, current_code_tutoring_program))

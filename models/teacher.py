@@ -59,6 +59,12 @@ class TeacherModel(db.Model):
         self.filiation = filiation
         self.category = category
 
+    def update_data_Principal(self, cod_teacher, phone, filiation, category):
+        self.cod_teacher = cod_teacher
+        self.phone = phone
+        self.filiation = filiation
+        self.category = category
+
     @classmethod
     def find_by_cod_teacher(cls, _cod_teacher):
         # -> SELECT * FROM items where dni=dni LIMIT 1

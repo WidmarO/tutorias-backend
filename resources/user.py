@@ -58,16 +58,17 @@ class User(Resource): # /authenticate_user
         # Get the user if the role is principal
         if claims['role'] == 'principal':
             email_principal = claims['sub']
-            teacher = PrincipalModel.find_email(email_principal,tutoring_program_active.cod_tutoring_program)
-            if not teacher:
-                return {'message': 'Teacher not found.'}, 404
-            principal = PrincipalModel.find_teacher_in_tutoring_program(tutoring_program_active.cod_tutoring_program, teacher.cod_teacher)    
-            if principal:
-                ans = dict(principal.json())
+            principal = PrincipalModel.find_email(email_principal, tutoring_program_active.cod_tutoring_program)  
+            if not principal:
+                return {'message': "Principal not found."}, 404
+            teacher = TeacherModel.find_teacher_in_tutoring_program(tutoring_program_active.cod_tutoring_program, principal.cod_teacher)
+            if teacher:
+                ans = dict(teacher.json())
                 ans['role'] = 'principal'
                 ans['username'] = email_principal
+                ans['cod_principal'] = principal.cod_principal
                 return ans, 200
-            return {'message': "Principal not found."}, 404
+            return {'message': 'Teacher not found.'}, 404
 
         # Get the user if the role is student helper
         if claims['role'] == 'student_helper':

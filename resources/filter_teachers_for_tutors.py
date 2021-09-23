@@ -25,6 +25,7 @@ class Filter_Tutors_from_Teachers(Resource): # /filter_tutors_from_teachers
         ans, data = Filter_Tutors_from_Teachers.parser.parse_args(dict(request.json))
         if not ans:
             return data
+        
 
         # Get tutoring program
         tutoring_program = TutoringProgramModel.find_tutoring_program_active()

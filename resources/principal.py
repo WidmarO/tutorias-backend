@@ -109,6 +109,46 @@ class PrincipalList(Resource): # /principals
         # Return the teacher data with a status code 201
         return principal.json(), 201
 
+class PrincipalP(Resource):   # /principalP
+    parser = Req_Parser()    
+    parser.add_argument('phone')
+    parser.add_argument('filiation', str, True)
+    parser.add_argument('category', str, True)
+
+    @jwt_required()
+    def put(self):
+
+        claims = get_jwt()
+        if claims['role'] != 'principal':
+            return {'message': 'You are not allowed to do this'}, 401
+
+        # Verify if all arguments are correct
+        ans, data = PrincipalP.parser.parse_args(dict(request.json))
+        if not ans:
+            return data
+
+        email_principal = claims["sub"]
+        # Create tutoring program in relation at tutoring program active.
+        tutoring_program = TutoringProgramModel.find_tutoring_program_active()
+        principal = PrincipalModel.find_email(email_principal,tutoring_program.cod_tutoring_program)
+        if not principal:
+            return {"message": "Principal not found."}, 404
+        # Create teacher and Verify if teacher exits in database 
+        teacher = TeacherModel.find_teacher_in_tutoring_program(tutoring_program.cod_tutoring_program, principal.cod_teacher)
+        if not teacher:
+            return {"message": "Teacher not found."}, 404
+
+        # Add student's code to data
+        data['cod_teacher'] = teacher.cod_teacher 
+        print(data)
+        # Verify if tutor exists in database
+        try:
+            teacher.update_data_Principal(**data)
+            teacher.save_to_db()
+        except:
+            return {'message': 'An error occurred while updating the principal.'}, 500
+        return teacher.json(), 200
+
 
 class PrincipalC(Resource): # /principal
     parser = Req_Parser()    

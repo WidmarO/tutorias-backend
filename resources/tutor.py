@@ -171,3 +171,16 @@ class TutorListTutoringProgram(Resource): # /tutor_list/<cod_tutoring_program>
         sort_tutors_in_tutoring_program = sorted(sort_tutors_in_tutoring_program, key=lambda x: x[list(sort_tutors_in_tutoring_program[0].keys())[0]])    
         return sort_tutors_in_tutoring_program, 200
 
+class TutorListPrincipal(Resource): # /tutor_list_principal
+    
+    @jwt_required()
+    def get(self):
+        claims = get_jwt()
+        if claims['role'] != 'coordinator':
+            return {'message': 'You are not allowed to do this'}, 401
+
+        # Return all tutor of a tutoring program with cod_tutoring_program in database   
+        tutoring_program_active = TutoringProgramModel.find_tutoring_program_active()    
+        sort_tutors_in_tutoring_program = [ tutor.json() for tutor in TutorModel.find_by_cod_tutoring_program(tutoring_program_active.cod_tutoring_program) ]
+        sort_tutors_in_tutoring_program = sorted(sort_tutors_in_tutoring_program, key=lambda x: x[list(sort_tutors_in_tutoring_program[0].keys())[0]])    
+        return sort_tutors_in_tutoring_program, 200

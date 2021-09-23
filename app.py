@@ -39,19 +39,19 @@ from models.description_workshop_attendance import DescriptionWorkshopAttendance
 
 # from security import authenticate, identity
 
-from resources.student import StudentList, Student, StudentS, AddStudents, StudentListTutoringProgram
+from resources.student import StudentList, Student, StudentListTutoringProgram, StudentS, AddStudents, StudentListPrincipal
 from resources.coordinator import CoordinatorList, Coordinator
 from resources.tutoring_program import TutoringProgramList, TutoringProgram
 # from resources.workshop import Workshop, WorkshopList
 from resources.documentation import Documentation, Documentation_coordinator,Documentation_principal,Documentation_teacher,Documentation_student,Documentation_tutor
 from resources.authenticate import Login, UpdateCredentials
-from resources.teacher import TeacherList, Teacher, AddTeachers, TeacherListTutoringProgram
+from resources.teacher import TeacherList, Teacher, AddTeachers, TeacherListTutoringProgram, TeacherListPrincipal
 from resources.tutor import TutorList, Tutor, TutorT, TutorListTutoringProgram
 from resources.distribute_student import DistributeStudent
 from resources.tutor_student import TutorStudentList, TutorStudentT, TutorStudentC
 from resources.appointment import AppointmentList, Appointment, AppointmentListTutoringProgram
 from resources.filter_teachers_for_tutors import Filter_Tutors_from_Teachers
-from resources.principal import Principal, PrincipalList, PrincipalC
+from resources.principal import Principal, PrincipalList, PrincipalC, PrincipalP
 from resources.create_student_accounts import Create_Student_Accounts
 from resources.create_tutor_accounts import Create_Tutor_Accounts
 from resources.user import User
@@ -120,10 +120,14 @@ api.add_resource(Documentation_student, '/documentation_student')
 api.add_resource(Documentation_tutor, '/documentation_tutor')
 api.add_resource(Student, '/student/<string:cod_student>')
 api.add_resource(StudentList, '/student')
+api.add_resource(StudentListPrincipal, '/student_list_principal')
 api.add_resource(AddStudents, '/addstudents')
+api.add_resource(StudentListTutoringProgram, '/student_list/<string:cod_tutoring_program>')
 api.add_resource(Teacher, '/teacher/<string:cod_teacher>')
 api.add_resource(TeacherList, '/teachers')
 api.add_resource(AddTeachers, '/addteachers')
+api.add_resource(TeacherListPrincipal, '/teacher_list_principal')
+api.add_resource(TeacherListTutoringProgram, '/teacher_list/<string:cod_tutoring_program>')
 api.add_resource(Tutor, '/tutor/<string:cod_tutor>')
 api.add_resource(TutorList, '/tutors')
 api.add_resource(Coordinator, '/coordinator/<string:cod_coordinator>')
@@ -142,6 +146,7 @@ api.add_resource(Filter_Tutors_from_Teachers, '/filter_tutors_from_teachers')
 api.add_resource(Principal, '/principal/<string:cod_principal>')
 api.add_resource(PrincipalList, '/principals')
 api.add_resource(PrincipalC, '/principalC')
+api.add_resource(PrincipalP, '/principalP')
 api.add_resource(Create_Student_Accounts, '/create_student_accounts')
 api.add_resource(Create_Tutor_Accounts, '/create_tutor_accounts')
 api.add_resource(StudentS, '/students_update')

@@ -10,7 +10,7 @@ from flask_jwt_extended import jwt_required
 from flask_jwt_extended import get_jwt
 
 
-class UpdateCredentialsCoordinator(Resource):
+class UpdateCredentialsCoordinator(Resource):   
     parser = Req_Parser()
     parser.add_argument('name', str, True)
     parser.add_argument('f_lastname', str, True)

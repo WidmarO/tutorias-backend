@@ -1,3 +1,4 @@
+from models.teacher import TeacherModel
 from flask_restful import Resource
 from flask_jwt_extended import jwt_required, get_jwt
 
@@ -9,7 +10,7 @@ from models.principal import PrincipalModel
 from models.user import UserModel
 
 
-class UserTutoringProgram(Resource):
+class UserTutoringProgram(Resource):    # /user_tutoring_program
 
     @jwt_required()
     def get(self):
@@ -55,11 +56,16 @@ class UserTutoringProgram(Resource):
         sort_tutors_in_tutoring_program = [ tutor.json() for tutor in TutorModel.find_by_cod_tutoring_program(tutoring_program_active.cod_tutoring_program) ]
         sort_tutors_in_tutoring_program = sorted(sort_tutors_in_tutoring_program, key=lambda x: x[list(sort_tutors_in_tutoring_program[0].keys())[0]])  
         for tutor in sort_tutors_in_tutoring_program:
-            user_tutor = UserModel.find_by_username(tutor['email'])
+            teacher = TeacherModel.find_teacher_in_tutoring_program(tutoring_program_active.cod_tutoring_program, tutor['cod_teacher'])
+            if not teacher:
+                return {'message': 'The teacher with username {} not exist'.format(teacher.email)}, 400
+            user_tutor = UserModel.find_by_username(teacher.email)
             if not user_tutor:
                 return {'message': 'The tutor with username {} not exist'.format(tutor['email'])}, 400
             list_user.append(user_tutor)
 
         # Sorted list_user 
-        list_user = sorted(list_user)
-        return list_user, 200
+        
+        list_user_tutoring_program = [ user.json() for user in list_user ]
+        # list_user_tutoring_program = sorted(list_user, key=lambda x: x[list(list_user_tutoring_program[0].keys())[0]]) 
+        return list_user_tutoring_program, 200
