@@ -125,9 +125,9 @@ class NewListTutoringProgram(Resource):   # /new_tutoring_program/cod_tutoring_p
 class NewListCoordinator(Resource):   # /new_list_coordinator
     @jwt_required()
     def get(self):
-        claims = get_jwt()
-        if claims['role'] != 'coordinator':
-            return {'message': 'You are not allowed to do this'}, 401
+        # claims = get_jwt()
+        # if claims['role'] != 'coordinator':
+        #     return {'message': 'You are not allowed to do this'}, 401
 
         tutoring_program_active = TutoringProgramModel.find_tutoring_program_active()
         # Return all students in database        
