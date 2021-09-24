@@ -1,6 +1,7 @@
 from flask_restful import Resource
 from flask import request
 from models.user import UserModel
+from models.role import RoleModel
 from Req_Parser import Req_Parser
 import bcrypt
 from models.tutoring_program import TutoringProgramModel
@@ -34,15 +35,36 @@ from flask_jwt_extended import get_jwt
   #   # return token
   #   return {'token': access_token}
 
-class Admin(Resource): # /admin
+class Admin(Resource): # /$2b$12$OmxJzq8RSu522KoHf1IEmuBcyVHIeofiJOasMgHHDUWNDan46x5Ra
 
   def post(self):
-    username = 'admin'
-    password = 'admin'
-    hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-    user = UserModel(username, hashed, 'coordinator')
-    user.save_to_db()
-    return user.json(), 200
+    # create initial roles
+    roles = ['student','student_helper','tutor','principal','coordinator']
+    roles_list = RoleModel.find_all()
+    if len(roles_list) == 0:
+      for role in roles:
+        _role = RoleModel(role)
+        try:
+          _role.save_to_db()
+        except:
+          print("An error ocurred while add role to db")
+      print("roles created correctly")
+    else:
+      return {'message': "roles already created"}, 400
+    # create initial user    
+    users = UserModel.find_all()
+    if len(users) == 0:
+      username = 'admin'
+      password = 'admin'
+      hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())      
+      user = UserModel(username, hashed, 'coordinator')
+      try:
+        user.save_to_db()
+      except:
+        return( {"message": "An error ocurred while try to create de admin user on DB"})
+      return user.json(), 200
+    else:
+      return( {"message": "The system is already working"})    
 
 
 class Login(Resource): # /login
