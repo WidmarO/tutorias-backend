@@ -34,7 +34,7 @@ from flask_jwt_extended import get_jwt
   #   # return token
   #   return {'token': access_token}
 
-class Admin(Resource):
+class Admin(Resource): # /admin
 
   def post(self):
     username = 'admin'

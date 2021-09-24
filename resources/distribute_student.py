@@ -35,7 +35,6 @@ class DistributeStudent(Resource):
                         # if the number of students is less than the max number of students per tutor,
                             # from the rest of students list, add one student to the tutor in the new_tutors_students_list 
                             # and pop the student of the list of students S
-
         # =============================================================================
         # Get the before code of the tutoring program     
         current_tutoring_program = TutoringProgramModel.find_tutoring_program_active()

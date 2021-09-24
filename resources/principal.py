@@ -176,7 +176,7 @@ class PrincipalC(Resource): # /principal
         # Verify if teacher already exists in database
         tutoring_program = TutoringProgramModel.find_tutoring_program_active()
         cod_teacher = data['cod_teacher']
-        teacher = TeacherModel.find_teacher_in_tutoring_program(tutoring_program.cod_tutoring_program, cod_teacher)
+        teacher = TeacherModel.find_teacher_by_email_in_tutoring_program(tutoring_program.cod_tutoring_program, cod_teacher)
         if teacher:
             # Verify if principal already exists in database
             cod_principal = self.create_cod_principal()
