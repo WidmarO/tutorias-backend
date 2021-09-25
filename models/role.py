@@ -12,8 +12,7 @@ class RoleModel(db.Model):
     
     user = db.relationship('UserModel') # test line
 
-    def __init__(self, cod_role, role):
-        self.cod_role = cod_role
+    def __init__(self, role):
         self.role = role
 
     def json(self):
