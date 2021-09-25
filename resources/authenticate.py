@@ -35,7 +35,7 @@ from flask_jwt_extended import get_jwt
   #   # return token
   #   return {'token': access_token}
 
-class Admin(Resource): # /$2b$12$OmxJzq8RSu522KoHf1IEmuBcyVHIeofiJOasMgHHDUWNDan46x5Ra
+class Admin(Resource): # /admin
 
   def post(self):
     # create initial roles

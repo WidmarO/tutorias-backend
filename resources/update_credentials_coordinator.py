@@ -27,7 +27,7 @@ class UpdateCredentialsCoordinator(Resource):
 
         claims = get_jwt()
         if claims['role'] != 'coordinator':
-            return {'message': 'You are not allowed to do this'}, 401
+            return {'message': 'You are not allowed to do this'}, 402
         # Verify if the request data is correct
         ans, data = UpdateCredentialsCoordinator.parser.parse_args(dict(request.json))
         if not ans:
@@ -69,7 +69,7 @@ class UpdateCredentialsCoordinator(Resource):
 
         # Return the token JWT with new credentials
         access_token = create_access_token(user.username, additional_claims={'role': user.role, 'id': user.id})
-        return {'token': access_token}, 200
+        return {'token': access_token, 'message': "Cordinator credentials update correctly, logout and login with new credentials"}, 200
 
 
     def create_cod_coordinator(self):

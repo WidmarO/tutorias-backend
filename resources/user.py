@@ -34,15 +34,26 @@ class User(Resource): # /authenticate_user
             return {"message": "The teacher is not a tutor"}, 404
 
         # Get the user if the role is coordinator
-        if claims['role'] == 'coordinator':
+        if claims['role'] == 'coordinator':            
             email_coordinator = claims['sub']
-            coordinator = CoordinatorModel.find_email_in_tutoring_program(email_coordinator)
-            if coordinator:
-                ans = dict(coordinator.json())
-                ans['role'] = 'coordinator'
-                ans['username'] = email_coordinator
+            if email_coordinator != 'admin':
+                coordinator = CoordinatorModel.find_email_in_tutoring_program(email_coordinator)
+                if coordinator:
+                    ans = dict(coordinator.json())
+                    ans['role'] = 'coordinator'
+                    ans['username'] = email_coordinator
+                    return ans, 200
+                return {'message': 'Coordinator not found'}, 404
+            else:
+                ans = dict({
+                    'cod_coodinator' : 'admin',
+                    'name' : 'admin',
+                    'f_lastname' : 'admin',
+                    'm_lastname' : '',
+                    'phone': 'admin',
+                    'email': 'admin'
+                })
                 return ans, 200
-            return {'message': 'Coordinator not found'}, 404
         
         # Get the user if the role is student
         if claims['role'] == 'student':
